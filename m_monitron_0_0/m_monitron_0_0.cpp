@@ -4,6 +4,8 @@
 #include <QtWidgets>
 #include <QLocale>
 #include <QString>
+#include <QInputDialog>
+#include <QLabel>
 
 m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui::m_monitron_0_0)
 {
@@ -17,13 +19,20 @@ m_monitron_0_0::~m_monitron_0_0()
 
 void m_monitron_0_0::on_b_Edit_tLecture_clicked()
 {
-   bool ok;
-   Qstring s;
-   double d = QInputDialog::getDouble(this, tr("Set Setpoint"), tr("New setpoint"), QLineEdit::Normal, QDir::home().dirName(), &ok);
+    edit_value(ui->l_Current_Setpoint);
 
-   if(ok && d != 0)
-   {
-      s = QLocale::toString(d, 'g', 4);
-      ui->l_Current_Setpoint->setText(s);
-   }
+}
+
+void m_monitron_0_0::edit_value(QLabel* l)
+{
+    bool ok;
+    QString s;
+
+    double d = QInputDialog::getDouble(this, tr("Set Setpoint"), tr("New setpoint"), 0, 0, 100, 2, &ok);
+
+    if(ok)
+    {
+        s.sprintf("%2.2f",d); //QString::number(d,'g',4);
+        l->setText(s);
+    }
 }

@@ -2,6 +2,7 @@
 #define M_MONITRON_0_0_H
 
 #include <QMainWindow>
+#include <QLabel>
 
 namespace Ui {
 class m_monitron_0_0;
@@ -20,6 +21,7 @@ private slots:
 
 private:
     Ui::m_monitron_0_0 *ui;
+    void edit_value(QLabel* l);
 };
 
 #endif // M_MONITRON_0_0_H
