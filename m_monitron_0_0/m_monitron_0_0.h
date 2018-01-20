@@ -2,10 +2,13 @@
 #define M_MONITRON_0_0_H
 
 #include <QMainWindow>
-#include <QLabel>
+#include "settings_edit.h"
+
+#include <QDialog>
 
 namespace Ui {
 class m_monitron_0_0;
+
 }
 
 class m_monitron_0_0 : public QMainWindow
@@ -21,7 +24,9 @@ private slots:
 
 private:
     Ui::m_monitron_0_0 *ui;
-    void edit_value(QLabel* l);
+    Ui::Settings_Edit *ui_e;
+
+    //void edit_value(QLabel* l);
 };
 
 #endif // M_MONITRON_0_0_H

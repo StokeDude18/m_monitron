@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>Settings_Edit</class>
+ <widget class="QDialog" name="Settings_Edit">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>336</width>
-    <height>290</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>-90</x>
-     <y>220</y>
+     <x>30</x>
+     <y>240</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -29,50 +29,12 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="tb_Setpoint">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>90</y>
-     <width>111</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="l_Setpoint">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>90</y>
-     <width>81</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Setpoint:</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="tb_Var_Rate">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>130</y>
+     <x>20</x>
+     <y>60</y>
      <width>111</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="l_Taux_Var">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>130</y>
-     <width>151</width>
      <height>16</height>
     </rect>
    </property>
@@ -82,7 +44,45 @@
     </font>
    </property>
    <property name="text">
-    <string>Taux de variation:</string>
+    <string>New setpoint:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="tb_new_setpoint">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>60</y>
+     <width>113</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="tb_new_var_rate">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>130</y>
+     <width>113</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="l_Var_Rate">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>130</y>
+     <width>161</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>New Variation rate:</string>
    </property>
   </widget>
  </widget>
@@ -91,7 +91,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>Settings_Edit</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -107,7 +107,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>Settings_Edit</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -13,9 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        m_monitron_0_0.cpp
+        m_monitron_0_0.cpp \
+    settings_edit.cpp
 
-HEADERS  += m_monitron_0_0.h
+HEADERS  += m_monitron_0_0.h \
+    settings_edit.h
 
 FORMS    += m_monitron_0_0.ui \
-    dialog_edit_tlecture.ui
+    settings_edit.ui

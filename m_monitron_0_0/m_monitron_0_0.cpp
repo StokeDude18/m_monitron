@@ -1,15 +1,19 @@
 #include "m_monitron_0_0.h"
 #include "ui_m_monitron_0_0.h"
-#include "ui_dialog_edit_tlecture.h"
+#include "settings_edit.h"
+#include "ui_settings_edit.h"
 #include <QtWidgets>
-#include <QLocale>
-#include <QString>
-#include <QInputDialog>
-#include <QLabel>
+#include <QApplication>
+#include <QDialog>
+//#include <QString>
+//#include <QInputDialog>
+
 
 m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui::m_monitron_0_0)
 {
     ui->setupUi(this);
+
+
 }
 
 m_monitron_0_0::~m_monitron_0_0()
@@ -19,11 +23,11 @@ m_monitron_0_0::~m_monitron_0_0()
 
 void m_monitron_0_0::on_b_Edit_tLecture_clicked()
 {
-    edit_value(ui->l_Current_Setpoint);
-
+    //edit_value(ui->l_Current_Setpoint);
+    ui_e->setupUi(ui_e);
 }
 
-void m_monitron_0_0::edit_value(QLabel* l)
+/*void m_monitron_0_0::edit_value(QLabel* l)
 {
     bool ok;
     QString s;
@@ -32,7 +36,8 @@ void m_monitron_0_0::edit_value(QLabel* l)
 
     if(ok)
     {
-        s.sprintf("%2.2f",d); //QString::number(d,'g',4);
+        s.sprintf("%2.2f",d);
         l->setText(s);
     }
-}
+}*/
+
