@@ -11,7 +11,6 @@
 #include <cstring>
 #include <iostream> //COUT
 
-using namespace std;
 #include "mysql_connection.h"
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>
@@ -19,6 +18,9 @@ using namespace std;
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 //#include "mysql_driver.h"
+
+using namespace std;
+
 
 #define NB_MODULE 6
 
@@ -39,7 +41,7 @@ class DBAccess
     	//string MYSQL = "com.mysql.jdbc.Driver"; //nom du gestionnaire JDBC pour MySQL
     	string m_sHost;//= "127.0.0.1:3306";     //Adresse IP du serveur
     	string m_sLogin;//= "root";    //Nom de l'utilisateur
-      string m_sPassword;//= "Aquab10T3ch"; //Mot de passe crypté pour la connexion
+      string m_sPassword;//= "root"; //Mot de passe crypté pour la connexion
       string m_sErreur;   //Erreur possible
       string m_sTable;  //Nom de table
       float m_sConsigne; //Setpoint désiré

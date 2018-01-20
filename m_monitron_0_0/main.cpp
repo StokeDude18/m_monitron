@@ -2,7 +2,9 @@
 #include <QApplication>
 #include "communication.h"
 #include "DBAccess.h"
+#include "module.h"
 
+#define DEBUG
 /* VARIABLES GLOBALES */
 //communication série
 int serial = -1;
@@ -23,7 +25,13 @@ string eventloginElements = "(ID BIGINT(20) AUTO_INCREMENT, Date_Heure TIMESTAMP
 string dataLogin = "data_login";
 string eventLogin = "event_login";
 
+list<module> l_modules;
+
+//module m_module = new module();
+
 DBAccess db;
+
+
 
 int main(int argc, char *argv[])
 {
@@ -36,7 +44,7 @@ int main(int argc, char *argv[])
 
     pthread_t thread_Receive;
     //Configuration de la communication série
-    serial = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY | O_NDELAY); //read non bloquant
+    serial = open("/dev/ttyS3", O_RDWR | O_NOCTTY | O_NDELAY); //read non bloquant
     if(serial == -1)
     {
         printf("ERROR");
@@ -125,13 +133,18 @@ void *do_Analyse(void* args)
    {
        if(read_Flag)//trame à analyser
        {
-           switch(trame_rx[r_fonction])
+
+           /*switch(trame_rx[r_fonction])
            {
                case BROADCAST:
-                               /*if()
-                                       t = 0;*/
+                               if()
+                                       t = 0;
                break;
-           };
+           };*/
+
+
+           //l_modules.push_back(new module());
+
        }
    }
 }

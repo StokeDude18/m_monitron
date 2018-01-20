@@ -19,7 +19,7 @@
 #define R_SOH 123
 #define FONCT0_TIME 10 //10 secondes
 //module type
-#define TEMPERATURE 0
+//#define TEMPERATURE 0
 
 #define BROADCAST_TIME 100 // 10 secondes
 //fonction

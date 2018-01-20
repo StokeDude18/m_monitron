@@ -10,7 +10,37 @@ temperature::temperature(int8_t trame[])
 	name = "Temperature_" + id.i;
 }
 
+//temperature::temperature()
+
+
+
 string temperature::getName()
 {
 	return name;
+}
+
+int8_t temperature::getPosition()
+{
+
+}
+
+float temperature::getLecture()
+{
+
+}
+
+float temperature::getSetpoint()
+{
+
+}
+
+float temperature::getVarRate()
+{
+
+}
+
+
+void temperature::getParams(string* pname, int8_t* pposition, float* plecture,float* psetpoint,float* ptaux_var)
+{
+
 }
