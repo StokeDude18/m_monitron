@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "settings_edit.h"
+#include "ui_settings_edit.h"
 
 #include <QDialog>
 
@@ -24,9 +25,7 @@ private slots:
 
 private:
     Ui::m_monitron_0_0 *ui;
-    Ui::Settings_Edit *ui_e;
-
-    //void edit_value(QLabel* l);
+    Settings_Edit edit_w;
 };
 
 #endif // M_MONITRON_0_0_H
