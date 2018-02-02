@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Edit Setpoint/Variation settings</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -44,7 +44,7 @@
     </font>
    </property>
    <property name="text">
-    <string>New setpoint:</string>
+    <string>New Setpoint:</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="tb_new_setpoint">
@@ -55,6 +55,12 @@
      <width>113</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="inputMethodHints">
+    <set>Qt::ImhNone</set>
+   </property>
+   <property name="inputMask">
+    <string/>
    </property>
   </widget>
   <widget class="QLineEdit" name="tb_new_var_rate">

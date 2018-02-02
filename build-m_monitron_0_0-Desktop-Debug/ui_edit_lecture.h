@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'settings_edit.ui'
+** Form generated from reading UI file 'edit_lecture.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_SETTINGS_EDIT_H
-#define UI_SETTINGS_EDIT_H
+#ifndef UI_EDIT_LECTURE_H
+#define UI_EDIT_LECTURE_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -67,8 +67,8 @@ public:
 
     void retranslateUi(QDialog *Settings_Edit)
     {
-        Settings_Edit->setWindowTitle(QApplication::translate("Settings_Edit", "Dialog", 0));
-        l_Setpoint->setText(QApplication::translate("Settings_Edit", "New setpoint:", 0));
+        Settings_Edit->setWindowTitle(QApplication::translate("Settings_Edit", "Edit Setpoint/Variation settings", 0));
+        l_Setpoint->setText(QApplication::translate("Settings_Edit", "New Setpoint:", 0));
         tb_new_setpoint->setInputMask(QString());
         l_Var_Rate->setText(QApplication::translate("Settings_Edit", "New Variation rate:", 0));
     } // retranslateUi
@@ -81,4 +81,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // UI_SETTINGS_EDIT_H
+#endif // UI_EDIT_LECTURE_H

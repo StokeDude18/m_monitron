@@ -14,10 +14,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         m_monitron_0_0.cpp \
-    settings_edit.cpp
+    edit_cycles.cpp \
+    edit_lecture.cpp
 
 HEADERS  += m_monitron_0_0.h \
-    settings_edit.h
+    edit_cycles.h \
+    edit_lecture.h
 
 FORMS    += m_monitron_0_0.ui \
-    settings_edit.ui
+    edit_cycles.ui \
+    edit_lecture.ui

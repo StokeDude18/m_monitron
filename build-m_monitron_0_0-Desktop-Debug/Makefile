@@ -50,13 +50,17 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../m_monitron_0_0/main.cpp \
 		../m_monitron_0_0/m_monitron_0_0.cpp \
-		../m_monitron_0_0/settings_edit.cpp moc_m_monitron_0_0.cpp \
-		moc_settings_edit.cpp
+		../m_monitron_0_0/edit_cycles.cpp \
+		../m_monitron_0_0/edit_lecture.cpp moc_m_monitron_0_0.cpp \
+		moc_edit_cycles.cpp \
+		moc_edit_lecture.cpp
 OBJECTS       = main.o \
 		m_monitron_0_0.o \
-		settings_edit.o \
+		edit_cycles.o \
+		edit_lecture.o \
 		moc_m_monitron_0_0.o \
-		moc_settings_edit.o
+		moc_edit_cycles.o \
+		moc_edit_lecture.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -145,9 +149,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../m_monitron_0_0/m_monitron_0_0.pro ../m_monitron_0_0/m_monitron_0_0.h \
-		../m_monitron_0_0/settings_edit.h ../m_monitron_0_0/main.cpp \
+		../m_monitron_0_0/edit_cycles.h \
+		../m_monitron_0_0/edit_lecture.h ../m_monitron_0_0/main.cpp \
 		../m_monitron_0_0/m_monitron_0_0.cpp \
-		../m_monitron_0_0/settings_edit.cpp
+		../m_monitron_0_0/edit_cycles.cpp \
+		../m_monitron_0_0/edit_lecture.cpp
 QMAKE_TARGET  = m_monitron_0_0
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = m_monitron_0_0
@@ -175,7 +181,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): ui_m_monitron_0_0.h ui_settings_edit.h $(OBJECTS)  
+$(TARGET): ui_m_monitron_0_0.h ui_edit_cycles.h ui_edit_lecture.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../m_monitron_0_0/m_monitron_0_0.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -375,9 +381,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../m_monitron_0_0/m_monitron_0_0.h ../m_monitron_0_0/settings_edit.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../m_monitron_0_0/main.cpp ../m_monitron_0_0/m_monitron_0_0.cpp ../m_monitron_0_0/settings_edit.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../m_monitron_0_0/m_monitron_0_0.ui ../m_monitron_0_0/settings_edit.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../m_monitron_0_0/m_monitron_0_0.h ../m_monitron_0_0/edit_cycles.h ../m_monitron_0_0/edit_lecture.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../m_monitron_0_0/main.cpp ../m_monitron_0_0/m_monitron_0_0.cpp ../m_monitron_0_0/edit_cycles.cpp ../m_monitron_0_0/edit_lecture.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../m_monitron_0_0/m_monitron_0_0.ui ../m_monitron_0_0/edit_cycles.ui ../m_monitron_0_0/edit_lecture.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -400,26 +406,33 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_m_monitron_0_0.cpp moc_settings_edit.cpp
+compiler_moc_header_make_all: moc_m_monitron_0_0.cpp moc_edit_cycles.cpp moc_edit_lecture.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_m_monitron_0_0.cpp moc_settings_edit.cpp
-moc_m_monitron_0_0.cpp: ../m_monitron_0_0/settings_edit.h \
+	-$(DEL_FILE) moc_m_monitron_0_0.cpp moc_edit_cycles.cpp moc_edit_lecture.cpp
+moc_m_monitron_0_0.cpp: ../m_monitron_0_0/edit_lecture.h \
+		ui_settings_edit.h \
 		../m_monitron_0_0/m_monitron_0_0.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubuntu/Monitron/m_monitron_0_0 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../m_monitron_0_0/m_monitron_0_0.h -o moc_m_monitron_0_0.cpp
 
-moc_settings_edit.cpp: ../m_monitron_0_0/settings_edit.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubuntu/Monitron/m_monitron_0_0 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../m_monitron_0_0/settings_edit.h -o moc_settings_edit.cpp
+moc_edit_cycles.cpp: ../m_monitron_0_0/edit_cycles.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubuntu/Monitron/m_monitron_0_0 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../m_monitron_0_0/edit_cycles.h -o moc_edit_cycles.cpp
+
+moc_edit_lecture.cpp: ../m_monitron_0_0/edit_lecture.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubuntu/Monitron/m_monitron_0_0 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../m_monitron_0_0/edit_lecture.h -o moc_edit_lecture.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_m_monitron_0_0.h ui_settings_edit.h
+compiler_uic_make_all: ui_m_monitron_0_0.h ui_edit_cycles.h ui_edit_lecture.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_m_monitron_0_0.h ui_settings_edit.h
+	-$(DEL_FILE) ui_m_monitron_0_0.h ui_edit_cycles.h ui_edit_lecture.h
 ui_m_monitron_0_0.h: ../m_monitron_0_0/m_monitron_0_0.ui
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ../m_monitron_0_0/m_monitron_0_0.ui -o ui_m_monitron_0_0.h
 
-ui_settings_edit.h: ../m_monitron_0_0/settings_edit.ui
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ../m_monitron_0_0/settings_edit.ui -o ui_settings_edit.h
+ui_edit_cycles.h: ../m_monitron_0_0/edit_cycles.ui
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ../m_monitron_0_0/edit_cycles.ui -o ui_edit_cycles.h
+
+ui_edit_lecture.h: ../m_monitron_0_0/edit_lecture.ui
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ../m_monitron_0_0/edit_lecture.ui -o ui_edit_lecture.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -432,24 +445,32 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 ####### Compile
 
 main.o: ../m_monitron_0_0/main.cpp ../m_monitron_0_0/m_monitron_0_0.h \
-		../m_monitron_0_0/settings_edit.h
+		../m_monitron_0_0/edit_lecture.h \
+		ui_settings_edit.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../m_monitron_0_0/main.cpp
 
 m_monitron_0_0.o: ../m_monitron_0_0/m_monitron_0_0.cpp ../m_monitron_0_0/m_monitron_0_0.h \
-		../m_monitron_0_0/settings_edit.h \
-		ui_m_monitron_0_0.h \
-		ui_settings_edit.h
+		../m_monitron_0_0/edit_lecture.h \
+		ui_settings_edit.h \
+		ui_m_monitron_0_0.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o m_monitron_0_0.o ../m_monitron_0_0/m_monitron_0_0.cpp
 
-settings_edit.o: ../m_monitron_0_0/settings_edit.cpp ../m_monitron_0_0/settings_edit.h \
+edit_cycles.o: ../m_monitron_0_0/edit_cycles.cpp ../m_monitron_0_0/edit_cycles.h \
+		ui_edit_cycles.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o edit_cycles.o ../m_monitron_0_0/edit_cycles.cpp
+
+edit_lecture.o: ../m_monitron_0_0/edit_lecture.cpp ../m_monitron_0_0/edit_lecture.h \
 		ui_settings_edit.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o settings_edit.o ../m_monitron_0_0/settings_edit.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o edit_lecture.o ../m_monitron_0_0/edit_lecture.cpp
 
 moc_m_monitron_0_0.o: moc_m_monitron_0_0.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_m_monitron_0_0.o moc_m_monitron_0_0.cpp
 
-moc_settings_edit.o: moc_settings_edit.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_settings_edit.o moc_settings_edit.cpp
+moc_edit_cycles.o: moc_edit_cycles.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_edit_cycles.o moc_edit_cycles.cpp
+
+moc_edit_lecture.o: moc_edit_lecture.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_edit_lecture.o moc_edit_lecture.cpp
 
 ####### Install
 

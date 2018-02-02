@@ -7,16 +7,18 @@ namespace Ui {
 class Settings_Edit;
 }
 
-class Settings_Edit : public QDialog
+class Edit_Lecture : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit Settings_Edit(QWidget *parent = 0);
-    ~Settings_Edit();
+    explicit Edit_Lecture(QWidget *parent = 0);
+    ~Edit_Lecture();
+    Ui::Settings_Edit *ui;
 
 private:
-    Ui::Settings_Edit *ui;
+
+
 };
 
 #endif // SETTINGS_EDIT_H
