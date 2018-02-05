@@ -1,19 +1,17 @@
 #include "edit_lecture.h"
-#include "ui_settings_edit.h"
+#include "ui_edit_lecture.h"
 #include <QLineEdit>
 
-Edit_Lecture::Edit_Lecture(QWidget *parent) :
+edit_Lecture::edit_Lecture(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Settings_Edit)
+    ui(new Ui::edit_Lecture)
 {
     ui->setupUi(this);
-    ui->tb_new_setpoint->setValidator(new QDoubleValidator(0, 100, 2, this));
-    ui->tb_new_var_rate->setValidator(new QDoubleValidator(0, 100, 2, this));
+    ui->tb_new_setpoint->setValidator(new QDoubleValidator(0,1000, 2));
+    ui->tb_new_var_rate->setValidator(new QDoubleValidator(0,1000, 2));
 }
 
-Edit_Lecture::~Edit_Lecture()
+edit_Lecture::~edit_Lecture()
 {
     delete ui;
-
 }
-

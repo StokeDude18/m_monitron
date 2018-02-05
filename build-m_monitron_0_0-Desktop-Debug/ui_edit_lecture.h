@@ -21,62 +21,67 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_Settings_Edit
+class Ui_edit_Lecture
 {
 public:
-    QDialogButtonBox *buttonBox;
     QLabel *l_Setpoint;
-    QLineEdit *tb_new_setpoint;
     QLineEdit *tb_new_var_rate;
+    QDialogButtonBox *buttonBox;
+    QLineEdit *tb_new_setpoint;
     QLabel *l_Var_Rate;
 
-    void setupUi(QDialog *Settings_Edit)
+    void setupUi(QDialog *edit_Lecture)
     {
-        if (Settings_Edit->objectName().isEmpty())
-            Settings_Edit->setObjectName(QStringLiteral("Settings_Edit"));
-        Settings_Edit->resize(400, 300);
-        buttonBox = new QDialogButtonBox(Settings_Edit);
+        if (edit_Lecture->objectName().isEmpty())
+            edit_Lecture->setObjectName(QStringLiteral("edit_Lecture"));
+        edit_Lecture->resize(698, 440);
+        l_Setpoint = new QLabel(edit_Lecture);
+        l_Setpoint->setObjectName(QStringLiteral("l_Setpoint"));
+        l_Setpoint->setGeometry(QRect(95, 80, 216, 36));
+        QFont font;
+        font.setPointSize(24);
+        l_Setpoint->setFont(font);
+        tb_new_var_rate = new QLineEdit(edit_Lecture);
+        tb_new_var_rate->setObjectName(QStringLiteral("tb_new_var_rate"));
+        tb_new_var_rate->setGeometry(QRect(390, 170, 156, 36));
+        QFont font1;
+        font1.setPointSize(20);
+        tb_new_var_rate->setFont(font1);
+        buttonBox = new QDialogButtonBox(edit_Lecture);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
-        buttonBox->setGeometry(QRect(30, 240, 341, 32));
+        buttonBox->setGeometry(QRect(225, 280, 231, 71));
+        buttonBox->setFont(font1);
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
-        l_Setpoint = new QLabel(Settings_Edit);
-        l_Setpoint->setObjectName(QStringLiteral("l_Setpoint"));
-        l_Setpoint->setGeometry(QRect(20, 60, 111, 16));
-        QFont font;
-        font.setPointSize(12);
-        l_Setpoint->setFont(font);
-        tb_new_setpoint = new QLineEdit(Settings_Edit);
+        buttonBox->setCenterButtons(true);
+        tb_new_setpoint = new QLineEdit(edit_Lecture);
         tb_new_setpoint->setObjectName(QStringLiteral("tb_new_setpoint"));
-        tb_new_setpoint->setGeometry(QRect(180, 60, 113, 22));
+        tb_new_setpoint->setGeometry(QRect(390, 80, 156, 36));
         tb_new_setpoint->setInputMethodHints(Qt::ImhNone);
-        tb_new_var_rate = new QLineEdit(Settings_Edit);
-        tb_new_var_rate->setObjectName(QStringLiteral("tb_new_var_rate"));
-        tb_new_var_rate->setGeometry(QRect(180, 130, 113, 22));
-        l_Var_Rate = new QLabel(Settings_Edit);
+        l_Var_Rate = new QLabel(edit_Lecture);
         l_Var_Rate->setObjectName(QStringLiteral("l_Var_Rate"));
-        l_Var_Rate->setGeometry(QRect(20, 130, 161, 16));
+        l_Var_Rate->setGeometry(QRect(95, 170, 291, 36));
         l_Var_Rate->setFont(font);
 
-        retranslateUi(Settings_Edit);
-        QObject::connect(buttonBox, SIGNAL(accepted()), Settings_Edit, SLOT(accept()));
-        QObject::connect(buttonBox, SIGNAL(rejected()), Settings_Edit, SLOT(reject()));
+        retranslateUi(edit_Lecture);
+        QObject::connect(buttonBox, SIGNAL(accepted()), edit_Lecture, SLOT(accept()));
+        QObject::connect(buttonBox, SIGNAL(rejected()), edit_Lecture, SLOT(reject()));
 
-        QMetaObject::connectSlotsByName(Settings_Edit);
+        QMetaObject::connectSlotsByName(edit_Lecture);
     } // setupUi
 
-    void retranslateUi(QDialog *Settings_Edit)
+    void retranslateUi(QDialog *edit_Lecture)
     {
-        Settings_Edit->setWindowTitle(QApplication::translate("Settings_Edit", "Edit Setpoint/Variation settings", 0));
-        l_Setpoint->setText(QApplication::translate("Settings_Edit", "New Setpoint:", 0));
+        edit_Lecture->setWindowTitle(QApplication::translate("edit_Lecture", "Dialog", 0));
+        l_Setpoint->setText(QApplication::translate("edit_Lecture", "New Setpoint:", 0));
         tb_new_setpoint->setInputMask(QString());
-        l_Var_Rate->setText(QApplication::translate("Settings_Edit", "New Variation rate:", 0));
+        l_Var_Rate->setText(QApplication::translate("edit_Lecture", "New Variation rate:", 0));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class Settings_Edit: public Ui_Settings_Edit {};
+    class edit_Lecture: public Ui_edit_Lecture {};
 } // namespace Ui
 
 QT_END_NAMESPACE

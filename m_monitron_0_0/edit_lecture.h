@@ -1,24 +1,24 @@
-#ifndef SETTINGS_EDIT_H
-#define SETTINGS_EDIT_H
+#ifndef EDIT_LECTURE_H
+#define EDIT_LECTURE_H
 
 #include <QDialog>
 
 namespace Ui {
-class Settings_Edit;
+class edit_Lecture;
 }
 
-class Edit_Lecture : public QDialog
+class edit_Lecture : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit Edit_Lecture(QWidget *parent = 0);
-    ~Edit_Lecture();
-    Ui::Settings_Edit *ui;
+    explicit edit_Lecture(QWidget *parent = 0);
+    ~edit_Lecture();
+    Ui::edit_Lecture *ui;
 
 private:
 
 
 };
 
-#endif // SETTINGS_EDIT_H
+#endif // EDIT_LECTURE_H

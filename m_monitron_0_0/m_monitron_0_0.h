@@ -2,11 +2,14 @@
 #define M_MONITRON_0_0_H
 
 #include <QMainWindow>
+
 #include "edit_lecture.h"
-#include "ui_settings_edit.h"
 #include "edit_cycles.h"
+#include "edit_calibration.h"
+#include "edit_control_op.h"
 
 #include <QDialog>
+#include <QMessageBox>
 
 namespace Ui {
 class m_monitron_0_0;
@@ -25,12 +28,19 @@ public:
 private slots:
     void on_b_Edit_tLecture_clicked();
     void on_b_Edit_tCycles_clicked();
+    void on_b_Edit_tCalibration_clicked();
+
+    void on_b_Edit_tControl_clicked();
 
 private:
     Ui::m_monitron_0_0 *ui;
-    Edit_Lecture edit_w_Lecture;
+    edit_Lecture edit_w_Lecture;
     edit_Cycles edit_w_Cycles;
+    edit_Calibration edit_w_Calib;
+    edit_Control_OP edit_w_ControlOP;
 
+    float lecture, setpoint, calibP1_raw, calibP2_raw, calibP1_converted, calibP2_converted;
+    QMessageBox error_Msg_Box;
 };
 
 #endif // M_MONITRON_0_0_H
