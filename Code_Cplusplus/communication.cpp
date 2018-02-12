@@ -1,4 +1,5 @@
 #include "m_monitron.h"
+#include "DBAccess.h"
 
 /* VARIABLES GLOBALES */
 //communication série
@@ -8,13 +9,19 @@ struct termios options;
 char trame_tx[NB_TRAME] = {'\0'}; //buffer trame de transmission
 char trame_rx[NB_TRAME] = {'\0'}; //buffer trame de reception
 string modules_Name[NB_MODULE];
- int8_t nb_Module = -1;
+int8_t nb_Module = -1;
  
 bool end_fonct0 = false;
-int8_t t= 0;
+int8_t t= 0; //temps écoulé
 bool read_Flag = false;
 
-//string type;
+string dataloginElements = "(ID BIGINT(20) AUTO_INCREMENT, Date_Heure TIMESTAMP DEFAULT CURRENT_TIMESTAMP, Lecture FLOAT, Consigne FLOAT, PRIMARY KEY (ID));";
+string eventloginElements = "(ID BIGINT(20) AUTO_INCREMENT, Date_Heure TIMESTAMP DEFAULT CURRENT_TIMESTAMP, Alarmes TINYINT UNSIGNED, PRIMARY KEY (ID));";
+
+string dataLogin = "data_login";
+string eventLogin = "event_login";
+
+DBAccess db;
 
 int main (int argc, char *argv[])
 {
@@ -45,7 +52,8 @@ int main (int argc, char *argv[])
 		t++;
 		while(!end_fonct0)
 		{
-			
+			if(t <= BROADCAST_TIME)
+				end_fonct0 = true;
 		}
 	}
 }
@@ -56,7 +64,7 @@ int main (int argc, char *argv[])
  **/
 void *do_Receive(void *args)
 {
-	while(1)
+        while(1)
 	{
 		usleep(1000000);//1sec
 		if(serial!=-1)
@@ -73,21 +81,25 @@ void *do_Receive(void *args)
 			}
 			else
 			{
-				if(trame_rx[0] == 123) //bon SOH
+				if(!read_Flag) //aucune analyse en cours
 				{
-					//read_Flag = true;
-					if(trame_rx[rx_length-2] == calcul_Checksum(trame_rx, rx_length)) //bon checksum
+					if(trame_rx[0] == 123) //bon SOH
 					{
-						#ifdef DEBUG
-						print_RX();
-						#endif
-						read_Flag = true; //analyser la trame recu
-						t = 0; //remise du temps à zéro
+						//read_Flag = true;
+						if(trame_rx[rx_length-2] == calcul_Checksum(trame_rx, rx_length)) //bon checksum
+						{
+							#ifdef DEBUG
+							print_RX();
+							#endif
+							read_Flag = true; //analyser la trame recu
+							t = 0; //remise du temps à zéro
+						}
+						
 					}
-					
+					else
+						clear_RX();
 				}
-				else
-					clear_RX();
+				
 			}
 			//tcflush(serial, TCIFLUSH);
 		} 
@@ -104,7 +116,13 @@ void *do_Analyse(void* args)
 	{
 		if(read_Flag)//trame à analyser
 		{
-			
+			switch(trame_rx[r_fonction])
+			{
+				case BROADCAST:
+                                /*if()
+                                        t = 0;*/
+				break;				
+			};
 		}
 	}
 }
@@ -177,4 +195,17 @@ void print_RX()
 		printf("%d ", trame_rx[i]);
 	}
 	printf("\n");
+}
+
+bool tableVerify(string name)
+{
+	string* tables = new string[NB_MODULE];
+	tables=db.showTable();
+	for(int i=0;i<sizeof(tables);i++)
+	{
+		if(name.compare(tables[i]) == 0) //nom de table existant
+			return true;
+	}
+	return false;
+		//cout << tables[i] << endl;
 }
