@@ -1,0 +1,4 @@
+# makefile
+
+all: m_monitron.cpp DBAccess.cpp temperature.cpp
+		g++ -g -o m_monitron m_monitron.cpp DBAccess.cpp temperature.cpp -Wall -pthread

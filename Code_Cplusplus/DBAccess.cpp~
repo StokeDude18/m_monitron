@@ -1,0 +1,66 @@
+/**
+ * @file   DBAccess.c
+ * @author Maina Raiche
+ * @date   janvier 2017
+ * @brief  Exemple de documentation
+ *
+ * @version 1.0 : Première version
+ * Environnement de développement: Notepad++
+ * Compilateur: 
+ * Matériel: 
+ **/
+ 
+ #include "DBAccess.h"
+ #include <boost/lexical_cast.hpp>
+ 
+
+    
+ DBAccess::DBAccess()
+ {
+ 	m_sHost= "127.0.0.1:3306";     //Adresse IP du serveur
+   m_sLogin= "root";    //Nom de l'utilisateur
+   m_sPassword= "Aquab10T3ch"; //Mot de passe crypté pour la connexion
+   
+ }
+ /*bool DBAccess::connexionDB(string m_sDB)
+ {} */
+ bool DBAccess::createTable(string dataBase, string table, string elements)
+ {
+ 	try
+ 	{
+ 		sql::Driver *driver;
+ 		sql::Connection *con;
+ 		sql::Statement *stmt;
+ 		//sql::ResultSet *res;
+ 		//creation de la connexion 
+		driver = get_driver_instance();
+		con = driver->connect(m_sHost, m_sLogin, m_sPassword);
+		
+		//Connexion à la database
+		con->setSchema(dataBase);
+		//création de la table
+		  stmt = con->createStatement();
+		  stmt->execute("CREATE TABLE " + table+ " "+ elements);
+		  delete stmt;
+			delete con;
+		
+ 	}
+ 	catch(sql::SQLException &e)
+ 	{}
+ /*	sql::mysql::MySQL_Driver *driver;
+	sql::Connection *con;
+	driver = sql::mysql::get_mysql_driver_instance();
+	con = driver->connect(m_sHost, m_sLogin, m_sPassword);*/
+ } 
+ /*void DBAccess::setConsigne(float consigne)
+ {} 
+ bool DBAccess::ecrireDBdata(string table, float lecture, float m_sConsigne)
+ {} 
+ bool DBAccess::ecrireDBevent(string table, int8_t alarm)
+ {} 
+ bool DBAccess::lireDB(string table)
+ {} 
+ string* DBAccess::showTable(string m_sDB)
+ {} 
+ bool DBAccess::fermeture()
+ {} */
