@@ -18,18 +18,17 @@ SOURCES += main.cpp\
     edit_calibration.cpp \
     edit_lecture.cpp \
     edit_control_op.cpp \
-    communication.cpp \
-    temperature.cpp \
-    DBAccess.cpp
+    DBAccess.cpp \
+    module.cpp
 
 HEADERS  += m_monitron_0_0.h \
     edit_cycles.h \
     edit_calibration.h \
     edit_lecture.h \
     edit_control_op.h \
-    communication.h \
     DBAccess.h \
-    temperature.h
+    communication.h \
+    module.h
 
 FORMS    += m_monitron_0_0.ui \
     edit_cycles.ui \

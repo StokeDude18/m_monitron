@@ -27,7 +27,7 @@ int main (int argc, char *argv[])
 {
 	pthread_t thread_Receive;
 	//Configuration de la communication série
-	serial = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY | O_NDELAY); //read non bloquant
+	serial = open("/dev/ttyS3", O_RDWR | O_NOCTTY | O_NDELAY); //read non bloquant
 	if(serial == -1)
 	{
 		printf("ERROR");
