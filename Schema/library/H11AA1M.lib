@@ -1,0 +1,33 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# H11AA1M
+#
+DEF H11AA1M U 0 40 N Y 1 L N
+F0 "U" -100 -300 50 H V L CNN
+F1 "H11AA1M" 0 0 50 H I L CNN
+F2 "DIP6" 0 0 50 H I L CNN
+F3 "H11AA1M" 0 0 50 H I L CNN "MP"
+F4 "DIP-6 Fairchild Semiconductor" 0 0 50 H I L CNN "Package"
+F5 "DIP-6 Through Hole Single Channel 30 V 4170 Vrms Phototransistor Optocoupler" 0 0 50 H I L CNN "Description"
+F6 "Fairchild Semiconductor" 0 0 50 H I L CNN "MF"
+F7 "0.32 USD" 0 0 50 H I L CNN "Price"
+F8 "Good" 0 0 50 H I L CNN "Availability"
+DRAW
+P 2 0 0 10 -200 200 -200 -200 N
+P 2 0 0 10 -200 -200 300 -200 N
+P 2 0 0 10 300 -200 300 200 N
+P 2 0 0 10 300 200 -200 200 N
+T 0 -170 230 70 0 0 0 H11AA1M Normal 0 L B
+X IN1 P$1 -400 100 200 R 40 40 0 0 P 
+X IN2 P$2 -400 0 200 R 40 40 0 0 P 
+X NC P$3 -400 -100 200 R 40 40 0 0 N 
+X E P$4 500 -100 200 L 40 40 0 0 P 
+X C P$5 500 0 200 L 40 40 0 0 B 
+X B P$6 500 100 200 L 40 40 0 0 P 
+ENDDRAW
+ENDDEF
+#
+# End Library
