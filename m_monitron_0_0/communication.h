@@ -8,6 +8,7 @@
 #include <unistd.h> //UART //usleep
 #include <fcntl.h> //UART
 #include <termios.h> //UART
+#include "module.h"
 
 #define DEBUG
 
@@ -28,6 +29,9 @@
 #define INFORMATIONS 2
 
 //#define FONCTION0 
+
+//list<module> l_modules;
+//module m;
 
 enum 
 {
@@ -59,13 +63,13 @@ using namespace std;
 union float2bytes 
 { 
     float f; 
-    char b[sizeof(float)]; 
+    int8_t b[sizeof(float)];
 };
 
 union int2bytes
 {
-    int i;
-    char b[sizeof(int)];
+    int32_t i;
+    int8_t b[4];
 };
 
 
@@ -74,7 +78,7 @@ void *do_Receive(void *args);
 void *do_Analyse(void* args);
 void clear_RX();
 void send_Fonction(int8_t r_pos, int8_t fonct);
-char calcul_Checksum(char trame[], char t);
+int8_t calcul_Checksum(int8_t* trame, char t);
 void print_TX();
 void print_RX();
 bool tableVerify(string name);

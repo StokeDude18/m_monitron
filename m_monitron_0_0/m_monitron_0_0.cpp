@@ -8,6 +8,7 @@
 #include "ui_edit_cycles.h"
 #include "ui_edit_calibration.h"
 #include "ui_edit_control_op.h"
+#include "communication.h"
 
 #include <QtWidgets>
 #include <QApplication>
@@ -15,6 +16,7 @@
 #include <QMessageBox>
 #include <exception>
 #include <QtGui>
+#include <QString>
 
 using namespace std;
 
@@ -23,6 +25,7 @@ m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui
 {
     ui->setupUi(this);
     ui->sbar_Device_Informations->showMessage(tr("Device ID:        Position:       Sensor type: "));
+   // m = new module();
 }
 
 m_monitron_0_0::~m_monitron_0_0()
@@ -46,6 +49,7 @@ void m_monitron_0_0::on_b_Edit_tLecture_clicked()
             error_Msg_Box.exec();
         }          
     }
+    //ui->sbar_Device_Informations
 }
 
 void m_monitron_0_0::on_b_Edit_tCycles_clicked()
@@ -86,4 +90,14 @@ void m_monitron_0_0::on_b_Edit_tControl_clicked()
     {
 
     }
+}
+
+void m_monitron_0_0::printParams(module* mod)
+{
+
+    //string qs = "Device ID: " + to_string(mod->ID) + "  Position: " + to_string((char)mod->Position) + "  Type: " + to_string((char)mod->Type);
+
+    QString qs;// = QString("Device ID: %1  Position: %2  Type: %3").arg(to_string(mod->ID), to_string((char)mod->Position), to_string((char)mod->Type));
+    qs.sprintf("Device ID: %u  Position: %d  Type: %d", mod->ID, mod->Position, mod->Type);
+    ui->sbar_Device_Informations->showMessage(qs);
 }

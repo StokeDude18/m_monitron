@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h> //UART //usleep
 
 using namespace std;
 
@@ -26,10 +27,16 @@ public:
         float converted_P2;
     }Calib;
 
+    void fillObjectParams(int8_t byteArray);
+
+
+
 
 
 private:
 
 };
+
+//module m;
 
 #endif // MODULE_H

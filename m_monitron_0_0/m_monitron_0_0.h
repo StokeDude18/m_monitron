@@ -7,6 +7,7 @@
 #include "edit_cycles.h"
 #include "edit_calibration.h"
 #include "edit_control_op.h"
+#include "module.h"
 
 #include <QDialog>
 #include <QMessageBox>
@@ -24,6 +25,9 @@ public:
     ~m_monitron_0_0();
     double m_valSetpoint;
     double m_valVarRate;
+
+    void printParams(module* mod);
+
 
 private slots:
     void on_b_Edit_tLecture_clicked();

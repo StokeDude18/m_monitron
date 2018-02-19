@@ -1,6 +1,6 @@
 #include "m_monitron.h"
 #include "DBAccess.h"
-
+#define DEBUG
 /* VARIABLES GLOBALES */
 //communication série
 int serial = -1;

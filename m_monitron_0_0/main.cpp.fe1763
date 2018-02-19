@@ -11,7 +11,7 @@ int serial = -1;
 struct termios options;
 
 char trame_tx[NB_TRAME] = {'\0'}; //buffer trame de transmission
-int8_t trame_rx[NB_TRAME] = {'\0'}; //buffer trame de reception
+char trame_rx[NB_TRAME] = {'\0'}; //buffer trame de reception
 string modules_Name[NB_MODULE];
 int8_t nb_Module = -1;
 
@@ -26,9 +26,8 @@ string dataLogin = "data_login";
 string eventLogin = "event_login";
 
 
+m_monitron_0_0 w;
 
-module m;
-m_monitron_0_0 *wpointer;
 
 //module m_module = new module();
 
@@ -39,19 +38,16 @@ DBAccess db;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    m_monitron_0_0 w;
 
     w.show();
 
     //m = new module();
-    cout << "Init" << endl;
 
+    return a.exec();
 
     pthread_t thread_Receive;
     //Configuration de la communication série
-    cout << "Avant send" <<endl;
     serial = open("/dev/ttyS3", O_RDWR | O_NOCTTY | O_NDELAY); //read non bloquant
-    cout << "Apres send" << endl;
     if(serial == -1)
     {
         printf("ERROR");
@@ -69,8 +65,7 @@ int main(int argc, char *argv[])
     pthread_create(&thread_Receive, NULL, do_Receive, (void*)NULL);	//thread de reception des trames
 
     send_Fonction(0,0); //fonction 0
-    wpointer = &w;
-    return a.exec();
+
     while(1)
     {
         usleep(100000); //100ms
@@ -89,9 +84,8 @@ int main(int argc, char *argv[])
 **/
 void *do_Receive(void *args)
 {
-    cout << "cp receive" << endl;
-    while(1)
-    {
+       while(1)
+   {
        usleep(1000000);//1sec
        if(serial!=-1)
        {
@@ -114,13 +108,9 @@ void *do_Receive(void *args)
                        //read_Flag = true;
                        if(trame_rx[rx_length-2] == calcul_Checksum(trame_rx, rx_length)) //bon checksum
                        {
-                           cout << "Reception" << endl;
                            #ifdef DEBUG
                            print_RX();
                            #endif
-                           m.fillObjectParams(trame_rx);
-                           usleep(10000);
-                           wpointer->printParams(&m);
                            read_Flag = true; //analyser la trame recu
                            t = 0; //remise du temps à zéro
                        }
@@ -156,7 +146,8 @@ void *do_Analyse(void* args)
                break;
            };*/
 
-
+           m_monitron_0_0::m->fillObjectParams(trame_rx);
+           w.printParams(m_monitron_0_0::m);
        }
    }
 }
@@ -199,9 +190,9 @@ void clear_RX()
 * @param trame[] = la trame à vérifier, t = nombre de char à calculer pour le checksum
 * @return le checksum calculé
 **/
-int8_t calcul_Checksum(int8_t* trame, char t)
+char calcul_Checksum(char trame[], char t)
 {
-   int8_t checksum = 0;
+   char checksum = 0;
    for(int i=1; i<t-2;i++)
        checksum += trame[i];
 

@@ -127,7 +127,7 @@ public:
         l_Current_Setpoint->setFont(font3);
         l_Current_Var_Rate = new QLabel(t_Lecture);
         l_Current_Var_Rate->setObjectName(QStringLiteral("l_Current_Var_Rate"));
-        l_Current_Var_Rate->setGeometry(QRect(315, 185, 111, 31));
+        l_Current_Var_Rate->setGeometry(QRect(350, 180, 111, 31));
         l_Current_Var_Rate->setFont(font3);
         label = new QLabel(t_Lecture);
         label->setObjectName(QStringLiteral("label"));
@@ -332,7 +332,7 @@ public:
 
         retranslateUi(m_monitron_0_0);
 
-        cb_O_Mode->setCurrentIndex(2);
+        cb_O_Mode->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(m_monitron_0_0);

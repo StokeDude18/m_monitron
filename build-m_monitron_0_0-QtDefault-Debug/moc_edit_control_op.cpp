@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../m_monitron_0_0/edit_control_op.h"
+#include "../../testInterface/m_monitron/m_monitron_0_0/edit_control_op.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
