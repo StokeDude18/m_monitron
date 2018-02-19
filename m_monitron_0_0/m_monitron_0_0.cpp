@@ -96,8 +96,30 @@ void m_monitron_0_0::printParams(module* mod)
 {
 
     //string qs = "Device ID: " + to_string(mod->ID) + "  Position: " + to_string((char)mod->Position) + "  Type: " + to_string((char)mod->Type);
-
+    char* module_type;
     QString qs;// = QString("Device ID: %1  Position: %2  Type: %3").arg(to_string(mod->ID), to_string((char)mod->Position), to_string((char)mod->Type));
-    qs.sprintf("Device ID: %u  Position: %d  Type: %d", mod->ID, mod->Position, mod->Type);
+    switch(mod->Type)
+    {
+    case 0:
+        module_type = "Temperature";
+        break;
+    case 1:
+        module_type = "Oxygene";
+        break;
+    case 2:
+        module_type = "Salinite";
+        break;
+    case 3:
+        module_type = "PH";
+        break;
+    case 4:
+        module_type = "Debit";
+        break;
+    case 5:
+        module_type = "Niveau";
+
+    }
+
+    qs.sprintf("Device ID: %u  Position: %d  Type: %s", mod->ID, mod->Position, module_type);
     ui->sbar_Device_Informations->showMessage(qs);
 }

@@ -10,8 +10,8 @@
 int serial = -1;
 struct termios options;
 
-char trame_tx[NB_TRAME] = {'\0'}; //buffer trame de transmission
-int8_t trame_rx[NB_TRAME] = {'\0'}; //buffer trame de reception
+uint8_t trame_tx[NB_TRAME] = {'\0'}; //buffer trame de transmission
+uint8_t trame_rx[NB_TRAME] = {'\0'}; //buffer trame de reception
 string modules_Name[NB_MODULE];
 int8_t nb_Module = -1;
 
@@ -47,10 +47,10 @@ int main(int argc, char *argv[])
     cout << "Init" << endl;
 
 
-    pthread_t thread_Receive;
+    pthread_t thread_Receive, thread_Analyse, thread_Main;
     //Configuration de la communication série
     cout << "Avant send" <<endl;
-    serial = open("/dev/ttyS3", O_RDWR | O_NOCTTY | O_NDELAY); //read non bloquant
+    serial = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY); //read non bloquant
     cout << "Apres send" << endl;
     if(serial == -1)
     {
@@ -67,18 +67,33 @@ int main(int argc, char *argv[])
     tcsetattr(serial, TCSANOW, &options);
 
     pthread_create(&thread_Receive, NULL, do_Receive, (void*)NULL);	//thread de reception des trames
+    pthread_create(&thread_Analyse,NULL, do_Analyse, (void*)NULL);
+    pthread_create(&thread_Main,NULL, mainTask, (void*)NULL);
 
-    send_Fonction(0,0); //fonction 0
+    send_Fonction(0,2); //fonction 0
     wpointer = &w;
     return a.exec();
+
+
+}
+
+void *mainTask(void *args)
+{
     while(1)
     {
-        usleep(100000); //100ms
-        t++;
+
+        /*t++;
         while(!end_fonct0)
         {
             if(t <= BROADCAST_TIME)
                 end_fonct0 = true;
+        }*/
+        if(read_Flag)
+        {
+            //clearTX();
+            read_Flag = false;
+            send_Fonction(0,2);
+            usleep(1000000); //100ms
         }
     }
 }
@@ -118,7 +133,10 @@ void *do_Receive(void *args)
                            #ifdef DEBUG
                            print_RX();
                            #endif
+
+
                            m.fillObjectParams(trame_rx);
+                           //if(trame_rx[])
                            usleep(10000);
                            wpointer->printParams(&m);
                            read_Flag = true; //analyser la trame recu
@@ -199,7 +217,7 @@ void clear_RX()
 * @param trame[] = la trame à vérifier, t = nombre de char à calculer pour le checksum
 * @return le checksum calculé
 **/
-int8_t calcul_Checksum(int8_t* trame, char t)
+uint8_t calcul_Checksum(uint8_t* trame, char t)
 {
    int8_t checksum = 0;
    for(int i=1; i<t-2;i++)

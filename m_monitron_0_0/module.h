@@ -1,9 +1,13 @@
 #ifndef MODULE_H
 #define MODULE_H
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h> //UART //usleep
+#include <fcntl.h> //UART
+#include <string>
+#include <cstring>
 
 using namespace std;
 
@@ -11,14 +15,15 @@ class module
 {
 public:
     module();
-    int8_t ID;
-    enum type : int8_t {Temperature, Oxygene, Salinite, PH, Debit, Niveau};
+    uint32_t ID;
+
     int8_t Type;
     int8_t Position;
     float Lecture;
     float Setpoint;
     int8_t OP_Mode;
     float Reading_mV;
+    float Var_Rate;
 
     struct calibration {
         float raw_P1;
@@ -27,8 +32,8 @@ public:
         float converted_P2;
     }Calib;
 
-    void fillObjectParams(int8_t byteArray);
-
+    void fillObjectParams(uint8_t* byteArray);
+    void updateObjectReading(uint8_t* readByteArray);
 
 
 
