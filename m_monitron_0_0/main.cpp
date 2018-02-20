@@ -25,16 +25,12 @@ string eventloginElements = "(ID BIGINT(20) AUTO_INCREMENT, Date_Heure TIMESTAMP
 string dataLogin = "data_login";
 string eventLogin = "event_login";
 
-
-
 module m;
 m_monitron_0_0 *wpointer;
 
 //module m_module = new module();
 
 DBAccess db;
-
-
 
 int main(int argc, char *argv[])
 {
@@ -46,12 +42,9 @@ int main(int argc, char *argv[])
     //m = new module();
     cout << "Init" << endl;
 
-
-    pthread_t thread_Receive, thread_Analyse, thread_Main;
-    //Configuration de la communication série
-    cout << "Avant send" <<endl;
-    serial = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY); //read non bloquant
-    cout << "Apres send" << endl;
+    pthread_t thread_Receive, thread_Main;
+    //Configuration de la communication série   
+    serial = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY); //read non bloquant    
     if(serial == -1)
     {
         printf("ERROR");
@@ -67,10 +60,9 @@ int main(int argc, char *argv[])
     tcsetattr(serial, TCSANOW, &options);
 
     pthread_create(&thread_Receive, NULL, do_Receive, (void*)NULL);	//thread de reception des trames
-    pthread_create(&thread_Analyse,NULL, do_Analyse, (void*)NULL);
+    send_Fonction(0,2); //fonction 0
     pthread_create(&thread_Main,NULL, mainTask, (void*)NULL);
 
-    send_Fonction(0,2); //fonction 0
     wpointer = &w;
     return a.exec();
 
@@ -81,20 +73,21 @@ void *mainTask(void *args)
 {
     while(1)
     {
-
         /*t++;
         while(!end_fonct0)
         {
             if(t <= BROADCAST_TIME)
                 end_fonct0 = true;
         }*/
-        if(read_Flag)
+        /*if(read_Flag)
         {
-            //clearTX();
+            //usleep(10000);
+
+
             read_Flag = false;
             send_Fonction(0,2);
-            usleep(1000000); //100ms
-        }
+            usleep(1000000); //1s
+        }*/
     }
 }
 
@@ -103,8 +96,7 @@ void *mainTask(void *args)
 * @param pointeur d'objet recu lors de la création du thread (non utiliser dans notre cas)
 **/
 void *do_Receive(void *args)
-{
-    cout << "cp receive" << endl;
+{   
     while(1)
     {
        usleep(1000000);//1sec
@@ -124,60 +116,44 @@ void *do_Receive(void *args)
            {
                if(!read_Flag) //aucune analyse en cours
                {
-                   if(trame_rx[0] == 123) //bon SOH
+                   if(trame_rx[r_soh] == 123) //bon SOH
                    {
                        //read_Flag = true;
                        if(trame_rx[rx_length-2] == calcul_Checksum(trame_rx, rx_length)) //bon checksum
                        {
-                           cout << "Reception" << endl;
+
                            #ifdef DEBUG
                            print_RX();
                            #endif
 
+                           m.fillObjectParams(trame_rx, trame_rx[r_fonction]);
 
-                           m.fillObjectParams(trame_rx);
-                           //if(trame_rx[])
-                           usleep(10000);
-                           wpointer->printParams(&m);
+                           usleep(100000);
+                           wpointer->printParams(&m, trame_rx[r_fonction]);
+                           /*switch(wpointer->getNextFunction())
+                           {
+                           case GET_DEVICES:
+                               send_Fonction(0,GET_DEVICES);
+                               break;
+
+
+                           }*/
+                          // send_Fonction(0, wpointer->getNextFunction());
+
                            read_Flag = true; //analyser la trame recu
                            t = 0; //remise du temps à zéro
+                           usleep(2000000);
+                           send_Fonction(0, wpointer->getNextFunction());
                        }
-
                    }
-                   else
+                   else                  
                        clear_RX();
                }
-
            }
-           //tcflush(serial, TCIFLUSH);
        }
    } //while(1)
 }
 
-/**
-* @brief Méthode principale du thread d'analyse de la trame recu, met à jour les valeurs enregistrées du module d'acquisition
-* @param pointeur d'objet recu lors de la création du thread (non utiliser dans notre cas)
-**/
-void *do_Analyse(void* args)
-{
-    //l_modules.push_back(new module());
-   while(1)
-   {
-       if(read_Flag)//trame à analyser
-       {
-
-           /*switch(trame_rx[r_fonction])
-           {
-               case BROADCAST:
-                               if()
-                                       t = 0;
-               break;
-           };*/
-
-
-       }
-   }
-}
 
 void send_Fonction(int8_t pos, int8_t fonct)
 {
@@ -219,7 +195,7 @@ void clear_RX()
 **/
 uint8_t calcul_Checksum(uint8_t* trame, char t)
 {
-   int8_t checksum = 0;
+   uint8_t checksum = 0;
    for(int i=1; i<t-2;i++)
        checksum += trame[i];
 

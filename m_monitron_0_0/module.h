@@ -32,8 +32,7 @@ public:
         float converted_P2;
     }Calib;
 
-    void fillObjectParams(uint8_t* byteArray);
-    void updateObjectReading(uint8_t* readByteArray);
+    void fillObjectParams(uint8_t* byteArray, uint8_t fonction);
 
 
 

@@ -24,9 +24,9 @@
 
 #define BROADCAST_TIME 100 // 10 secondes
 //fonction
-#define BROADCAST 0
-#define ALL_INFORMATIONS 1
-#define INFORMATIONS 2
+#define GET_DEVICES 0
+#define GET_PARAMS 1
+#define GET_READINGS 2
 
 //#define FONCTION0 
 
@@ -36,6 +36,7 @@ enum type : int8_t {Temperature, Oxygene, Salinite, PH, Debit, Niveau};
 enum 
 {
     r_soh=0,
+    r_size,
     r_pos,
     r_id0,
     r_id1,

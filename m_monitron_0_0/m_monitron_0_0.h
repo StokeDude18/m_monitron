@@ -25,15 +25,15 @@ public:
     ~m_monitron_0_0();
     double m_valSetpoint;
     double m_valVarRate;
-
-    void printParams(module* mod);
+    void printParams(module* mod, uint8_t fonction);
+    uint8_t getNextFunction();
+    void getNewParams(module *objNewParams);
 
 
 private slots:
     void on_b_Edit_tLecture_clicked();
     void on_b_Edit_tCycles_clicked();
     void on_b_Edit_tCalibration_clicked();
-
     void on_b_Edit_tControl_clicked();
 
 private:
@@ -41,10 +41,10 @@ private:
     edit_Lecture edit_w_Lecture;
     edit_Cycles edit_w_Cycles;
     edit_Calibration edit_w_Calib;
-    edit_Control_OP edit_w_ControlOP;
-
-    float lecture, setpoint, calibP1_raw, calibP2_raw, calibP1_converted, calibP2_converted;
+    edit_Control_OP edit_w_ControlOP;    
     QMessageBox error_Msg_Box;
+    module m_newParams;
+    uint8_t nextFunction;
 };
 
 #endif // M_MONITRON_0_0_H

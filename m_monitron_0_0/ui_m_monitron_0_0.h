@@ -37,7 +37,7 @@ public:
     QPushButton *b_Edit_tLecture;
     QLabel *l_Current_Setpoint;
     QLabel *l_Current_Var_Rate;
-    QLabel *label;
+    QLabel *l_current_Reading;
     QWidget *t_Cycles;
     QLabel *l_Cycle_Mode_State;
     QPushButton *b_Edit_tCycles;
@@ -119,7 +119,7 @@ public:
         b_Edit_tLecture->setGeometry(QRect(655, 10, 116, 66));
         l_Current_Setpoint = new QLabel(t_Lecture);
         l_Current_Setpoint->setObjectName(QStringLiteral("l_Current_Setpoint"));
-        l_Current_Setpoint->setGeometry(QRect(315, 110, 106, 36));
+        l_Current_Setpoint->setGeometry(QRect(315, 110, 136, 36));
         QFont font3;
         font3.setPointSize(30);
         font3.setBold(true);
@@ -127,12 +127,12 @@ public:
         l_Current_Setpoint->setFont(font3);
         l_Current_Var_Rate = new QLabel(t_Lecture);
         l_Current_Var_Rate->setObjectName(QStringLiteral("l_Current_Var_Rate"));
-        l_Current_Var_Rate->setGeometry(QRect(315, 185, 111, 31));
+        l_Current_Var_Rate->setGeometry(QRect(315, 185, 141, 31));
         l_Current_Var_Rate->setFont(font3);
-        label = new QLabel(t_Lecture);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(315, 40, 111, 36));
-        label->setFont(font3);
+        l_current_Reading = new QLabel(t_Lecture);
+        l_current_Reading->setObjectName(QStringLiteral("l_current_Reading"));
+        l_current_Reading->setGeometry(QRect(315, 40, 131, 36));
+        l_current_Reading->setFont(font3);
         cb_O_Mode->addTab(t_Lecture, QString());
         t_Cycles = new QWidget();
         t_Cycles->setObjectName(QStringLiteral("t_Cycles"));
@@ -323,7 +323,7 @@ public:
         m_monitron_0_0->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(m_monitron_0_0);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 800, 36));
+        menuBar->setGeometry(QRect(0, 0, 800, 38));
         m_monitron_0_0->setMenuBar(menuBar);
         sbar_Device_Informations = new QStatusBar(m_monitron_0_0);
         sbar_Device_Informations->setObjectName(QStringLiteral("sbar_Device_Informations"));
@@ -350,7 +350,7 @@ public:
         b_Edit_tLecture->setText(QApplication::translate("m_monitron_0_0", "Edit", 0));
         l_Current_Setpoint->setText(QApplication::translate("m_monitron_0_0", "0.00", 0));
         l_Current_Var_Rate->setText(QApplication::translate("m_monitron_0_0", "0.00", 0));
-        label->setText(QApplication::translate("m_monitron_0_0", "0.00", 0));
+        l_current_Reading->setText(QApplication::translate("m_monitron_0_0", "0.00", 0));
         cb_O_Mode->setTabText(cb_O_Mode->indexOf(t_Lecture), QApplication::translate("m_monitron_0_0", "Reading", 0));
         l_Cycle_Mode_State->setText(QApplication::translate("m_monitron_0_0", "Cycle mode status:", 0));
         b_Edit_tCycles->setText(QApplication::translate("m_monitron_0_0", "Edit", 0));
