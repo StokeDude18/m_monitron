@@ -1,3 +1,3 @@
 (fp_lib_table
-  (lib (name w_conn_pc)(type KiCad)(uri E:/maina/Documents/Travaux/Hiver_2018/Projet/m_monitron/Schema/w_conn_pc.pretty)(options "")(descr ""))
+  (lib (name mini_monitron)(type KiCad)(uri "$(KIPRJMOD)/mini_monitron.pretty")(options "")(descr ""))
 )
