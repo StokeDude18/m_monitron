@@ -474,7 +474,7 @@ F6 94 A0 E1 E1 00 00 00 00 49 45 4E 44 AE 42 60 82
 EndData
 $EndBitmap
 Text Notes 9300 7000 0    60   ~ 0
-Alfred Quintin-Morel\net\nMaina Raiche
+Alfred Morel-Quintin\net\nMaina Raiche
 $Comp
 L CONN_01X02 J1
 U 1 1 5A81BDCF
@@ -669,8 +669,6 @@ F 3 "" H 1050 4550 50  0001 C CNN
 	1    1050 4550
 	1    0    0    -1  
 $EndComp
-Text GLabel 3300 3800 2    60   Input ~ 0
-3V3_pwr
 $Comp
 L C C2
 U 1 1 5A824FB5
@@ -726,10 +724,6 @@ F 3 "" H 3200 4100 50  0001 C CNN
 	1    3200 4100
 	1    0    0    -1  
 $EndComp
-Text GLabel 4950 900  0    60   Input ~ 0
-3V3_pwr
-Text GLabel 6750 900  0    60   Input ~ 0
-3V3_pwr
 $Comp
 L AXB050X43-SRZ U4
 U 1 1 5A8275BF
@@ -1204,7 +1198,7 @@ Connection ~ 2350 4000
 Wire Wire Line
 	2350 4300 2450 4300
 Wire Wire Line
-	2100 3800 3300 3800
+	2100 3800 3400 3800
 Connection ~ 3200 3800
 Connection ~ 2400 4300
 Connection ~ 1600 4750
@@ -1464,4 +1458,47 @@ F 3 "" H 10600 1050 50  0001 C CNN
 	1    10600 1050
 	1    0    0    -1  
 $EndComp
+$Comp
+L +3.3V #PWR?
+U 1 1 5A902936
+P 6600 850
+F 0 "#PWR?" H 6600 700 50  0001 C CNN
+F 1 "+3.3V" H 6600 990 50  0000 C CNN
+F 2 "" H 6600 850 50  0001 C CNN
+F 3 "" H 6600 850 50  0001 C CNN
+	1    6600 850 
+	1    0    0    -1  
+$EndComp
+$Comp
+L +3.3V #PWR?
+U 1 1 5A902B8D
+P 4800 850
+F 0 "#PWR?" H 4800 700 50  0001 C CNN
+F 1 "+3.3V" H 4800 990 50  0000 C CNN
+F 2 "" H 4800 850 50  0001 C CNN
+F 3 "" H 4800 850 50  0001 C CNN
+	1    4800 850 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6750 900  6600 900 
+Wire Wire Line
+	6600 900  6600 850 
+Wire Wire Line
+	4950 900  4800 900 
+Wire Wire Line
+	4800 900  4800 850 
+$Comp
+L +3.3V #PWR?
+U 1 1 5A903059
+P 3400 3750
+F 0 "#PWR?" H 3400 3600 50  0001 C CNN
+F 1 "+3.3V" H 3400 3890 50  0000 C CNN
+F 2 "" H 3400 3750 50  0001 C CNN
+F 3 "" H 3400 3750 50  0001 C CNN
+	1    3400 3750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3400 3800 3400 3750
 $EndSCHEMATC

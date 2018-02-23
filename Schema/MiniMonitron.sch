@@ -669,8 +669,6 @@ F 3 "" H 1050 4550 50  0001 C CNN
 	1    1050 4550
 	1    0    0    -1  
 $EndComp
-Text GLabel 3300 3800 2    60   Input ~ 0
-3V3_pwr
 $Comp
 L C C2
 U 1 1 5A824FB5
@@ -726,10 +724,6 @@ F 3 "" H 3200 4100 50  0001 C CNN
 	1    3200 4100
 	1    0    0    -1  
 $EndComp
-Text GLabel 4950 900  0    60   Input ~ 0
-3V3_pwr
-Text GLabel 6750 900  0    60   Input ~ 0
-3V3_pwr
 $Comp
 L AXB050X43-SRZ U4
 U 1 1 5A8275BF
@@ -1020,12 +1014,12 @@ Text GLabel 6750 1700 0    60   Input ~ 0
 $Comp
 L GND #PWR027
 U 1 1 5A8B4861
-P 6100 2900
-F 0 "#PWR027" H 6100 2650 50  0001 C CNN
-F 1 "GND" H 6100 2750 50  0000 C CNN
-F 2 "" H 6100 2900 50  0001 C CNN
-F 3 "" H 6100 2900 50  0001 C CNN
-	1    6100 2900
+P 6000 2900
+F 0 "#PWR027" H 6000 2650 50  0001 C CNN
+F 1 "GND" H 6000 2750 50  0000 C CNN
+F 2 "" H 6000 2900 50  0001 C CNN
+F 3 "" H 6000 2900 50  0001 C CNN
+	1    6000 2900
 	1    0    0    -1  
 $EndComp
 Text Notes 4550 650  0    60   ~ 0
@@ -1204,7 +1198,7 @@ Connection ~ 2350 4000
 Wire Wire Line
 	2350 4300 2450 4300
 Wire Wire Line
-	2100 3800 3300 3800
+	2100 3800 3400 3800
 Connection ~ 3200 3800
 Connection ~ 2400 4300
 Connection ~ 1600 4750
@@ -1279,31 +1273,6 @@ Wire Wire Line
 	10600 1850 9800 1850
 Wire Wire Line
 	8900 1850 8100 1850
-Wire Wire Line
-	6750 1300 6100 1300
-Wire Wire Line
-	6100 1100 6100 2900
-Wire Wire Line
-	6750 2800 6100 2800
-Connection ~ 6100 2800
-Wire Wire Line
-	6750 2100 6100 2100
-Connection ~ 6100 2100
-Wire Wire Line
-	5450 1100 6100 1100
-Connection ~ 6100 1300
-Wire Wire Line
-	5450 1500 6100 1500
-Connection ~ 6100 1500
-Wire Wire Line
-	5450 1800 6100 1800
-Connection ~ 6100 1800
-Wire Wire Line
-	5450 2500 6100 2500
-Connection ~ 6100 2500
-Wire Wire Line
-	5450 2300 6100 2300
-Connection ~ 6100 2300
 Wire Wire Line
 	4950 1300 4450 1300
 Wire Wire Line
@@ -1464,4 +1433,84 @@ F 3 "" H 10600 1050 50  0001 C CNN
 	1    10600 1050
 	1    0    0    -1  
 $EndComp
+$Comp
+L +3.3V #PWR031
+U 1 1 5A902936
+P 6600 850
+F 0 "#PWR031" H 6600 700 50  0001 C CNN
+F 1 "+3.3V" H 6600 990 50  0000 C CNN
+F 2 "" H 6600 850 50  0001 C CNN
+F 3 "" H 6600 850 50  0001 C CNN
+	1    6600 850 
+	1    0    0    -1  
+$EndComp
+$Comp
+L +3.3V #PWR032
+U 1 1 5A902B8D
+P 4800 850
+F 0 "#PWR032" H 4800 700 50  0001 C CNN
+F 1 "+3.3V" H 4800 990 50  0000 C CNN
+F 2 "" H 4800 850 50  0001 C CNN
+F 3 "" H 4800 850 50  0001 C CNN
+	1    4800 850 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6750 900  6600 900 
+Wire Wire Line
+	6600 900  6600 850 
+Wire Wire Line
+	4950 900  4800 900 
+Wire Wire Line
+	4800 900  4800 850 
+$Comp
+L +3.3V #PWR033
+U 1 1 5A903059
+P 3400 3750
+F 0 "#PWR033" H 3400 3600 50  0001 C CNN
+F 1 "+3.3V" H 3400 3890 50  0000 C CNN
+F 2 "" H 3400 3750 50  0001 C CNN
+F 3 "" H 3400 3750 50  0001 C CNN
+	1    3400 3750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3400 3800 3400 3750
+$Comp
+L GND #PWR?
+U 1 1 5A904304
+P 6200 2900
+F 0 "#PWR?" H 6200 2650 50  0001 C CNN
+F 1 "GND" H 6200 2750 50  0000 C CNN
+F 2 "" H 6200 2900 50  0001 C CNN
+F 3 "" H 6200 2900 50  0001 C CNN
+	1    6200 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6000 2900 6000 1100
+Connection ~ 6000 1500
+Wire Wire Line
+	6000 1100 5450 1100
+Wire Wire Line
+	5450 1500 6000 1500
+Wire Wire Line
+	5450 1800 6000 1800
+Connection ~ 6000 1800
+Wire Wire Line
+	5450 2300 6000 2300
+Connection ~ 6000 2300
+Wire Wire Line
+	5450 2500 6000 2500
+Connection ~ 6000 2500
+Wire Wire Line
+	6750 1300 6200 1300
+Wire Wire Line
+	6200 1300 6200 2900
+Wire Wire Line
+	6750 2100 6200 2100
+Connection ~ 6200 2100
+Wire Wire Line
+	6750 2800 6200 2800
+Connection ~ 6200 2800
 $EndSCHEMATC
