@@ -1,38 +1,52 @@
+/*	File:	communication.h
+ *	Author:	Alfred M.-Quintin
+ *	Date:	Feb. 2018 
+ *	
+ *	Brief:	Fichier contenant les prototypes des fonctions définies dans
+ *			le main et contenant toutes les définitions et constantes 
+ *			reliées à la communication avec le module d'acquisition.
+ *
+ */
+
+
+/*		   INCLUDES     	*/ 
+ 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
 #include <cstring>
 #include <iostream> //COUT
-
 #include <pthread.h> //pour thread
 #include <unistd.h> //UART //usleep
 #include <fcntl.h> //UART
 #include <termios.h> //UART
 #include "module.h"
 
-#define DEBUG
 
-#define NB_MODULE 6
-#define NB_TRAME 70
-#define T_SOH 1
-#define T_EOH1 254
-#define T_EOH2 255
-#define R_SOH 123
-#define FONCT0_TIME 10 //10 secondes
-//module type
-//#define TEMPERATURE 0
+using namespace std;
 
-#define BROADCAST_TIME 100 // 10 secondes
-//fonction
-#define GET_DEVICES 0
-#define GET_PARAMS 1
-#define GET_READINGS 2
 
-//#define FONCTION0 
 
-//list<module> l_modules;
-//module m;
+/*			DEFINES			*/
+
+#define NB_MODULE 6 
+#define NB_TRAME 70 	//Nb d'octets transmis dans une trame
+#define T_SOH 1			//SOH en transmission
+#define T_EOH1 254		//Premier EOH en transmission
+#define T_EOH2 255		//Deuxième EOH en transmission
+#define R_SOH 123		//SOH en réception
+#define FONCT0_TIME 10 	//Durée de l'acquisition des modules sur le bus can
+
+#define BROADCAST_TIME 100 //Durée de l'acquisition des modules sur le bus can
+
+#define GET_DEVICES 0	//Fonction d'acquisition des modules sur le bus can
+#define GET_PARAMS 1	//Fonction d'acquisition de tous les paramètres contenus dans la carte SD d'un module
+#define GET_READINGS 2	//Fonction de rafraîchissment des lectures faites par le module
+
+//Types de modules
 enum type : int8_t {Temperature, Oxygene, Salinite, PH, Debit, Niveau};
+
+//Position des bytes en réception
 enum 
 {
     r_soh=0,
@@ -46,6 +60,7 @@ enum
     r_fonction
 };
 
+//Position des bytes en en envoi
 enum
 {
 	t_soh=0,
@@ -57,35 +72,7 @@ enum
 	t_eoh2
 };
 
-using namespace std;
-
-//string module[NB_MODULE] = {"Temperature", "Oxygene", "Salinite_Conductivite", "PH", "Debit", "Niveau"}; //noms des modules possibles
-
-union float2bytes 
-{ 
-    float f; 
-    uint8_t b[4];
-};
-
-union int2bytes
-{
-    uint32_t i;
-    uint8_t b[4];
-};
-
-
-/* PROTOTYPES */
-void *do_Receive(void *args);
-void *do_Analyse(void* args);
-void *mainTask(void *args);
-void clear_RX();
-void send_Fonction(int8_t r_pos, int8_t fonct);
-uint8_t calcul_Checksum(uint8_t* trame, char t);
-void print_TX();
-void print_RX();
-bool tableVerify(string name);
-
-
+//Fin de trame dans la réception suite à une requête de fonction 0 
 enum trame0
 {
     f0=8,
@@ -94,6 +81,8 @@ enum trame0
     f0Eoh2
 };
 
+
+//Fin de trame dans la réception suite à une requête de fonction 1
 enum trame1
 {
     f1=8,
@@ -153,12 +142,14 @@ enum trame1
     f1Alarm,
     f1OperatingMode,
     f1GlobalOperatingMode,
-    //si ajout de data, c'est ici
+    //Si plus de données ajoutées à la trame
     f1Checksum,
     f1Eoh1,
     f1Eoh2
 };
 
+
+//Fin de trame dans la réception suite à une requête de fonction 2
 enum trame2
 {
     f2=8,
@@ -171,12 +162,14 @@ enum trame2
     f2Setpoint3,
     f2Setpoint4,
     f2Alarm,
-    //si ajout de data, c'est ici
+    //Si plus de données ajoutées à la trame
     f2Checksum,
     f2Eoh1,
     f2Eoh2
 };
 
+
+//Fin de trame dans la réception suite à une requête de fonction 3
 enum trame3
 {
     f3=8,
@@ -186,6 +179,8 @@ enum trame3
     f3Eoh2
 };
 
+
+//Fin de trame dans la réception suite à une requête de fonction 4
 enum trame4
 {
     f4=8,
@@ -195,12 +190,28 @@ enum trame4
     F4Eoh2
 };
 
+union float2bytes //Union pour la conversion de valeurs float en octets et vice versa
+{ 
+    float f; 
+    uint8_t b[4];
+};
+
+union int2bytes //Union pour la conversion de valeurs int en octets et vice versa
+{
+    uint32_t i;
+    uint8_t b[4];
+};
 
 
-
-
-
-
+/* PROTOTYPES */
+void *do_Receive(void *args);						//Thread de réception des données
+void *mainTask(void *args);							//Thread principal (logique d'alternance réception/envoi)
+void clear_RX();									//Flush du buffer de réception
+void send_Fonction(int8_t r_pos, int8_t fonct);		//Fonction d'envoi vers le module d'acquisition
+uint8_t calcul_Checksum(uint8_t* trame, char t);	//Fonction de calcul du checksum
+void print_TX();									//Fonction d'affichage du contenu envoyé dans le terminal
+void print_RX();									//Fonction d'affichage du contenu reçu dans le terminal	
+bool tableVerify(string name);						//Fonction de vérification d'existence d'un nom de table associé à un module 
 
 
 /*float lecture;

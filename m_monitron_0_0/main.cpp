@@ -4,48 +4,50 @@
 #include "DBAccess.h"
 #include "module.h"
 
-#define DEBUG
+#define DEBUG 			//Pour affichage dans terminal
+
 /* VARIABLES GLOBALES */
 //communication série
 int serial = -1;
 struct termios options;
 
-uint8_t trame_tx[NB_TRAME] = {'\0'}; //buffer trame de transmission
-uint8_t trame_rx[NB_TRAME] = {'\0'}; //buffer trame de reception
-string modules_Name[NB_MODULE];
+uint8_t trame_tx[NB_TRAME] = {'\0'};	//buffer trame de transmission
+uint8_t trame_rx[NB_TRAME] = {'\0'}; 	//buffer trame de reception
+string modules_Name[NB_MODULE];			//Noms des modules
 int8_t nb_Module = -1;
 
 bool end_fonct0 = false;
 int8_t t= 0; //temps écoulé
-bool read_Flag = false;
+bool read_Flag = false;					
 
+//Chaînes d'entrée de données pour la BD
 string dataloginElements = "(ID BIGINT(20) AUTO_INCREMENT, Date_Heure TIMESTAMP DEFAULT CURRENT_TIMESTAMP, Lecture FLOAT, Consigne FLOAT, PRIMARY KEY (ID));";
 string eventloginElements = "(ID BIGINT(20) AUTO_INCREMENT, Date_Heure TIMESTAMP DEFAULT CURRENT_TIMESTAMP, Alarmes TINYINT UNSIGNED, PRIMARY KEY (ID));";
 
+//Noms de fichiers SQL utilisés dans la BD
 string dataLogin = "data_login";
 string eventLogin = "event_login";
 
-module m;
-m_monitron_0_0 *wpointer;
+module m; //objet de type module
+m_monitron_0_0 *wpointer; //Pointeur d'objet m_monitron_0_0
 
-//module m_module = new module();
+DBAccess db; //Objet pour l'accès à la base de données
 
-DBAccess db;
-
+//Point d'entrée du programme
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    m_monitron_0_0 w;
+    m_monitron_0_0 w;	//Objet m_monitron_0_0 pour fenêtre principale
 
-    w.show();
+    w.show();//Affiche le cadre de la fenêtre principale
 
     //m = new module();
-    cout << "Init" << endl;
+    //cout << "Init" << endl; //Ligne de debug
 
-    pthread_t thread_Receive, thread_Main;
+    pthread_t thread_Receive, thread_Main; //Objets pour la création des deux threads générés par le main
     //Configuration de la communication série   
-    serial = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY); //read non bloquant    
-    if(serial == -1)
+    serial = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY); //Ouverture du poort série    
+    if(serial == -1)//Si erreur dans l'ouverture
     {
         printf("ERROR");
     }
@@ -60,14 +62,15 @@ int main(int argc, char *argv[])
     tcsetattr(serial, TCSANOW, &options);
 
     pthread_create(&thread_Receive, NULL, do_Receive, (void*)NULL);	//thread de reception des trames
-    send_Fonction(0,2); //fonction 0
-    pthread_create(&thread_Main,NULL, mainTask, (void*)NULL);
+    send_Fonction(0,2); //Envoi de la fonction d'acquisition des modules sur le bus can
+    pthread_create(&thread_Main,NULL, mainTask, (void*)NULL); //Création du thread de logique principal
 
-    wpointer = &w;
-    return a.exec();
+    wpointer = &w; //Pointeur vers la fenêtre principale
+    return a.exec(); //Exécution de la boucle principale faisant la gestion de la fenêtre
 
 
 }
+
 
 void *mainTask(void *args)
 {
@@ -92,44 +95,40 @@ void *mainTask(void *args)
 }
 
 /**
-* @brief Méthode principale du thread de reception des trames sur le port série
-* @param pointeur d'objet recu lors de la création du thread (non utiliser dans notre cas)
+* @brief Thread de reception des trames sur le port série
+* @param pointeur d'objet recu lors de la création du thread (inutilisé dans notre cas)
 **/
 void *do_Receive(void *args)
 {   
     while(1)
     {
        usleep(1000000);//1sec
-       if(serial!=-1)
+	   
+       if(serial!=-1) //Si port série ouvert correctement
        {
-           int rx_length = read(serial, (void*)trame_rx, NB_TRAME -1);
+           int rx_length = read(serial, (void*)trame_rx, NB_TRAME -1); //Lecture sur le port série 
            trame_rx[rx_length] = 0;
-           if(rx_length < 0)
-           {
-               //error, (there are no bytes)
-           }
-           else if(rx_length == 0)
-           {
-               //il n'y a pas de data en attente
-           }
-           else
+           
+           if(rx_length > 0)
            {
                if(!read_Flag) //aucune analyse en cours
                {
                    if(trame_rx[r_soh] == 123) //bon SOH
                    {
                        //read_Flag = true;
-                       if(trame_rx[rx_length-2] == calcul_Checksum(trame_rx, rx_length)) //bon checksum
+                       if(trame_rx[rx_length-2] == calcul_Checksum(trame_rx, rx_length)) //Si checksum valide
                        {
 
-                           #ifdef DEBUG
+                           #ifdef DEBUG //Pour affichage dans terminal
                            print_RX();
                            #endif
 
-                           m.fillObjectParams(trame_rx, trame_rx[r_fonction]);
+                           m.fillObjectParams(trame_rx, trame_rx[r_fonction]); //Parsing des données reçues et modification des paramètres de l'objet module.
 
-                           usleep(100000);
-                           wpointer->printParams(&m, trame_rx[r_fonction]);
+                           usleep(100000); // Délai d'exécution
+                           wpointer->printParams(&m, trame_rx[r_fonction]); //Afficahge des nouveaux paramètres dans le fenêtre principale
+						   
+						   
                            /*switch(wpointer->getNextFunction())
                            {
                            case GET_DEVICES:
@@ -140,21 +139,24 @@ void *do_Receive(void *args)
                            }*/
                           // send_Fonction(0, wpointer->getNextFunction());
 
-                           read_Flag = true; //analyser la trame recu
+                           read_Flag = true; //analyser la trame reçue
                            t = 0; //remise du temps à zéro
-                           usleep(2000000);
-                           send_Fonction(0, wpointer->getNextFunction());
+                           usleep(2000000);  //Délai d'exécution
+                           send_Fonction(0, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochiane requete à faire
                        }
                    }
                    else                  
-                       clear_RX();
+                       clear_RX(); //Si checksum invalide, vide le buffer de réception
                }
            }
        }
    } //while(1)
 }
 
-
+/* Brief:	Fonction d'envoi de requetes/informations au module
+ * Params:	pos: 	Position du module dans l'ordre de découverte du PI
+ *			fonct:  Fonction que l'on désire envoyer
+*/
 void send_Fonction(int8_t pos, int8_t fonct)
 {
   trame_tx[t_soh] = T_SOH;
@@ -166,14 +168,15 @@ void send_Fonction(int8_t pos, int8_t fonct)
   trame_tx[t_eoh2] = T_EOH2;
 
   #ifdef DEBUG
-  print_TX();
+  print_TX(); 	//Pour affichage dans le terminal
   #endif
 
-   if (serial !=-1)
+   if (serial != -1)//Si terminal ouvert correctement
    {
-       int count = write(serial, &trame_tx[0], NB_TRAME);
-       if(count < 0)
-           printf("FAILED WRITE");
+       int count = write(serial, &trame_tx[0], NB_TRAME); //Envoi sur Port série
+       
+	   if(count < 0)	//Si problème lors de l'écriture
+           printf("Write Failed.\n");
    }
 }
 
@@ -189,7 +192,7 @@ void clear_RX()
 }
 
 /**
-* @brief Méthode pour calculer le checksum de la trame recu
+* @brief Méthode pour calculer le checksum de la trame reçue
 * @param trame[] = la trame à vérifier, t = nombre de char à calculer pour le checksum
 * @return le checksum calculé
 **/
@@ -205,6 +208,8 @@ uint8_t calcul_Checksum(uint8_t* trame, char t)
    return checksum;
 }
 
+
+//Affiche le contenu envoyé sur le port série dans le terminal
 void print_TX()
 {
    printf("Envoie: ");
@@ -215,6 +220,7 @@ void print_TX()
    printf("\n");
 }
 
+//Affiche le contenu reçu sur le port série dans le terminal
 void print_RX()
 {
    printf("Recu: ");
@@ -225,6 +231,7 @@ void print_RX()
    printf("\n");
 }
 
+//Fonction de vérification d'existence d'un nom de table associé à un module 
 bool tableVerify(string name)
 {
    string* tables = new string[NB_MODULE];
@@ -234,8 +241,7 @@ bool tableVerify(string name)
        if(name.compare(tables[i]) == 0) //nom de table existant
            return true;
    }
-   return false;
-       //cout << tables[i] << endl;
+   return false;    
 }
 
 
