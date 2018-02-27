@@ -212,7 +212,7 @@ uint8_t calcul_Checksum(uint8_t* trame, char t);	//Fonction de calcul du checksu
 void print_TX();									//Fonction d'affichage du contenu envoyé dans le terminal
 void print_RX();									//Fonction d'affichage du contenu reçu dans le terminal	
 bool tableVerify(string name);						//Fonction de vérification d'existence d'un nom de table associé à un module 
-
+void clear_TX();
 
 /*float lecture;
     float setpoint;

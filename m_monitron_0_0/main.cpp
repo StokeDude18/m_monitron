@@ -3,16 +3,15 @@
 #include "communication.h"
 #include "DBAccess.h"
 #include "module.h"
-
-#define DEBUG 			//Pour affichage dans terminal
+//#define DEBUG 			//Pour affichage dans terminal
 
 /* VARIABLES GLOBALES */
 //communication série
 int serial = -1;
 struct termios options;
 
-uint8_t trame_tx[NB_TRAME] = {'\0'};	//buffer trame de transmission
-uint8_t trame_rx[NB_TRAME] = {'\0'}; 	//buffer trame de reception
+uint8_t trame_tx[NB_TRAME] = {0};	//buffer trame de transmission
+uint8_t trame_rx[NB_TRAME] = {0}; 	//buffer trame de reception
 string modules_Name[NB_MODULE];			//Noms des modules
 int8_t nb_Module = -1;
 
@@ -62,7 +61,7 @@ int main(int argc, char *argv[])
     tcsetattr(serial, TCSANOW, &options);
 
     pthread_create(&thread_Receive, NULL, do_Receive, (void*)NULL);	//thread de reception des trames
-    send_Fonction(0,2); //Envoi de la fonction d'acquisition des modules sur le bus can
+    send_Fonction(0,0); //Envoi de la fonction d'acquisition des modules sur le bus can
     pthread_create(&thread_Main,NULL, mainTask, (void*)NULL); //Création du thread de logique principal
 
     wpointer = &w; //Pointeur vers la fenêtre principale
@@ -82,15 +81,24 @@ void *mainTask(void *args)
             if(t <= BROADCAST_TIME)
                 end_fonct0 = true;
         }*/
+
+        while(!read_Flag);
+        read_Flag = false;
         /*if(read_Flag)
-        {
-            //usleep(10000);
+        {*/
+        usleep(10000);
+        m.fillObjectParams(trame_rx, trame_rx[r_fonction]); //Parsing des données reçues et modification des paramètres de l'objet module.
 
+        usleep(100000); // Délai d'exécution
+        wpointer->printParams(&m, trame_rx[r_fonction]); //Affichage des nouveaux paramètres dans le fenêtre principale
 
-            read_Flag = false;
-            send_Fonction(0,2);
-            usleep(1000000); //1s
-        }*/
+        clear_TX();
+        usleep(4000000);  //Délai d'exécution
+        send_Fonction(0, 0/*wpointer->getNextFunction()*/); //Demande à la fenêtre principale la prochiane requete à faire
+        usleep(1000000); //1s
+            //clear_RX();
+       // }
+
     }
 }
 
@@ -99,11 +107,11 @@ void *mainTask(void *args)
 * @param pointeur d'objet recu lors de la création du thread (inutilisé dans notre cas)
 **/
 void *do_Receive(void *args)
-{   
+{
+
     while(1)
     {
        usleep(1000000);//1sec
-	   
        if(serial!=-1) //Si port série ouvert correctement
        {
            int rx_length = read(serial, (void*)trame_rx, NB_TRAME -1); //Lecture sur le port série 
@@ -123,11 +131,9 @@ void *do_Receive(void *args)
                            print_RX();
                            #endif
 
-                           m.fillObjectParams(trame_rx, trame_rx[r_fonction]); //Parsing des données reçues et modification des paramètres de l'objet module.
 
-                           usleep(100000); // Délai d'exécution
-                           wpointer->printParams(&m, trame_rx[r_fonction]); //Afficahge des nouveaux paramètres dans le fenêtre principale
-						   
+                           //usleep(100000);
+
 						   
                            /*switch(wpointer->getNextFunction())
                            {
@@ -139,10 +145,13 @@ void *do_Receive(void *args)
                            }*/
                           // send_Fonction(0, wpointer->getNextFunction());
 
+
+
                            read_Flag = true; //analyser la trame reçue
                            t = 0; //remise du temps à zéro
-                           usleep(2000000);  //Délai d'exécution
-                           send_Fonction(0, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochiane requete à faire
+
+
+
                        }
                    }
                    else                  
@@ -187,7 +196,15 @@ void clear_RX()
 {
    for(int i=0; i<NB_TRAME; i++)
    {
-       trame_rx[i] = -1;//'\0';
+       trame_rx[i] = 0;//'\0';
+   }
+}
+
+void clear_TX()
+{
+   for(int i=0; i<NB_TRAME; i++)
+   {
+       trame_tx[i] = 0;//'\0';
    }
 }
 
@@ -212,23 +229,23 @@ uint8_t calcul_Checksum(uint8_t* trame, char t)
 //Affiche le contenu envoyé sur le port série dans le terminal
 void print_TX()
 {
-   printf("Envoie: ");
-   for(int i=0; i<NB_TRAME; i++)
-   {
-       printf("%d ", trame_tx[i]);
-   }
-   printf("\n");
+    cout << "Envoie: ";
+    for(int i=0; i<NB_TRAME; i++)
+    {
+        cout << hex << trame_tx[i] << " ";
+    }
+    cout << endl;
 }
 
 //Affiche le contenu reçu sur le port série dans le terminal
 void print_RX()
 {
-   printf("Recu: ");
+   cout << "Recu: ";
    for(int i=0; i<NB_TRAME; i++)
    {
-       printf("%d ", trame_rx[i]);
+       cout << hex << trame_rx[i] << " ";
    }
-   printf("\n");
+   cout << endl;
 }
 
 //Fonction de vérification d'existence d'un nom de table associé à un module 
