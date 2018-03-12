@@ -11,14 +11,14 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Reading params edit</string>
   </property>
   <widget class="QLabel" name="l_Setpoint">
    <property name="geometry">
     <rect>
      <x>95</x>
      <y>80</y>
-     <width>216</width>
+     <width>231</width>
      <height>36</height>
     </rect>
    </property>
@@ -34,7 +34,7 @@
   <widget class="QLineEdit" name="tb_new_var_rate">
    <property name="geometry">
     <rect>
-     <x>390</x>
+     <x>415</x>
      <y>170</y>
      <width>156</width>
      <height>36</height>
@@ -73,11 +73,16 @@
   <widget class="QLineEdit" name="tb_new_setpoint">
    <property name="geometry">
     <rect>
-     <x>390</x>
+     <x>415</x>
      <y>80</y>
      <width>156</width>
      <height>36</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
    </property>
    <property name="inputMethodHints">
     <set>Qt::ImhNone</set>
@@ -91,7 +96,7 @@
     <rect>
      <x>95</x>
      <y>170</y>
-     <width>291</width>
+     <width>311</width>
      <height>36</height>
     </rect>
    </property>

@@ -12,6 +12,7 @@ struct termios options;
 
 uint8_t trame_tx[NB_TRAME] = {0};	//buffer trame de transmission
 uint8_t trame_rx[NB_TRAME] = {0}; 	//buffer trame de reception
+uint8_t buffer_traitement[NB_TRAME] = {0}; //buffer dans lequel les données reçus sont transférées pour analyse
 string modules_Name[NB_MODULE];			//Noms des modules
 int8_t nb_Module = -1;
 
@@ -45,10 +46,15 @@ int main(int argc, char *argv[])
 
     pthread_t thread_Receive, thread_Main; //Objets pour la création des deux threads générés par le main
     //Configuration de la communication série   
-    serial = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY); //Ouverture du poort série    
+    serial = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY); //Ouverture du port série
     if(serial == -1)//Si erreur dans l'ouverture
     {
         printf("ERROR");
+        while(serial == -1)
+        {
+            usleep(1000000);
+            serial = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY); //Ouverture du port série
+        }
     }
     tcgetattr(serial, &options);
     options.c_cflag = B115200 | CS8 | CLOCAL | CREAD; //configuration du baud rate
@@ -61,13 +67,11 @@ int main(int argc, char *argv[])
     tcsetattr(serial, TCSANOW, &options);
 
     pthread_create(&thread_Receive, NULL, do_Receive, (void*)NULL);	//thread de reception des trames
-    send_Fonction(0,0); //Envoi de la fonction d'acquisition des modules sur le bus can
+    send_Fonction(0,1); //Envoi de la fonction d'acquisition des modules sur le bus can
     pthread_create(&thread_Main,NULL, mainTask, (void*)NULL); //Création du thread de logique principal
 
     wpointer = &w; //Pointeur vers la fenêtre principale
     return a.exec(); //Exécution de la boucle principale faisant la gestion de la fenêtre
-
-
 }
 
 
@@ -75,30 +79,20 @@ void *mainTask(void *args)
 {
     while(1)
     {
-        /*t++;
-        while(!end_fonct0)
-        {
-            if(t <= BROADCAST_TIME)
-                end_fonct0 = true;
-        }*/
-
         while(!read_Flag);
         read_Flag = false;
-        /*if(read_Flag)
-        {*/
+
         usleep(10000);
-        m.fillObjectParams(trame_rx, trame_rx[r_fonction]); //Parsing des données reçues et modification des paramètres de l'objet module.
+        m.fillObjectParams(buffer_traitement, buffer_traitement[r_fonction]); //Parsing des données reçues et modification des paramètres de l'objet module.
 
         usleep(100000); // Délai d'exécution
-        wpointer->printParams(&m, trame_rx[r_fonction]); //Affichage des nouveaux paramètres dans le fenêtre principale
+        wpointer->printParams(&m, buffer_traitement[r_fonction]); //Affichage des nouveaux paramètres dans le fenêtre principale
 
         clear_TX();
-        usleep(4000000);  //Délai d'exécution
-        send_Fonction(0, 0/*wpointer->getNextFunction()*/); //Demande à la fenêtre principale la prochiane requete à faire
-        usleep(1000000); //1s
-            //clear_RX();
-       // }
-
+        tcflush(serial, TCIOFLUSH);
+        usleep(3500000);  //Délai d'exécution
+        send_Fonction(0, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
+        usleep(750000); //1s
     }
 }
 
@@ -108,6 +102,7 @@ void *mainTask(void *args)
 **/
 void *do_Receive(void *args)
 {
+    int error_count = 0;
 
     while(1)
     {
@@ -126,36 +121,25 @@ void *do_Receive(void *args)
                        //read_Flag = true;
                        if(trame_rx[rx_length-2] == calcul_Checksum(trame_rx, rx_length)) //Si checksum valide
                        {
-
+                           error_count = 0;
+                           for(int i = 0; i < NB_TRAME; i++)
+                               buffer_traitement[i] = trame_rx[i];
                            #ifdef DEBUG //Pour affichage dans terminal
                            print_RX();
                            #endif
 
-
-                           //usleep(100000);
-
-						   
-                           /*switch(wpointer->getNextFunction())
-                           {
-                           case GET_DEVICES:
-                               send_Fonction(0,GET_DEVICES);
-                               break;
-
-
-                           }*/
-                          // send_Fonction(0, wpointer->getNextFunction());
-
-
-
                            read_Flag = true; //analyser la trame reçue
                            t = 0; //remise du temps à zéro
-
-
-
                        }
+                       else
+                           read_Flag = true; //analyser la trame reçue
                    }
-                   else                  
+                   else
+                   {
                        clear_RX(); //Si checksum invalide, vide le buffer de réception
+                       error_count++;
+
+                   }
                }
            }
        }
@@ -176,17 +160,18 @@ void send_Fonction(int8_t pos, int8_t fonct)
   trame_tx[t_eoh1] = T_EOH1;
   trame_tx[t_eoh2] = T_EOH2;
 
+
   #ifdef DEBUG
   print_TX(); 	//Pour affichage dans le terminal
   #endif
 
    if (serial != -1)//Si terminal ouvert correctement
    {
-       int count = write(serial, &trame_tx[0], NB_TRAME); //Envoi sur Port série
+       int count = write(serial, &trame_tx[0], trame_tx[t_size]); //Envoi sur Port série
        
 	   if(count < 0)	//Si problème lors de l'écriture
            printf("Write Failed.\n");
-   }
+   }   
 }
 
 /**

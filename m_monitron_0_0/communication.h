@@ -21,6 +21,7 @@
 #include <fcntl.h> //UART
 #include <termios.h> //UART
 #include "module.h"
+#include "m_monitron_0_0.h"
 
 
 using namespace std;
@@ -45,6 +46,8 @@ using namespace std;
 
 //Types de modules
 enum type : int8_t {Temperature, Oxygene, Salinite, PH, Debit, Niveau};
+
+extern module m; //objet de type module
 
 //Position des bytes en réception
 enum 

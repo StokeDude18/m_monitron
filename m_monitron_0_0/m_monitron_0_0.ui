@@ -37,7 +37,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="t_Lecture">
      <attribute name="title">
@@ -211,7 +211,7 @@
        <rect>
         <x>250</x>
         <y>110</y>
-        <width>166</width>
+        <width>176</width>
         <height>36</height>
        </rect>
       </property>
@@ -229,7 +229,7 @@
        <rect>
         <x>20</x>
         <y>190</y>
-        <width>116</width>
+        <width>131</width>
         <height>36</height>
        </rect>
       </property>
@@ -247,7 +247,7 @@
        <rect>
         <x>250</x>
         <y>190</y>
-        <width>166</width>
+        <width>176</width>
         <height>36</height>
        </rect>
       </property>
@@ -265,7 +265,7 @@
        <rect>
         <x>20</x>
         <y>110</y>
-        <width>116</width>
+        <width>131</width>
         <height>36</height>
        </rect>
       </property>
@@ -281,10 +281,10 @@
      <widget class="QLabel" name="l_Current_Cycle_1">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>115</y>
+        <x>160</x>
+        <y>110</y>
         <width>66</width>
-        <height>26</height>
+        <height>36</height>
        </rect>
       </property>
       <property name="font">
@@ -296,16 +296,16 @@
        </font>
       </property>
       <property name="text">
-       <string>1</string>
+       <string/>
       </property>
      </widget>
      <widget class="QLabel" name="l_Current_Cycle_2">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>195</y>
-        <width>71</width>
-        <height>26</height>
+        <x>160</x>
+        <y>190</y>
+        <width>66</width>
+        <height>36</height>
        </rect>
       </property>
       <property name="font">
@@ -317,15 +317,15 @@
        </font>
       </property>
       <property name="text">
-       <string>2</string>
+       <string/>
       </property>
      </widget>
      <widget class="QLabel" name="l_Current_Cycle_Setpoint_1">
       <property name="geometry">
        <rect>
-        <x>420</x>
+        <x>425</x>
         <y>115</y>
-        <width>71</width>
+        <width>86</width>
         <height>26</height>
        </rect>
       </property>
@@ -338,15 +338,15 @@
        </font>
       </property>
       <property name="text">
-       <string>1</string>
+       <string/>
       </property>
      </widget>
      <widget class="QLabel" name="l_Current_Cycle_Setpoint_2">
       <property name="geometry">
        <rect>
-        <x>420</x>
+        <x>425</x>
         <y>195</y>
-        <width>66</width>
+        <width>86</width>
         <height>26</height>
        </rect>
       </property>
@@ -359,7 +359,7 @@
        </font>
       </property>
       <property name="text">
-       <string>2</string>
+       <string/>
       </property>
      </widget>
      <widget class="QLabel" name="l_Cycle_Mode_Current_State">
@@ -429,7 +429,7 @@
         <rect>
          <x>10</x>
          <y>50</y>
-         <width>156</width>
+         <width>171</width>
          <height>21</height>
         </rect>
        </property>
@@ -449,7 +449,7 @@
         <rect>
          <x>10</x>
          <y>90</y>
-         <width>166</width>
+         <width>186</width>
          <height>16</height>
         </rect>
        </property>
@@ -467,27 +467,27 @@
       <widget class="QLabel" name="l_Current_P1_raw">
        <property name="geometry">
         <rect>
-         <x>180</x>
-         <y>55</y>
+         <x>200</x>
+         <y>50</y>
          <width>67</width>
-         <height>17</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>0.00</string>
+        <string/>
        </property>
       </widget>
       <widget class="QLabel" name="l_Current_P1_converted">
        <property name="geometry">
         <rect>
-         <x>180</x>
+         <x>200</x>
          <y>90</y>
          <width>67</width>
-         <height>17</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>0.00</string>
+        <string/>
        </property>
       </widget>
      </widget>
@@ -547,7 +547,7 @@
         <rect>
          <x>10</x>
          <y>50</y>
-         <width>156</width>
+         <width>176</width>
          <height>21</height>
         </rect>
        </property>
@@ -567,7 +567,7 @@
         <rect>
          <x>10</x>
          <y>90</y>
-         <width>166</width>
+         <width>186</width>
          <height>16</height>
         </rect>
        </property>
@@ -585,36 +585,76 @@
       <widget class="QLabel" name="l_Current_P2_raw">
        <property name="geometry">
         <rect>
-         <x>180</x>
-         <y>55</y>
+         <x>200</x>
+         <y>50</y>
          <width>67</width>
-         <height>17</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>0.00</string>
+        <string/>
        </property>
       </widget>
       <widget class="QLabel" name="l_Current_P2_converted">
        <property name="geometry">
         <rect>
-         <x>180</x>
-         <y>90</y>
+         <x>200</x>
+         <y>86</y>
          <width>67</width>
-         <height>17</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>0.00</string>
+        <string/>
        </property>
       </widget>
+     </widget>
+     <widget class="QLabel" name="l_Lecture_mV_Current">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>30</y>
+        <width>136</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>22</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="l_Lecture_Converted_Current">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>80</y>
+        <width>156</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>22</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>0.00</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="t_Control_OP">
      <attribute name="title">
       <string>Control &amp; OP</string>
      </attribute>
-     <widget class="QLabel" name="l_COntrol_Range">
+     <widget class="QLabel" name="l_Control_Range">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -638,7 +678,7 @@
        <rect>
         <x>20</x>
         <y>60</y>
-        <width>271</width>
+        <width>161</width>
         <height>31</height>
        </rect>
       </property>
@@ -648,50 +688,14 @@
        </font>
       </property>
       <property name="text">
-       <string>Safe operation range:</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="l_Down_Limit">
-      <property name="geometry">
-       <rect>
-        <x>35</x>
-        <y>105</y>
-        <width>56</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>15</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>From:</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="l_Upper_limit">
-      <property name="geometry">
-       <rect>
-        <x>190</x>
-        <y>105</y>
-        <width>31</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>15</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>To:</string>
+       <string>Alarm range:</string>
       </property>
      </widget>
      <widget class="QLabel" name="l_OP_Mode">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>150</y>
+        <y>115</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -709,7 +713,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>190</y>
+        <y>155</y>
         <width>291</width>
         <height>26</height>
        </rect>
@@ -757,52 +761,12 @@
        <string>X</string>
       </property>
      </widget>
-     <widget class="QLabel" name="l_Current_Range_Low">
-      <property name="geometry">
-       <rect>
-        <x>100</x>
-        <y>105</y>
-        <width>36</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>X</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="l_Current_Range_Up">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>105</y>
-        <width>36</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>X</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="l_Current_Operation_Mode">
       <property name="geometry">
        <rect>
         <x>320</x>
-        <y>150</y>
-        <width>66</width>
+        <y>115</y>
+        <width>186</width>
         <height>21</height>
        </rect>
       </property>
@@ -821,7 +785,27 @@
       <property name="geometry">
        <rect>
         <x>320</x>
-        <y>195</y>
+        <y>160</y>
+        <width>191</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>X</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="l_Current_Alarm_Range">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>70</y>
         <width>66</width>
         <height>21</height>
        </rect>
@@ -869,7 +853,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>38</height>
+     <height>36</height>
     </rect>
    </property>
   </widget>

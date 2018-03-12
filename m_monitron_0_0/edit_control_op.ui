@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Control params edit</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -42,9 +42,9 @@
   <widget class="QLabel" name="l_Alarm_Range">
    <property name="geometry">
     <rect>
-     <x>75</x>
-     <y>85</y>
-     <width>211</width>
+     <x>85</x>
+     <y>120</y>
+     <width>236</width>
      <height>26</height>
     </rect>
    </property>
@@ -57,63 +57,12 @@
     <string>Safe operation range:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="tb_Upper_Limit">
-   <property name="geometry">
-    <rect>
-     <x>295</x>
-     <y>125</y>
-     <width>56</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-  </widget>
-  <widget class="QLabel" name="l_Upper_limit">
-   <property name="geometry">
-    <rect>
-     <x>270</x>
-     <y>125</y>
-     <width>26</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>13</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>To:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="l_Down_Limit">
-   <property name="geometry">
-    <rect>
-     <x>115</x>
-     <y>125</y>
-     <width>46</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>13</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>From:</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="l_COntrol_Range">
    <property name="geometry">
     <rect>
-     <x>75</x>
-     <y>35</y>
-     <width>146</width>
+     <x>85</x>
+     <y>60</y>
+     <width>161</width>
      <height>26</height>
     </rect>
    </property>
@@ -130,9 +79,9 @@
   <widget class="QLabel" name="l_GOP_Mode">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>85</x>
      <y>240</y>
-     <width>231</width>
+     <width>261</width>
      <height>26</height>
     </rect>
    </property>
@@ -145,11 +94,11 @@
     <string>Global Operation Mode:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="tb_Control_Range">
+  <widget class="QLineEdit" name="tb_New_Control_Range">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>35</y>
+     <x>345</x>
+     <y>60</y>
      <width>156</width>
      <height>31</height>
     </rect>
@@ -161,27 +110,12 @@
     </font>
    </property>
   </widget>
-  <widget class="QLineEdit" name="tb_Lowe_Limit">
-   <property name="geometry">
-    <rect>
-     <x>165</x>
-     <y>125</y>
-     <width>51</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-  </widget>
   <widget class="QComboBox" name="cb_GOP_Mode">
    <property name="geometry">
     <rect>
-     <x>315</x>
+     <x>345</x>
      <y>235</y>
-     <width>101</width>
+     <width>151</width>
      <height>31</height>
     </rect>
    </property>
@@ -190,11 +124,21 @@
      <pointsize>16</pointsize>
     </font>
    </property>
+   <item>
+    <property name="text">
+     <string>Enabled</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Disabled</string>
+    </property>
+   </item>
   </widget>
   <widget class="QLabel" name="l_OP_Mode">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>85</x>
      <y>185</y>
      <width>176</width>
      <height>21</height>
@@ -212,15 +156,41 @@
   <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>315</x>
+     <x>345</x>
      <y>180</y>
-     <width>101</width>
+     <width>151</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <pointsize>16</pointsize>
+    </font>
+   </property>
+   <item>
+    <property name="text">
+     <string>Enabled</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Disabled</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLineEdit" name="tb_New_Alarm_Range">
+   <property name="geometry">
+    <rect>
+     <x>345</x>
+     <y>120</y>
+     <width>156</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+     <italic>true</italic>
     </font>
    </property>
   </widget>

@@ -58,7 +58,7 @@ void m_monitron_0_0::on_b_Edit_tCycles_clicked()
 
     if(edit_w_Cycles.result() == QDialog::Accepted)
     {
-
+        nextFunction = 3;
     }
 }
 
@@ -71,9 +71,10 @@ void m_monitron_0_0::on_b_Edit_tCalibration_clicked()
         try
         {
           m_newParams.Calib.raw_P1 = edit_w_Calib.ui->tb_P1_mV->text().toFloat();
-          m_newParams.Calib.converted_P1 = edit_w_Calib.ui->tb_P1Convert_Unit->text().toFloat();
+          m_newParams.Calib.converted_P1 = edit_w_Calib.ui->tb_P1_Convert_Unit->text().toFloat();
           m_newParams.Calib.raw_P2 = edit_w_Calib.ui->tb_P2_mV->text().toFloat();
           m_newParams.Calib.converted_P2 = edit_w_Calib.ui->tb_P2_Convert_Unit->text().toFloat();
+          nextFunction = f1;
         }
         catch(exception& e)
         {
@@ -137,6 +138,48 @@ void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
         ui->l_Current_Setpoint->setText(qs);
         qs.sprintf("%.2f", mod->Var_Rate);
         ui->l_Current_Var_Rate->setText(qs);
+
+        if(fonction == 1)
+        {
+            qs.sprintf("%d", mod->Cycles.Cycle1);
+            ui->l_Current_Cycle_1->setText(qs);
+
+            qs.sprintf("%d", mod->Cycles.Cycle2);
+            ui->l_Current_Cycle_2->setText(qs);
+
+            qs.sprintf("%.2f", mod->Cycles.Setpoint1);
+            ui->l_Current_Cycle_Setpoint_1->setText(qs);
+
+            qs.sprintf("%.2f", mod->Cycles.Setpoint2);
+            ui->l_Current_Cycle_Setpoint_2->setText(qs);
+
+            ui->l_Cycle_Mode_Current_State->setText((mod->Cycles.Cycle_Mode_State == 1) ? "ON" : "OFF");
+
+            qs.sprintf("%.2f", mod->Calib.raw_P1);
+            ui->l_Current_P1_raw->setText(qs);
+
+            qs.sprintf("%.2f", mod->Calib.converted_P1);
+            ui->l_Current_P1_converted->setText(qs);
+
+            qs.sprintf("%.2f", mod->Calib.raw_P2);
+            ui->l_Current_P2_raw->setText(qs);
+
+            qs.sprintf("%.2f", mod->Calib.converted_P2);
+            ui->l_Current_P2_converted->setText(qs);
+
+            qs.sprintf("%.2f", mod->Reading_mV);
+            ui->l_Lecture_mV_Current->setText(qs);
+
+            qs.sprintf("%.2f", mod->Control.Control_Range);
+            ui->l_Current_Control_Range->setText(qs);
+
+            qs.sprintf("%.2f", mod->Control.Alarm_Range);
+            ui->l_Current_Alarm_Range->setText(qs);
+
+            ui->l_Current_Operation_Mode->setText((mod->Control.OP_Mode == 1) ? "Enabled": "Disabled");
+
+            ui->l_Current_Gloabal_Operation_Mode->setText((mod->Control.Global_OP_Mode == 1) ? "Enabled": "Disabled");
+        }
     }
 }
 

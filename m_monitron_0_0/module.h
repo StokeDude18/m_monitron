@@ -20,10 +20,17 @@ public:
     int8_t Type;
     int8_t Position;
     float Lecture;
-    float Setpoint;
-    int8_t OP_Mode;
+    float Setpoint;    
     float Reading_mV;
     float Var_Rate;
+
+    struct cycles {
+        int Cycle1;
+        int Cycle2;
+        float Setpoint1;
+        float Setpoint2;
+        int8_t Cycle_Mode_State;
+    }Cycles;
 
     struct calibration {
         float raw_P1;
@@ -32,11 +39,15 @@ public:
         float converted_P2;
     }Calib;
 
+    struct control {
+        float Control_Range;
+        float Alarm_Range;
+        int8_t Alarm;
+        int8_t OP_Mode;
+        int8_t Global_OP_Mode;
+    }Control;
+
     void fillObjectParams(uint8_t* byteArray, uint8_t fonction);
-
-
-
-
 private:
 
 };

@@ -30,7 +30,7 @@ public:
     QLabel *l_P1_mV;
     QLineEdit *tb_P1_mV;
     QLabel *l_P1_Convert_Unit;
-    QLineEdit *tb_P1Convert_Unit;
+    QLineEdit *tb_P1_Convert_Unit;
     QGroupBox *gb_Point2;
     QLabel *l_P2_mV;
     QLineEdit *tb_P2_mV;
@@ -57,7 +57,7 @@ public:
         gb_Point1->setFont(font);
         l_P1_mV = new QLabel(gb_Point1);
         l_P1_mV->setObjectName(QStringLiteral("l_P1_mV"));
-        l_P1_mV->setGeometry(QRect(10, 50, 111, 16));
+        l_P1_mV->setGeometry(QRect(10, 50, 131, 16));
         QFont font1;
         font1.setPointSize(11);
         font1.setBold(false);
@@ -70,16 +70,16 @@ public:
         l_P1_Convert_Unit->setObjectName(QStringLiteral("l_P1_Convert_Unit"));
         l_P1_Convert_Unit->setGeometry(QRect(10, 90, 131, 16));
         l_P1_Convert_Unit->setFont(font1);
-        tb_P1Convert_Unit = new QLineEdit(gb_Point1);
-        tb_P1Convert_Unit->setObjectName(QStringLiteral("tb_P1Convert_Unit"));
-        tb_P1Convert_Unit->setGeometry(QRect(150, 90, 131, 21));
+        tb_P1_Convert_Unit = new QLineEdit(gb_Point1);
+        tb_P1_Convert_Unit->setObjectName(QStringLiteral("tb_P1_Convert_Unit"));
+        tb_P1_Convert_Unit->setGeometry(QRect(150, 90, 131, 21));
         gb_Point2 = new QGroupBox(edit_Calibration);
         gb_Point2->setObjectName(QStringLiteral("gb_Point2"));
         gb_Point2->setGeometry(QRect(105, 205, 301, 131));
         gb_Point2->setFont(font);
         l_P2_mV = new QLabel(gb_Point2);
         l_P2_mV->setObjectName(QStringLiteral("l_P2_mV"));
-        l_P2_mV->setGeometry(QRect(10, 50, 111, 16));
+        l_P2_mV->setGeometry(QRect(10, 50, 131, 16));
         l_P2_mV->setFont(font1);
         tb_P2_mV = new QLineEdit(gb_Point2);
         tb_P2_mV->setObjectName(QStringLiteral("tb_P2_mV"));
