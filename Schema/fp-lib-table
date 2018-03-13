@@ -1,3 +1,4 @@
 (fp_lib_table
   (lib (name mini_monitron)(type KiCad)(uri "$(KIPRJMOD)/mini_monitron.pretty")(options "")(descr ""))
+  (lib (name BAT)(type KiCad)(uri C:/Users/maina/Downloads/kicad-footprints-master/kicad-footprints-master/Battery.pretty)(options "")(descr ""))
 )

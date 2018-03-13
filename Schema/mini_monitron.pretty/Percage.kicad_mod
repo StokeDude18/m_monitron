@@ -1,0 +1,9 @@
+(module Percage (layer F.Cu) (tedit 5A942D47)
+  (fp_text reference REF** (at 4.475 -3.15) (layer F.SilkS) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_text value Percage (at -0.6 -3.225) (layer F.Fab) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (pad "" np_thru_hole circle (at 0.025 0.025) (size 3 3) (drill 3) (layers *.Cu *.Mask))
+)

@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source E:/maina/Documents/Travaux/Hiver_2018/Projet/m_monitron/Schema/MiniMonitron.sch)
-    (date "2018-02-23 10:57:14")
+    (date "2018-03-04 17:37:20")
     (tool "Eeschema 4.0.6")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -126,7 +126,7 @@
       (tstamp 5A81C504))
     (comp (ref J2)
       (value CONN_02X20)
-      (footprint mini_monitron:IDC_Header_Straight_40pins)
+      (footprint mini_monitron:Pin_Header_Straight_2x20_Pitch2.54mm)
       (libsource (lib MiniMonitron-cache) (part CONN_02X20))
       (sheetpath (names /) (tstamps /))
       (tstamp 5A822624))
@@ -144,7 +144,7 @@
       (tstamp 5A82318F))
     (comp (ref B1)
       (value Battery_Holder_CR1220)
-      (footprint mini_monitron:keystone_1220)
+      (footprint mini_monitron:Keystone_CR1220_SMD)
       (libsource (lib MiniMonitron-cache) (part Battery_Holder_CR1220))
       (sheetpath (names /) (tstamps /))
       (tstamp 5A82477B))
