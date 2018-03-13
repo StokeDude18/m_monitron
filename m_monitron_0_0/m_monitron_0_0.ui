@@ -860,7 +860,7 @@
   <widget class="QStatusBar" name="sbar_Device_Informations">
    <property name="font">
     <font>
-     <pointsize>16</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
   </widget>

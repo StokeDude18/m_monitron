@@ -320,7 +320,9 @@ public:
         m_monitron_0_0->setMenuBar(menuBar);
         sbar_Device_Informations = new QStatusBar(m_monitron_0_0);
         sbar_Device_Informations->setObjectName(QStringLiteral("sbar_Device_Informations"));
-        sbar_Device_Informations->setFont(font1);
+        QFont font13;
+        font13.setPointSize(14);
+        sbar_Device_Informations->setFont(font13);
         m_monitron_0_0->setStatusBar(sbar_Device_Informations);
 
         retranslateUi(m_monitron_0_0);

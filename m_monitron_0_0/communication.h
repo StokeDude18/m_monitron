@@ -75,6 +75,43 @@ enum
 	t_eoh2
 };
 
+enum
+{
+    t3_Setpoint1 = 4,
+    t3_Setpoint2,
+    t3_Setpoint3,
+    t3_Setpoint4,
+    t3_VarRate1,
+    t3_VarRate2,
+    t3_VarRate3,
+    t3_VarRate4,
+    t3_Cycle1_1,
+    t3_Cycle1_2,
+    t3_Setpoint1_1,
+    t3_Setpoint1_2,
+    t3_Setpoint1_3,
+    t3_Setpoint1_4,
+    t3_Cycle2_1,
+    t3_Cycle2_2,
+    t3_Setpoint2_1,
+    t3_Setpoint2_2,
+    t3_Setpoint2_3,
+    t3_Setpoint2_4,
+    t3_CycleMode,
+    t3_ControlRange1,
+    t3_ControlRange2,
+    t3_ControlRange3,
+    t3_ControlRange4,
+    t3_AlarmRange1,
+    t3_AlarmRange2,
+    t3_AlarmRange3,
+    t3_AlarmRange4,
+    t3_OP_Mode,
+    t3_Checksum,
+    t3_Eoh1,
+    t3_Eoh2
+};
+
 //Fin de trame dans la réception suite à une requête de fonction 0 
 enum trame0
 {
@@ -190,7 +227,7 @@ enum trame4
     f4Reponse,
     f4Checksum,
     f4Eoh1,
-    F4Eoh2
+    f4Eoh2
 };
 
 union float2bytes //Union pour la conversion de valeurs float en octets et vice versa
@@ -200,6 +237,12 @@ union float2bytes //Union pour la conversion de valeurs float en octets et vice 
 };
 
 union int2bytes //Union pour la conversion de valeurs int en octets et vice versa
+{
+    uint16_t i;
+    uint8_t b[2];
+};
+
+union int32Tobytes //Union utilisée dans la conversion des octets reçus concernant l'ID du module
 {
     uint32_t i;
     uint8_t b[4];

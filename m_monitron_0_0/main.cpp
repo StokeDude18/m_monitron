@@ -92,7 +92,7 @@ void *mainTask(void *args)
         tcflush(serial, TCIOFLUSH);
         usleep(3500000);  //Délai d'exécution
         send_Fonction(0, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
-        usleep(750000); //1s
+        usleep(1000000); //1s
     }
 }
 
@@ -138,7 +138,7 @@ void *do_Receive(void *args)
                    {
                        clear_RX(); //Si checksum invalide, vide le buffer de réception
                        error_count++;
-
+                       read_Flag = true; //analyser la trame reçue
                    }
                }
            }
@@ -152,13 +152,27 @@ void *do_Receive(void *args)
 */
 void send_Fonction(int8_t pos, int8_t fonct)
 {
-  trame_tx[t_soh] = T_SOH;
-  trame_tx[t_size] = 7;
-  trame_tx[t_pos] = pos;
-  trame_tx[t_fonction] = fonct;
-  trame_tx[t_checksum] = calcul_Checksum(trame_tx, trame_tx[t_size]);
-  trame_tx[t_eoh1] = T_EOH1;
-  trame_tx[t_eoh2] = T_EOH2;
+    if(fonct == f3)
+    {
+        trame_tx[t_soh] = T_SOH;
+        trame_tx[t_size] = 36;
+        trame_tx[t_pos] = pos;
+        trame_tx[t_fonction] = fonct;
+        wpointer->buildF3Frame(trame_tx);
+        trame_tx[t3_Checksum] = calcul_Checksum(trame_tx, trame_tx[t_size]);
+        trame_tx[t3_Eoh1] = T_EOH1;
+        trame_tx[t3_Eoh2] = T_EOH2;
+    }
+    else
+    {
+        trame_tx[t_soh] = T_SOH;
+        trame_tx[t_size] = 7;
+        trame_tx[t_pos] = pos;
+        trame_tx[t_fonction] = fonct;
+        trame_tx[t_checksum] = calcul_Checksum(trame_tx, trame_tx[t_size]);
+        trame_tx[t_eoh1] = T_EOH1;
+        trame_tx[t_eoh2] = T_EOH2;
+    }
 
 
   #ifdef DEBUG

@@ -14,9 +14,10 @@ class edit_Cycles : public QDialog
 public:
     explicit edit_Cycles(QWidget *parent = 0);
     ~edit_Cycles();
+    Ui::edit_Cycles *ui;
 
 private:
-    Ui::edit_Cycles *ui;
+
 };
 
 #endif // EDIT_CYCLES_H

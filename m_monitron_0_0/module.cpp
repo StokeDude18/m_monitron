@@ -16,27 +16,26 @@ module::module()
 
 void module::fillObjectParams(uint8_t *byteArray, uint8_t fonction)
 {
-    int2bytes   u_IDconv;
-    float2bytes u_Reading;
-    float2bytes u_setpoint;
-    float2bytes u_varRate;
-    int2bytes   u_cycle1;
-    int2bytes   u_cycle2;
-    float2bytes u_cycle1_setpoint;
-    float2bytes u_cycle2_setpoint;
-    float2bytes u_calib1_raw;
-    float2bytes u_calib2_raw;
-    float2bytes u_calib1_converted;
-    float2bytes u_calib2_converted;
-    float2bytes u_current_read_mV;
-    float2bytes u_control_range;
-    float2bytes u_alarm_range;
+    int32Tobytes u_IDconv;
+    float2bytes  u_Reading;
+    float2bytes  u_setpoint;
+    float2bytes  u_varRate;
+    int2bytes    u_cycle1;
+    int2bytes    u_cycle2;
+    float2bytes  u_cycle1_setpoint;
+    float2bytes  u_cycle2_setpoint;
+    float2bytes  u_calib1_raw;
+    float2bytes  u_calib2_raw;
+    float2bytes  u_calib1_converted;
+    float2bytes  u_calib2_converted;
+    float2bytes  u_current_read_mV;
+    float2bytes  u_control_range;
+    float2bytes  u_alarm_range;
 
     u_IDconv.b[0] = byteArray[r_id0];
     u_IDconv.b[1] = byteArray[r_id1];
     u_IDconv.b[2] = byteArray[r_id2];
     u_IDconv.b[3] = byteArray[r_id3];
-
     ID = u_IDconv.i;
 
     Type = byteArray[7];

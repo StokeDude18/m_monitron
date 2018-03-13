@@ -28,6 +28,7 @@ public:
     void printParams(module* mod, uint8_t fonction);
     uint8_t getNextFunction();
     void getNewParams(module *objNewParams);
+    void buildF3Frame(uint8_t* sendBuffer);
 
 
 private slots:

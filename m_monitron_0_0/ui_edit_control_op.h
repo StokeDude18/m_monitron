@@ -32,20 +32,22 @@ public:
     QLineEdit *tb_New_Control_Range;
     QComboBox *cb_GOP_Mode;
     QLabel *l_OP_Mode;
-    QComboBox *comboBox;
+    QComboBox *cb_OP_Mode;
     QLineEdit *tb_New_Alarm_Range;
+    QLabel *l_Alarm_Mode;
+    QComboBox *cb_Alarm_Mode;
 
     void setupUi(QDialog *edit_Control_OP)
     {
         if (edit_Control_OP->objectName().isEmpty())
             edit_Control_OP->setObjectName(QStringLiteral("edit_Control_OP"));
-        edit_Control_OP->resize(565, 400);
+        edit_Control_OP->resize(565, 421);
         QFont font;
         font.setPointSize(16);
         edit_Control_OP->setFont(font);
         buttonBox = new QDialogButtonBox(edit_Control_OP);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
-        buttonBox->setGeometry(QRect(200, 305, 181, 46));
+        buttonBox->setGeometry(QRect(195, 355, 181, 46));
         buttonBox->setFont(font);
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
@@ -79,14 +81,22 @@ public:
         l_OP_Mode->setObjectName(QStringLiteral("l_OP_Mode"));
         l_OP_Mode->setGeometry(QRect(85, 185, 176, 21));
         l_OP_Mode->setFont(font);
-        comboBox = new QComboBox(edit_Control_OP);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setGeometry(QRect(345, 180, 151, 31));
-        comboBox->setFont(font);
+        cb_OP_Mode = new QComboBox(edit_Control_OP);
+        cb_OP_Mode->setObjectName(QStringLiteral("cb_OP_Mode"));
+        cb_OP_Mode->setGeometry(QRect(345, 180, 151, 31));
+        cb_OP_Mode->setFont(font);
         tb_New_Alarm_Range = new QLineEdit(edit_Control_OP);
         tb_New_Alarm_Range->setObjectName(QStringLiteral("tb_New_Alarm_Range"));
         tb_New_Alarm_Range->setGeometry(QRect(345, 120, 156, 31));
         tb_New_Alarm_Range->setFont(font2);
+        l_Alarm_Mode = new QLabel(edit_Control_OP);
+        l_Alarm_Mode->setObjectName(QStringLiteral("l_Alarm_Mode"));
+        l_Alarm_Mode->setGeometry(QRect(85, 300, 261, 26));
+        l_Alarm_Mode->setFont(font);
+        cb_Alarm_Mode = new QComboBox(edit_Control_OP);
+        cb_Alarm_Mode->setObjectName(QStringLiteral("cb_Alarm_Mode"));
+        cb_Alarm_Mode->setGeometry(QRect(345, 295, 151, 31));
+        cb_Alarm_Mode->setFont(font);
 
         retranslateUi(edit_Control_OP);
         QObject::connect(buttonBox, SIGNAL(accepted()), edit_Control_OP, SLOT(accept()));
@@ -107,8 +117,14 @@ public:
          << QApplication::translate("edit_Control_OP", "Disabled", 0)
         );
         l_OP_Mode->setText(QApplication::translate("edit_Control_OP", "Operation Mode:", 0));
-        comboBox->clear();
-        comboBox->insertItems(0, QStringList()
+        cb_OP_Mode->clear();
+        cb_OP_Mode->insertItems(0, QStringList()
+         << QApplication::translate("edit_Control_OP", "Enabled", 0)
+         << QApplication::translate("edit_Control_OP", "Disabled", 0)
+        );
+        l_Alarm_Mode->setText(QApplication::translate("edit_Control_OP", "Global Operation Mode:", 0));
+        cb_Alarm_Mode->clear();
+        cb_Alarm_Mode->insertItems(0, QStringList()
          << QApplication::translate("edit_Control_OP", "Enabled", 0)
          << QApplication::translate("edit_Control_OP", "Disabled", 0)
         );

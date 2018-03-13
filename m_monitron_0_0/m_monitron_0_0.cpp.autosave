@@ -254,3 +254,8 @@ void m_monitron_0_0::getNewParams(module *objNewParams)
 {
     objNewParams = &m_newParams;
 }
+
+void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
+{
+    
+}
