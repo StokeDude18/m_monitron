@@ -61,6 +61,8 @@ int main(int argc, char *argv[])
     options.c_iflag = IGNPAR; //ignorer erreur de parité
     options.c_oflag = 0; //raw output
     options.c_lflag = 0; //echo off, non-canonical
+    //options.c_cc[VMIN] = 0;//Read non blocant
+    //options.c_cc[VTIME] = 2;//200 ms read timout
 
     //flush pour activer les settings du port
     tcflush(serial, TCIFLUSH);
@@ -85,14 +87,15 @@ void *mainTask(void *args)
         usleep(10000);
         m.fillObjectParams(buffer_traitement, buffer_traitement[r_fonction]); //Parsing des données reçues et modification des paramètres de l'objet module.
 
+        cout<< dec << buffer_traitement[r_fonction] << endl;
         usleep(100000); // Délai d'exécution
         wpointer->printParams(&m, buffer_traitement[r_fonction]); //Affichage des nouveaux paramètres dans le fenêtre principale
 
         clear_TX();
         tcflush(serial, TCIOFLUSH);
-        usleep(3500000);  //Délai d'exécution
+        usleep(1000000);  //Délai d'exécution
         send_Fonction(0, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
-        usleep(1000000); //1s
+        //usleep(500000); //1s
     }
 }
 
@@ -106,23 +109,31 @@ void *do_Receive(void *args)
 
     while(1)
     {
-       usleep(1000000);//1sec
+       usleep(100000);//1sec
        if(serial!=-1) //Si port série ouvert correctement
        {
+
            int rx_length = read(serial, (void*)trame_rx, NB_TRAME -1); //Lecture sur le port série 
            trame_rx[rx_length] = 0;
-           
+           usleep(trame_rx[rx_length] * 100);//100000);
+
+           //print_RX();
            if(rx_length > 0)
            {
+
                if(!read_Flag) //aucune analyse en cours
                {
                    if(trame_rx[r_soh] == 123) //bon SOH
                    {
+
                        //read_Flag = true;
-                       if(trame_rx[rx_length-2] == calcul_Checksum(trame_rx, rx_length)) //Si checksum valide
+                       usleep(/*trame_rx[rx_length * 100]*/100000);
+
+                       if(trame_rx[trame_rx[r_size]-2] == calcul_Checksum(trame_rx, trame_rx[r_size])) //Si checksum valide
                        {
                            error_count = 0;
-                           for(int i = 0; i < NB_TRAME; i++)
+
+                           for(int i = 0; i < trame_rx[r_size]; i++)
                                buffer_traitement[i] = trame_rx[i];
                            #ifdef DEBUG //Pour affichage dans terminal
                            print_RX();
@@ -131,13 +142,14 @@ void *do_Receive(void *args)
                            read_Flag = true; //analyser la trame reçue
                            t = 0; //remise du temps à zéro
                        }
-                       else
-                           read_Flag = true; //analyser la trame reçue
+                       /*else
+                           read_Flag = true; //analyser la trame reçue*/
                    }
                    else
                    {
                        clear_RX(); //Si checksum invalide, vide le buffer de réception
                        error_count++;
+                       usleep(1000000);
                        read_Flag = true; //analyser la trame reçue
                    }
                }
@@ -152,16 +164,18 @@ void *do_Receive(void *args)
 */
 void send_Fonction(int8_t pos, int8_t fonct)
 {
-    if(fonct == f3)
+    if(fonct == 3)
     {
         trame_tx[t_soh] = T_SOH;
-        trame_tx[t_size] = 36;
+        trame_tx[t_size] = 37;
         trame_tx[t_pos] = pos;
         trame_tx[t_fonction] = fonct;
         wpointer->buildF3Frame(trame_tx);
         trame_tx[t3_Checksum] = calcul_Checksum(trame_tx, trame_tx[t_size]);
         trame_tx[t3_Eoh1] = T_EOH1;
         trame_tx[t3_Eoh2] = T_EOH2;
+
+        wpointer->setNextFunction(1);
     }
     else
     {
@@ -217,11 +231,12 @@ uint8_t calcul_Checksum(uint8_t* trame, char t)
    uint8_t checksum = 0;
    for(int i=1; i<t-2;i++)
        checksum += trame[i];
-
+   //printf("checksum reçu: %d\n\r", trame[t-1]);
+   //printf("checksum calcul: %d\n\r", checksum);
    #ifdef DEBUG
    printf("checksum calcul: %d\n\r", checksum);
    #endif
-   return checksum;
+   return checksum & 0xFF;
 }
 
 
@@ -240,9 +255,9 @@ void print_TX()
 void print_RX()
 {
    cout << "Recu: ";
-   for(int i=0; i<NB_TRAME; i++)
+   for(int i=0; i<trame_rx[r_size]; i++)
    {
-       cout << hex << trame_rx[i] << " ";
+       cout << dec << trame_rx[i] << " ";
    }
    cout << endl;
 }

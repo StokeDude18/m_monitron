@@ -382,6 +382,18 @@
        <string>OFF</string>
       </property>
      </widget>
+     <zorder>l_Cycle_Mode_State</zorder>
+     <zorder>b_Edit_tCycles</zorder>
+     <zorder>l_Setpoint_Cycle_1</zorder>
+     <zorder>l_Cycle2</zorder>
+     <zorder>l_Setpoint_Cycle_2</zorder>
+     <zorder>l_Cycle1</zorder>
+     <zorder>l_Current_Cycle_1</zorder>
+     <zorder>l_Current_Cycle_2</zorder>
+     <zorder>l_Current_Cycle_Setpoint_1</zorder>
+     <zorder>l_Current_Cycle_Setpoint_2</zorder>
+     <zorder>l_Cycle_Mode_Current_State</zorder>
+     <zorder>b_Apply_Changes</zorder>
     </widget>
     <widget class="QWidget" name="t_Calibration">
      <attribute name="title">
@@ -834,7 +846,7 @@
       <x>610</x>
       <y>10</y>
       <width>181</width>
-      <height>41</height>
+      <height>36</height>
      </rect>
     </property>
     <property name="font">

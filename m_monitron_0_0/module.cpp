@@ -38,6 +38,7 @@ void module::fillObjectParams(uint8_t *byteArray, uint8_t fonction)
     u_IDconv.b[3] = byteArray[r_id3];
     ID = u_IDconv.i;
 
+
     Type = byteArray[7];
     Position = byteArray[2];
 
@@ -48,6 +49,8 @@ void module::fillObjectParams(uint8_t *byteArray, uint8_t fonction)
         u_Reading.b[2] = byteArray[11];
         u_Reading.b[3] = byteArray[12];
         Lecture = u_Reading.f;
+
+
 
         u_setpoint.b[0] = byteArray[13];
         u_setpoint.b[1] = byteArray[14];
@@ -98,6 +101,8 @@ void module::fillObjectParams(uint8_t *byteArray, uint8_t fonction)
             u_calib2_raw.b[3] = byteArray[f1CalibLecture2_mV4];
             Calib.raw_P2 = u_calib2_raw.f;
 
+            cout << Calib.raw_P2 << endl;
+
             u_calib1_converted.b[0] = byteArray[f1CalibLecture1_C1];
             u_calib1_converted.b[1] = byteArray[f1CalibLecture1_C2];
             u_calib1_converted.b[2] = byteArray[f1CalibLecture1_C3];
@@ -131,6 +136,8 @@ void module::fillObjectParams(uint8_t *byteArray, uint8_t fonction)
             Control.Alarm = byteArray[f1Alarm];
             Control.OP_Mode = byteArray[f1OperatingMode];
             Control.Global_OP_Mode = byteArray[f1GlobalOperatingMode];
+
+
         }
     }
 }

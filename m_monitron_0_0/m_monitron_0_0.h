@@ -22,20 +22,20 @@ class m_monitron_0_0 : public QMainWindow
 
 public:
     explicit m_monitron_0_0(QWidget *parent = 0);
-    ~m_monitron_0_0();
-    double m_valSetpoint;
-    double m_valVarRate;
+    ~m_monitron_0_0();    
+
     void printParams(module* mod, uint8_t fonction);
     uint8_t getNextFunction();
     void getNewParams(module *objNewParams);
     void buildF3Frame(uint8_t* sendBuffer);
-
+    void setNextFunction(uint8_t function);
 
 private slots:
     void on_b_Edit_tLecture_clicked();
     void on_b_Edit_tCycles_clicked();
     void on_b_Edit_tCalibration_clicked();
     void on_b_Edit_tControl_clicked();
+    void on_b_Apply_Changes_clicked();
 
 private:
     Ui::m_monitron_0_0 *ui;

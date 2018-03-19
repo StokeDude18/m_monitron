@@ -186,6 +186,17 @@ public:
         l_Cycle_Mode_Current_State->setGeometry(QRect(420, 30, 86, 41));
         l_Cycle_Mode_Current_State->setFont(font3);
         cb_O_Mode->addTab(t_Cycles, QString());
+        l_Cycle_Mode_State->raise();
+        b_Edit_tCycles->raise();
+        l_Setpoint_Cycle_1->raise();
+        l_Cycle2->raise();
+        l_Setpoint_Cycle_2->raise();
+        l_Cycle1->raise();
+        l_Current_Cycle_1->raise();
+        l_Current_Cycle_2->raise();
+        l_Current_Cycle_Setpoint_1->raise();
+        l_Current_Cycle_Setpoint_2->raise();
+        l_Cycle_Mode_Current_State->raise();
         t_Calibration = new QWidget();
         t_Calibration->setObjectName(QStringLiteral("t_Calibration"));
         l_Lecture_mV = new QLabel(t_Calibration);
@@ -311,7 +322,7 @@ public:
         cb_O_Mode->addTab(t_Graph, QString());
         b_Apply_Changes = new QPushButton(centralWidget);
         b_Apply_Changes->setObjectName(QStringLiteral("b_Apply_Changes"));
-        b_Apply_Changes->setGeometry(QRect(610, 10, 181, 41));
+        b_Apply_Changes->setGeometry(QRect(610, 10, 181, 36));
         b_Apply_Changes->setFont(font11);
         m_monitron_0_0->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(m_monitron_0_0);

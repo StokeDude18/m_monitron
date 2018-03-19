@@ -49,6 +49,7 @@ void m_monitron_0_0::on_b_Edit_tLecture_clicked()
         try
         {
           m_newParams.Setpoint = edit_w_Lecture.ui->tb_new_setpoint->text().toFloat();
+          m_newParams.Var_Rate = edit_w_Lecture.ui->tb_new_var_rate->text().toFloat();
         }
         catch(exception& e)
         {
@@ -241,6 +242,8 @@ void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
             ui->l_Current_Operation_Mode->setText((mod->Control.OP_Mode == 1) ? "Enabled": "Disabled");
 
             ui->l_Current_Gloabal_Operation_Mode->setText((mod->Control.Global_OP_Mode == 1) ? "Enabled": "Disabled");
+
+            m_newParams = *mod;
         }
     }
 }
@@ -250,7 +253,87 @@ uint8_t m_monitron_0_0::getNextFunction()
     return nextFunction;
 }
 
+void m_monitron_0_0::setNextFunction(uint8_t function)
+{
+    if(function >= 0 && function <= 4)
+        nextFunction = function;
+    cout << nextFunction << endl;
+}
+
 void m_monitron_0_0::getNewParams(module *objNewParams)
 {
     objNewParams = &m_newParams;
+}
+
+void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
+{
+    float2bytes  u_setpoint;
+    float2bytes  u_varRate;
+    int2bytes    u_cycle1;
+    int2bytes    u_cycle2;
+    float2bytes  u_cycle1_setpoint;
+    float2bytes  u_cycle2_setpoint;
+    /*float2bytes  u_calib1_raw;
+    float2bytes  u_calib2_raw;
+    float2bytes  u_calib1_converted;
+    float2bytes  u_calib2_converted;*/
+    float2bytes  u_control_range;
+    float2bytes  u_alarm_range;
+
+    u_setpoint.f = m_newParams.Setpoint;
+    sendBuffer[t3_Setpoint1] = u_setpoint.b[0];
+    sendBuffer[t3_Setpoint2] = u_setpoint.b[1];
+    sendBuffer[t3_Setpoint3] = u_setpoint.b[2];
+    sendBuffer[t3_Setpoint4] = u_setpoint.b[3];
+
+    u_varRate.f = m_newParams.Var_Rate;
+    sendBuffer[t3_VarRate1]  = u_varRate.b[0];
+    sendBuffer[t3_VarRate2]  = u_varRate.b[1];
+    sendBuffer[t3_VarRate3]  = u_varRate.b[2];
+    sendBuffer[t3_VarRate4]  = u_varRate.b[3];
+
+    u_cycle1.i = m_newParams.Cycles.Cycle1;
+    sendBuffer[t3_Cycle1_1]  = u_cycle1.b[0];
+    sendBuffer[t3_Cycle1_2]  = u_cycle1.b[1];
+
+    u_cycle2.i = m_newParams.Cycles.Cycle2;
+    sendBuffer[t3_Cycle2_1]  = u_cycle2.b[0];
+    sendBuffer[t3_Cycle2_2]  = u_cycle2.b[1];
+
+    u_cycle1_setpoint.f = m_newParams.Cycles.Setpoint1;
+    sendBuffer[t3_Setpoint1_1]  = u_cycle1_setpoint.b[0];
+    sendBuffer[t3_Setpoint1_2]  = u_cycle1_setpoint.b[1];
+    sendBuffer[t3_Setpoint1_3]  = u_cycle1_setpoint.b[2];
+    sendBuffer[t3_Setpoint1_4]  = u_cycle1_setpoint.b[3];
+
+    u_cycle2_setpoint.f = m_newParams.Cycles.Setpoint2;
+    sendBuffer[t3_Setpoint2_1]  = u_cycle2_setpoint.b[0];
+    sendBuffer[t3_Setpoint2_2]  = u_cycle2_setpoint.b[1];
+    sendBuffer[t3_Setpoint2_3]  = u_cycle2_setpoint.b[2];
+    sendBuffer[t3_Setpoint2_4]  = u_cycle2_setpoint.b[3];
+
+    /*u_calib1_raw.f = m_newParams.Calib.raw_P1;
+    u_calib2_raw.f = m_newParams.Calib.raw_P2;
+    u_calib1_converted.f = m_newParams.Calib.converted_P1;
+    u_calib2_converted.f = m_newParams.Calib.converted_P2;*/
+
+    u_control_range.f = m_newParams.Control.Control_Range;
+    sendBuffer[t3_ControlRange1] = u_control_range.b[0];
+    sendBuffer[t3_ControlRange2] = u_control_range.b[1];
+    sendBuffer[t3_ControlRange3] = u_control_range.b[2];
+    sendBuffer[t3_ControlRange4] = u_control_range.b[3];
+
+    u_alarm_range.f = m_newParams.Control.Alarm_Range;
+    sendBuffer[t3_AlarmRange1] = u_alarm_range.b[0];
+    sendBuffer[t3_AlarmRange2] = u_alarm_range.b[1];
+    sendBuffer[t3_AlarmRange3] = u_alarm_range.b[2];
+    sendBuffer[t3_AlarmRange4] = u_alarm_range.b[3];
+
+    sendBuffer[t3_OP_Mode] = m_newParams.Control.OP_Mode;
+}
+
+
+void m_monitron_0_0::on_b_Apply_Changes_clicked()
+{
+    nextFunction = 3;
 }
