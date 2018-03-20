@@ -17,7 +17,9 @@ string modules_Name[NB_MODULE];			//Noms des modules
 int8_t nb_Module = -1;
 
 bool end_fonct0 = false;
-int8_t t= 0; //temps écoulé
+uint8_t t= 0; //temps écoulé
+uint8_t previousFunct = 0;
+uint8_t receivedFunction = 0;
 bool read_Flag = false;					
 
 //Chaînes d'entrée de données pour la BD
@@ -68,11 +70,12 @@ int main(int argc, char *argv[])
     tcflush(serial, TCIFLUSH);
     tcsetattr(serial, TCSANOW, &options);
 
+    wpointer = &w; //Pointeur vers la fenêtre principale
     pthread_create(&thread_Receive, NULL, do_Receive, (void*)NULL);	//thread de reception des trames
     send_Fonction(0,1); //Envoi de la fonction d'acquisition des modules sur le bus can
     pthread_create(&thread_Main,NULL, mainTask, (void*)NULL); //Création du thread de logique principal
 
-    wpointer = &w; //Pointeur vers la fenêtre principale
+
     return a.exec(); //Exécution de la boucle principale faisant la gestion de la fenêtre
 }
 
@@ -84,18 +87,30 @@ void *mainTask(void *args)
         while(!read_Flag);
         read_Flag = false;
 
-        usleep(10000);
-        m.fillObjectParams(buffer_traitement, buffer_traitement[r_fonction]); //Parsing des données reçues et modification des paramètres de l'objet module.
+        switch(buffer_traitement[r_fonction])
+        {
+        case 0:
+        case 1:
+        case 2:
+            usleep(10000);
+            m.fillObjectParams(buffer_traitement, buffer_traitement[r_fonction]); //Parsing des données reçues et modification des paramètres de l'objet module.
 
-        cout<< dec << buffer_traitement[r_fonction] << endl;
-        usleep(100000); // Délai d'exécution
-        wpointer->printParams(&m, buffer_traitement[r_fonction]); //Affichage des nouveaux paramètres dans le fenêtre principale
+            cout<< dec << buffer_traitement[r_fonction] << endl;
+            usleep(100000); // Délai d'exécution
+            wpointer->printParams(&m, buffer_traitement[r_fonction]); //Affichage des nouveaux paramètres dans le fenêtre principale
+            break;
+        case 3:
+            wpointer->setNextFunction(1);
+            break;
+        }
 
-        clear_TX();
         tcflush(serial, TCIOFLUSH);
         usleep(1000000);  //Délai d'exécution
         send_Fonction(0, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
-        //usleep(500000); //1s
+        usleep(100000); //1s
+
+        if(previousFunct == 3)
+            usleep(1000000);
     }
 }
 
@@ -138,7 +153,7 @@ void *do_Receive(void *args)
                            #ifdef DEBUG //Pour affichage dans terminal
                            print_RX();
                            #endif
-
+                           clear_RX();
                            read_Flag = true; //analyser la trame reçue
                            t = 0; //remise du temps à zéro
                        }
@@ -162,8 +177,9 @@ void *do_Receive(void *args)
  * Params:	pos: 	Position du module dans l'ordre de découverte du PI
  *			fonct:  Fonction que l'on désire envoyer
 */
-void send_Fonction(int8_t pos, int8_t fonct)
+void send_Fonction(uint8_t pos, uint8_t fonct)
 {
+    clear_TX();
     if(fonct == 3)
     {
         trame_tx[t_soh] = T_SOH;
@@ -186,6 +202,11 @@ void send_Fonction(int8_t pos, int8_t fonct)
         trame_tx[t_checksum] = calcul_Checksum(trame_tx, trame_tx[t_size]);
         trame_tx[t_eoh1] = T_EOH1;
         trame_tx[t_eoh2] = T_EOH2;
+
+        if(fonct == 1 && previousFunct == 3)
+            wpointer->setNextFunction(2);
+        /*if(wpointer->getNextFunction() == 1)
+            wpointer->setNextFunction(2);*/
     }
 
 
@@ -200,6 +221,7 @@ void send_Fonction(int8_t pos, int8_t fonct)
 	   if(count < 0)	//Si problème lors de l'écriture
            printf("Write Failed.\n");
    }   
+   previousFunct = fonct;
 }
 
 /**
@@ -226,13 +248,13 @@ void clear_TX()
 * @param trame[] = la trame à vérifier, t = nombre de char à calculer pour le checksum
 * @return le checksum calculé
 **/
-uint8_t calcul_Checksum(uint8_t* trame, char t)
+uint8_t calcul_Checksum(uint8_t* trame, uint8_t t)
 {
    uint8_t checksum = 0;
    for(int i=1; i<t-2;i++)
        checksum += trame[i];
-   //printf("checksum reçu: %d\n\r", trame[t-1]);
-   //printf("checksum calcul: %d\n\r", checksum);
+   printf("checksum reçu: %d\n\r", trame[trame_rx[r_size]-2]);
+   printf("checksum calcul: %d\n\r", checksum);
    #ifdef DEBUG
    printf("checksum calcul: %d\n\r", checksum);
    #endif

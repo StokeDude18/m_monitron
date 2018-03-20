@@ -50,23 +50,21 @@ void module::fillObjectParams(uint8_t *byteArray, uint8_t fonction)
         u_Reading.b[3] = byteArray[12];
         Lecture = u_Reading.f;
 
-
-
         u_setpoint.b[0] = byteArray[13];
         u_setpoint.b[1] = byteArray[14];
         u_setpoint.b[2] = byteArray[15];
         u_setpoint.b[3] = byteArray[16];
         Setpoint = u_setpoint.f;
 
-        u_varRate.b[0] = byteArray[17];
-        u_varRate.b[1] = byteArray[18];
-        u_varRate.b[2] = byteArray[19];
-        u_varRate.b[3] = byteArray[20];
-        Var_Rate = u_varRate.f;
-
-
-        if(fonction == 1)
+        switch(fonction)
         {
+        case 1:
+            u_varRate.b[0] = byteArray[17];
+            u_varRate.b[1] = byteArray[18];
+            u_varRate.b[2] = byteArray[19];
+            u_varRate.b[3] = byteArray[20];
+            Var_Rate = u_varRate.f;
+
             u_cycle1.b[0] = byteArray[f1Cycle1_1];
             u_cycle1.b[1] = byteArray[f1Cycle1_2];
             Cycles.Cycle1 = u_cycle1.i;
@@ -136,7 +134,10 @@ void module::fillObjectParams(uint8_t *byteArray, uint8_t fonction)
             Control.Alarm = byteArray[f1Alarm];
             Control.OP_Mode = byteArray[f1OperatingMode];
             Control.Global_OP_Mode = byteArray[f1GlobalOperatingMode];
-
+            break;
+        case 2:
+            Control.Alarm = byteArray[f2Alarm];
+            break;
 
         }
     }

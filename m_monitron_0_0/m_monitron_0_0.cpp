@@ -257,7 +257,6 @@ void m_monitron_0_0::setNextFunction(uint8_t function)
 {
     if(function >= 0 && function <= 4)
         nextFunction = function;
-    cout << nextFunction << endl;
 }
 
 void m_monitron_0_0::getNewParams(module *objNewParams)
@@ -281,6 +280,7 @@ void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
     float2bytes  u_alarm_range;
 
     u_setpoint.f = m_newParams.Setpoint;
+    printf("Setpoint: %f\n", m_newParams.Setpoint);
     sendBuffer[t3_Setpoint1] = u_setpoint.b[0];
     sendBuffer[t3_Setpoint2] = u_setpoint.b[1];
     sendBuffer[t3_Setpoint3] = u_setpoint.b[2];

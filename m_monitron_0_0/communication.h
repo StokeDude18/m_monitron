@@ -253,8 +253,8 @@ union int32Tobytes //Union utilisée dans la conversion des octets reçus concer
 void *do_Receive(void *args);						//Thread de réception des données
 void *mainTask(void *args);							//Thread principal (logique d'alternance réception/envoi)
 void clear_RX();									//Flush du buffer de réception
-void send_Fonction(int8_t r_pos, int8_t fonct);		//Fonction d'envoi vers le module d'acquisition
-uint8_t calcul_Checksum(uint8_t* trame, char t);	//Fonction de calcul du checksum
+void send_Fonction(uint8_t r_pos, uint8_t fonct);		//Fonction d'envoi vers le module d'acquisition
+uint8_t calcul_Checksum(uint8_t* trame, uint8_t t);	//Fonction de calcul du checksum
 void print_TX();									//Fonction d'affichage du contenu envoyé dans le terminal
 void print_RX();									//Fonction d'affichage du contenu reçu dans le terminal	
 bool tableVerify(string name);						//Fonction de vérification d'existence d'un nom de table associé à un module 

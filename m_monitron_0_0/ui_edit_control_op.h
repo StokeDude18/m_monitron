@@ -108,7 +108,7 @@ public:
     void retranslateUi(QDialog *edit_Control_OP)
     {
         edit_Control_OP->setWindowTitle(QApplication::translate("edit_Control_OP", "Control params edit", 0));
-        l_Alarm_Range->setText(QApplication::translate("edit_Control_OP", "Safe operation range:", 0));
+        l_Alarm_Range->setText(QApplication::translate("edit_Control_OP", "Alarm range", 0));
         l_COntrol_Range->setText(QApplication::translate("edit_Control_OP", "Control range:", 0));
         l_GOP_Mode->setText(QApplication::translate("edit_Control_OP", "Global Operation Mode:", 0));
         cb_GOP_Mode->clear();

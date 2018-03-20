@@ -54,7 +54,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Safe operation range:</string>
+    <string>Alarm range</string>
    </property>
   </widget>
   <widget class="QLabel" name="l_COntrol_Range">
