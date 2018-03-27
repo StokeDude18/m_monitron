@@ -15,6 +15,7 @@ class module
 {
 public:
     module();
+    module(uint8_t id);
     uint32_t ID;
 
     int8_t Type;

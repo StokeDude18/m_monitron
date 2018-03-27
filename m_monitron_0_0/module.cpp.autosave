@@ -18,8 +18,10 @@ module::module(uint8_t id)
 
 }
 
+//Méthode utilisée pour convertir une trame découpée en octets vers les paramètres de l'objet module
 void module::fillObjectParams(uint8_t *byteArray, uint8_t fonction)
 {
+    //Unions utilisées pour déconstruire la trame
     int32Tobytes u_IDconv;
     float2bytes  u_Reading;
     float2bytes  u_setpoint;

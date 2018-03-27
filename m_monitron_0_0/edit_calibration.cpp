@@ -4,11 +4,16 @@
 #include "communication.h"
 #include <QString>
 
+
+//Constructeur
 edit_Calibration::edit_Calibration(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::edit_Calibration)
 {    
     ui->setupUi(this);
+
+    //Ajout d'un validateur dans les textbox d'édition de paramètres pour permettre
+    //uniquement l'entrée de valeurs numériques
     ui->tb_P1_mV->setValidator(new QDoubleValidator(0, 5000, 2, this));
     ui->tb_P1_Convert_Unit->setValidator(new QDoubleValidator(0, 10000, 3, this));
     ui->tb_P2_mV->setValidator(new QDoubleValidator(0, 5000, 2, this));

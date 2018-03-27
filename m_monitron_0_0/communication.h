@@ -63,7 +63,7 @@ enum
     r_fonction
 };
 
-//Position des bytes en en envoi
+//Position des bytes en en envoi pour les fonctions 0,1 et 2
 enum
 {
 	t_soh=0,
@@ -75,6 +75,7 @@ enum
 	t_eoh2
 };
 
+//Position des bytes en en envoi pour la fonction 3
 enum
 {
     t3_Setpoint1 = 4,
@@ -252,6 +253,7 @@ union int32Tobytes //Union utilisée dans la conversion des octets reçus concer
 /* PROTOTYPES */
 void *do_Receive(void *args);						//Thread de réception des données
 void *mainTask(void *args);							//Thread principal (logique d'alternance réception/envoi)
+void parseData(uint8_t* data);
 void clear_RX();									//Flush du buffer de réception
 void send_Fonction(uint8_t r_pos, uint8_t fonct);		//Fonction d'envoi vers le module d'acquisition
 uint8_t calcul_Checksum(uint8_t* trame, uint8_t t);	//Fonction de calcul du checksum

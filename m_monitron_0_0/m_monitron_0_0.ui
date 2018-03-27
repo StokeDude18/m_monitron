@@ -28,7 +28,7 @@
       <x>10</x>
       <y>15</y>
       <width>781</width>
-      <height>401</height>
+      <height>351</height>
      </rect>
     </property>
     <property name="font">
@@ -37,7 +37,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="t_Lecture">
      <attribute name="title">
@@ -382,18 +382,6 @@
        <string>OFF</string>
       </property>
      </widget>
-     <zorder>l_Cycle_Mode_State</zorder>
-     <zorder>b_Edit_tCycles</zorder>
-     <zorder>l_Setpoint_Cycle_1</zorder>
-     <zorder>l_Cycle2</zorder>
-     <zorder>l_Setpoint_Cycle_2</zorder>
-     <zorder>l_Cycle1</zorder>
-     <zorder>l_Current_Cycle_1</zorder>
-     <zorder>l_Current_Cycle_2</zorder>
-     <zorder>l_Current_Cycle_Setpoint_1</zorder>
-     <zorder>l_Current_Cycle_Setpoint_2</zorder>
-     <zorder>l_Cycle_Mode_Current_State</zorder>
-     <zorder>b_Apply_Changes</zorder>
     </widget>
     <widget class="QWidget" name="t_Calibration">
      <attribute name="title">
@@ -856,6 +844,16 @@
     </property>
     <property name="text">
      <string>Apply changes</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cb_Module_Select">
+    <property name="geometry">
+     <rect>
+      <x>505</x>
+      <y>375</y>
+      <width>286</width>
+      <height>36</height>
+     </rect>
     </property>
    </widget>
   </widget>

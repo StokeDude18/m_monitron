@@ -20,12 +20,11 @@
 
 using namespace std;
 
-
+//Constructeur
 m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui::m_monitron_0_0)
 {
-    ui->setupUi(this);
-    //ui->sbar_Device_Informations->showMessage(tr("Device ID:        Position:       Sensor type: "));
-    nextFunction = 2;
+    ui->setupUi(this);    
+    nextFunction = 2;//prépare la prochaine fonction à envoyer
 }
 
 m_monitron_0_0::~m_monitron_0_0()
@@ -33,37 +32,43 @@ m_monitron_0_0::~m_monitron_0_0()
     delete ui;
 }
 
+//Événement Click du bouton Edit de l'onglet Reading de la fenêtre
 void m_monitron_0_0::on_b_Edit_tLecture_clicked()
 {    
     QString qs_lecture;
+
+    //Conversion des valeurs de l'objet en QString dans les boîtes de texte de la fenêtre d'édition
     qs_lecture.sprintf("%.2f", m.Setpoint);
     edit_w_Lecture.ui->tb_new_setpoint->setText(qs_lecture);
 
     qs_lecture.sprintf("%.2f", m.Var_Rate);
     edit_w_Lecture.ui->tb_new_var_rate->setText(qs_lecture);
 
-    edit_w_Lecture.exec();
+    edit_w_Lecture.exec();//Affiche la fenêtre de dialogue
 
-    if(edit_w_Lecture.result() == QDialog::Accepted)
+    if(edit_w_Lecture.result() == QDialog::Accepted)//Bouton OK
     {
+        //Conversion des valeurs dans les boîtes de texte
         try
         {
           m_newParams.Setpoint = edit_w_Lecture.ui->tb_new_setpoint->text().toFloat();
           m_newParams.Var_Rate = edit_w_Lecture.ui->tb_new_var_rate->text().toFloat();
         }
-        catch(exception& e)
+        catch(exception& e)//Si erreur lors de la conversion, affiche un message d'erreur
         {
             error_Msg_Box.setText("Please enter a valid value.");
             error_Msg_Box.exec();
         }          
     }
-    //ui->sbar_Device_Informations
 }
 
+//Événement Click du bouton Edit de l'onglet Cycles de la fenêtre
 void m_monitron_0_0::on_b_Edit_tCycles_clicked()
 {
     QString qs_cycles;
 
+
+    //Conversion des valeurs de l'objet en QString dans les boîtes de texte de la fenêtre d'édition
     qs_cycles.sprintf("%u", m.Cycles.Cycle1);
     edit_w_Cycles.ui->tb_Cycle1->setText(qs_cycles);
 
@@ -76,10 +81,11 @@ void m_monitron_0_0::on_b_Edit_tCycles_clicked()
     qs_cycles.sprintf("%.2f", m.Cycles.Setpoint2);
     edit_w_Cycles.ui->tb_Setpoint2->setText(qs_cycles);
 
-    edit_w_Cycles.exec();
+    edit_w_Cycles.exec();//Affiche la fenêtre de dialogue
 
-    if(edit_w_Cycles.result() == QDialog::Accepted)
+    if(edit_w_Cycles.result() == QDialog::Accepted)//Bouton OK
     {
+        //Conversion des valeurs dans les boîtes de texte
         try
         {
             m_newParams.Cycles.Cycle1 = edit_w_Cycles.ui->tb_Cycle1->text().toInt();
@@ -87,7 +93,7 @@ void m_monitron_0_0::on_b_Edit_tCycles_clicked()
             m_newParams.Cycles.Setpoint1 = edit_w_Cycles.ui->tb_Setpoint1->text().toFloat();
             m_newParams.Cycles.Setpoint2 = edit_w_Cycles.ui->tb_Setpoint2->text().toFloat();
         }
-        catch(exception& e)
+        catch(exception& e)//Si erreur lors de la conversion, affiche un message d'erreur
         {
             error_Msg_Box.setText("Please enter a valid value.");
             error_Msg_Box.exec();
@@ -95,9 +101,12 @@ void m_monitron_0_0::on_b_Edit_tCycles_clicked()
     }
 }
 
+//Événement Click du bouton Edit de l'onglet Calib de la fenêtre
 void m_monitron_0_0::on_b_Edit_tCalibration_clicked()
 {
     QString qs_calib;
+
+    //Conversion des valeurs de l'objet en QString dans les boîtes de texte de la fenêtre d'édition
     qs_calib.sprintf("%.2f", m.Calib.raw_P1);
     edit_w_Calib.ui->tb_P1_mV->setText(qs_calib);
 
@@ -109,19 +118,20 @@ void m_monitron_0_0::on_b_Edit_tCalibration_clicked()
 
     qs_calib.sprintf("%.2f", m.Calib.converted_P2);
     edit_w_Calib.ui->tb_P2_Convert_Unit->setText(qs_calib);
-    edit_w_Calib.exec();
 
-    if(edit_w_Calib.result() == QDialog::Accepted)
+    edit_w_Calib.exec();//Affiche la fenêtre de dialogue
+
+    if(edit_w_Calib.result() == QDialog::Accepted)//Bouton OK
     {
+        //Conversion des valeurs dans les boîtes de texte
         try
         {
           m_newParams.Calib.raw_P1 = edit_w_Calib.ui->tb_P1_mV->text().toFloat();
           m_newParams.Calib.converted_P1 = edit_w_Calib.ui->tb_P1_Convert_Unit->text().toFloat();
           m_newParams.Calib.raw_P2 = edit_w_Calib.ui->tb_P2_mV->text().toFloat();
           m_newParams.Calib.converted_P2 = edit_w_Calib.ui->tb_P2_Convert_Unit->text().toFloat();
-          //nextFunction = f3;
         }
-        catch(exception& e)
+        catch(exception& e)//Si erreur lors de la conversion, affiche un message d'erreur
         {
             error_Msg_Box.setText("Please enter a valid value.");
             error_Msg_Box.exec();
@@ -129,17 +139,24 @@ void m_monitron_0_0::on_b_Edit_tCalibration_clicked()
     }
 }
 
+
+//Événement Click du bouton Edit de l'onglet Control de la fenêtre
 void m_monitron_0_0::on_b_Edit_tControl_clicked()
 {
     QString qs_control;
+
+    //Conversion des valeurs de l'objet en QString dans les boîtes de texte de la fenêtre d'édition
     qs_control.sprintf("%.2f", m.Control.Alarm_Range);
     edit_w_ControlOP.ui->tb_New_Alarm_Range->setText(qs_control);
 
     qs_control.sprintf("%.2f", m.Control.Control_Range);
     edit_w_ControlOP.ui->tb_New_Control_Range->setText(qs_control);
-    edit_w_ControlOP.exec();
-    if(edit_w_ControlOP.result() == QDialog::Accepted)
+
+    edit_w_ControlOP.exec();//Affiche la fenêtre de dialogue
+
+    if(edit_w_ControlOP.result() == QDialog::Accepted)//Bouton OK
     {
+        //Conversion des valeurs dans les boîtes de texte
         try
         {
             m_newParams.Control.Alarm_Range = edit_w_ControlOP.ui->tb_New_Alarm_Range->text().toFloat();
@@ -148,7 +165,7 @@ void m_monitron_0_0::on_b_Edit_tControl_clicked()
             m_newParams.Control.OP_Mode = (edit_w_ControlOP.ui->cb_OP_Mode->currentText() == "Enabled") ? 1 : 0;
             m_newParams.Control.Global_OP_Mode = (edit_w_ControlOP.ui->cb_GOP_Mode->currentText() == "Enabled") ? 1 : 0;
         }
-        catch(exception& e)
+        catch(exception& e)//Si erreur lors de la conversion, affiche un message d'erreur
         {
             error_Msg_Box.setText("Please enter a valid value.");
             error_Msg_Box.exec();
@@ -156,12 +173,14 @@ void m_monitron_0_0::on_b_Edit_tControl_clicked()
     }
 }
 
+//Méthode servant à afficher des nouveaux paramètres dans l'interface usager
 void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
 {
-
     //string qs = "Device ID: " + to_string(mod->ID) + "  Position: " + to_string((char)mod->Position) + "  Type: " + to_string((char)mod->Type);
     char module_type[20];
     QString qs;// = QString("Device ID: %1  Position: %2  Type: %3").arg(to_string(mod->ID), to_string((char)mod->Position), to_string((char)mod->Type));
+
+    //Détermine le texte à afficher dans la barre d'état en fonction du type de capteur
     switch(mod->Type)
     {
     case 0:
@@ -190,10 +209,11 @@ void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
 
     }
 
+    //Affiche la barre d'état
     qs.sprintf("Device ID: %u  Position: %d  Type: %s   G. Op. Mode: %s", mod->ID, mod->Position, module_type, (mod->Control.Global_OP_Mode == 0) ? "Disabled" : "Enabled");
     ui->sbar_Device_Informations->showMessage(qs);
 
-    if(fonction > 0)
+    if(fonction > 0)//Les nouveaux paramètres dans l'interface
     {
         qs.sprintf("%.2f", mod->Lecture);
         ui->l_current_Reading->setText(qs);
@@ -248,24 +268,29 @@ void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
     }
 }
 
+//Méthode publique servant à évaluer dicter au processus principal la prochaîne requête au module d'acquisition
 uint8_t m_monitron_0_0::getNextFunction()
 {
     return nextFunction;
 }
 
+//Méthode publique permettant au processus principal de dicter la prochaine fonction à envoyer
 void m_monitron_0_0::setNextFunction(uint8_t function)
 {
     if(function >= 0 && function <= 4)
         nextFunction = function;
 }
 
+//Méthode utilisée pour rassembler les nouveux paramètres avant de les envoyer au MBED
 void m_monitron_0_0::getNewParams(module *objNewParams)
 {
     objNewParams = &m_newParams;
 }
 
+//Méthode utilisée pour bâtir une trame d'édition de paramètres
 void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
 {
+    //Unions servant à diviser les données en octets pour l'envoi sur le port série
     float2bytes  u_setpoint;
     float2bytes  u_varRate;
     int2bytes    u_cycle1;
@@ -332,8 +357,19 @@ void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
     sendBuffer[t3_OP_Mode] = m_newParams.Control.OP_Mode;
 }
 
-
+//Événement au clic du bouton Apply changes
 void m_monitron_0_0::on_b_Apply_Changes_clicked()
 {
+    //Spécifie au programme que la prochaine trame d'envoi sera une trame d'édition de paramètres
     nextFunction = 3;
+}
+
+
+//Méthode ajoutant les numéros d'identification des modules dans un combo box de la fenêtre principale
+//pour la sélection du module courant
+void m_monitron_0_0::addModuleToMenu(uint32_t modID)
+{
+    QString qs;
+    qs.sprintf("%d", modID);
+    ui->cb_Module_Select->addItem(qs);//Ajout du ID du module.
 }

@@ -24,13 +24,15 @@ public:
     explicit m_monitron_0_0(QWidget *parent = 0);
     ~m_monitron_0_0();    
 
+    //Prototypes de méthodes
     void printParams(module* mod, uint8_t fonction);
     uint8_t getNextFunction();
     void getNewParams(module *objNewParams);
     void buildF3Frame(uint8_t* sendBuffer);
     void setNextFunction(uint8_t function);
+    void addModuleToMenu(uint32_t modID);
 
-private slots:
+private slots: //Événements de la fenêtre graphique
     void on_b_Edit_tLecture_clicked();
     void on_b_Edit_tCycles_clicked();
     void on_b_Edit_tCalibration_clicked();
@@ -38,12 +40,16 @@ private slots:
     void on_b_Apply_Changes_clicked();
 
 private:
-    Ui::m_monitron_0_0 *ui;
+
+    Ui::m_monitron_0_0 *ui;//Pointeur vers la fenêtre graphique m_monitron_0_0.ui
+
+    //Fenètres d'édition
     edit_Lecture edit_w_Lecture;
     edit_Cycles edit_w_Cycles;
     edit_Calibration edit_w_Calib;
-    edit_Control_OP edit_w_ControlOP;    
-    QMessageBox error_Msg_Box;
+    edit_Control_OP edit_w_ControlOP;
+
+    QMessageBox error_Msg_Box;//MessageBox pour la génération de messages d'erreur
     module m_newParams;
     uint8_t nextFunction;
 };

@@ -14,7 +14,7 @@ class edit_Lecture : public QDialog
 public:
     explicit edit_Lecture(QWidget *parent = 0);
     ~edit_Lecture();
-    Ui::edit_Lecture *ui;
+    Ui::edit_Lecture *ui;//Pointeur vers la fenêtre graphique edit_lecture.ui
 
 private:
 

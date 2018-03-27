@@ -14,7 +14,7 @@ class edit_Control_OP : public QDialog
 public:
     explicit edit_Control_OP(QWidget *parent = 0);
     ~edit_Control_OP();
-    Ui::edit_Control_OP *ui;
+    Ui::edit_Control_OP *ui;//Pointeur vers la fenêtre graphique edit_control.ui
 
 private:
 

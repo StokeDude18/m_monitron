@@ -1,18 +1,7 @@
-/**
- * @file   DBAccess.c
- * @author Maina Raiche
- * @date   janvier 2017
- * @brief  Exemple de documentation
- *
- * @version 1.0 : Première version
- * Environnement de développement: Notepad++
- * Compilateur: 
- * Matériel: 
- **/
- 
- #include "DBAccess.h"
- #include <boost/lexical_cast.hpp>
-    
+#include "DBAccess.h"
+#include <boost/lexical_cast.hpp>
+
+//Constructeur
  DBAccess::DBAccess()
  {
  	m_sHost= "127.0.0.1:3306";     //Adresse IP du serveur

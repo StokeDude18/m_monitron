@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -78,6 +79,7 @@ public:
     QLabel *l_Current_Alarm_Range;
     QWidget *t_Graph;
     QPushButton *b_Apply_Changes;
+    QComboBox *cb_Module_Select;
     QMenuBar *menuBar;
     QStatusBar *sbar_Device_Informations;
 
@@ -93,7 +95,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         cb_O_Mode = new QTabWidget(centralWidget);
         cb_O_Mode->setObjectName(QStringLiteral("cb_O_Mode"));
-        cb_O_Mode->setGeometry(QRect(10, 15, 781, 401));
+        cb_O_Mode->setGeometry(QRect(10, 15, 781, 351));
         QFont font1;
         font1.setPointSize(16);
         cb_O_Mode->setFont(font1);
@@ -186,17 +188,6 @@ public:
         l_Cycle_Mode_Current_State->setGeometry(QRect(420, 30, 86, 41));
         l_Cycle_Mode_Current_State->setFont(font3);
         cb_O_Mode->addTab(t_Cycles, QString());
-        l_Cycle_Mode_State->raise();
-        b_Edit_tCycles->raise();
-        l_Setpoint_Cycle_1->raise();
-        l_Cycle2->raise();
-        l_Setpoint_Cycle_2->raise();
-        l_Cycle1->raise();
-        l_Current_Cycle_1->raise();
-        l_Current_Cycle_2->raise();
-        l_Current_Cycle_Setpoint_1->raise();
-        l_Current_Cycle_Setpoint_2->raise();
-        l_Cycle_Mode_Current_State->raise();
         t_Calibration = new QWidget();
         t_Calibration->setObjectName(QStringLiteral("t_Calibration"));
         l_Lecture_mV = new QLabel(t_Calibration);
@@ -324,6 +315,9 @@ public:
         b_Apply_Changes->setObjectName(QStringLiteral("b_Apply_Changes"));
         b_Apply_Changes->setGeometry(QRect(610, 10, 181, 36));
         b_Apply_Changes->setFont(font11);
+        cb_Module_Select = new QComboBox(centralWidget);
+        cb_Module_Select->setObjectName(QStringLiteral("cb_Module_Select"));
+        cb_Module_Select->setGeometry(QRect(505, 375, 286, 36));
         m_monitron_0_0->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(m_monitron_0_0);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -338,7 +332,7 @@ public:
 
         retranslateUi(m_monitron_0_0);
 
-        cb_O_Mode->setCurrentIndex(1);
+        cb_O_Mode->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(m_monitron_0_0);
