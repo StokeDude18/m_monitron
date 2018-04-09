@@ -4,11 +4,15 @@
 #include "communication.h"
 #include <QString>
 
+//Constructeur
 edit_Lecture::edit_Lecture(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::edit_Lecture)
 {    
     ui->setupUi(this);
+
+    //Ajout d'un validateur dans les textbox d'édition de paramètres pour permettre
+    //uniquement l'entrée de valeurs numériques
     ui->tb_new_setpoint->setValidator(new QDoubleValidator(0,1000, 2));
     ui->tb_new_var_rate->setValidator(new QDoubleValidator(0,1000, 2));    
 }

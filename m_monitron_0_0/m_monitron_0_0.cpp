@@ -24,7 +24,8 @@ using namespace std;
 m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui::m_monitron_0_0)
 {
     ui->setupUi(this);    
-    nextFunction = 2;//prépare la prochaine fonction à envoyer
+    nextFunction = 0;//prépare la prochaine fonction à envoyer
+    nextActiveModule = 0;
 }
 
 m_monitron_0_0::~m_monitron_0_0()
@@ -372,4 +373,20 @@ void m_monitron_0_0::addModuleToMenu(uint32_t modID)
     QString qs;
     qs.sprintf("%d", modID);
     ui->cb_Module_Select->addItem(qs);//Ajout du ID du module.
+}
+
+void m_monitron_0_0::on_cb_Module_Select_currentIndexChanged(int index)
+{
+    //setNextFunction(1);
+    setNextActiveModule(index);
+}
+
+uint8_t m_monitron_0_0::getNextActiveModule()
+{
+    return nextActiveModule;
+}
+
+void m_monitron_0_0::setNextActiveModule(uint8_t modIndex)
+{
+    nextActiveModule = modIndex;
 }

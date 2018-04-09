@@ -14,7 +14,7 @@ class edit_Calibration : public QDialog
 public:
     explicit edit_Calibration(QWidget *parent = 0);
     ~edit_Calibration();
-    Ui::edit_Calibration *ui;
+    Ui::edit_Calibration *ui;//Pointeur vers la fenêtre graphique edit_calibration.ui
 
 private:
 

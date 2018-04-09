@@ -12,14 +12,17 @@ using namespace std;
 module::module()
 {
 
+    //moduleCounter = 0;
 }
-module::module(uint8_t id)
+module::module(uint8_t *byteArray)
 {
-
+    fillObjectParams(byteArray,0);
 }
 
+//Méthode utilisée pour convertir une trame découpée en octets vers les paramètres de l'objet module
 void module::fillObjectParams(uint8_t *byteArray, uint8_t fonction)
 {
+    //Unions utilisées pour déconstruire la trame
     int32Tobytes u_IDconv;
     float2bytes  u_Reading;
     float2bytes  u_setpoint;
@@ -45,6 +48,8 @@ void module::fillObjectParams(uint8_t *byteArray, uint8_t fonction)
 
     Type = byteArray[7];
     Position = byteArray[2];
+    if(Position == 127)
+        cout << "WTF" << endl;
 
     if(fonction > 0 && fonction < 3)
     {

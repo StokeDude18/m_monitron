@@ -372,7 +372,7 @@ public:
         l_Current_P1_converted->setText(QString());
         b_Edit_tCalibration->setText(QApplication::translate("m_monitron_0_0", "Edit", 0));
         l_Val_Convertie->setText(QApplication::translate("m_monitron_0_0", "Converted value: ", 0));
-        gb_Point2->setTitle(QApplication::translate("m_monitron_0_0", "Calibration point #1", 0));
+        gb_Point2->setTitle(QApplication::translate("m_monitron_0_0", "Calibration point #2", 0));
         l_P2_mV->setText(QApplication::translate("m_monitron_0_0", "Raw value (mV):", 0));
         l_P2_Convert_Unit->setText(QApplication::translate("m_monitron_0_0", "Converted value:", 0));
         l_Current_P2_raw->setText(QString());

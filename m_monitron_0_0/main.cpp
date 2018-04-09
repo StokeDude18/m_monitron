@@ -37,10 +37,10 @@ module m; //objet de type module
 
 //Liste de modules/ID sur le réseau CAN
 vector<module> v_mod;
-vector<uint8_t> v_modID;
 
 
-int scan_Time = 10000000; // pour délai de 10s à l'initialisation (recherche de modules)
+int noReceiveCount = 0;
+
 m_monitron_0_0 *wpointer; //Pointeur d'objet m_monitron_0_0
 //QTimer *timer = new QTimer(this);
 
@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     m_monitron_0_0 w;	//Objet m_monitron_0_0 pour fenêtre principale
 
+    //m = new module();
     w.show();//Affiche le cadre de la fenêtre principale
 
     //m = new module();
@@ -64,11 +65,11 @@ int main(int argc, char *argv[])
     if(serial == -1)//Si erreur dans l'ouverture
     {
         printf("ERROR");
-        while(serial == -1)
+        /*while(serial == -1)
         {
             usleep(1000000);
             serial = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY); //Ouverture du port série
-        }
+        }*/
     }
     tcgetattr(serial, &options);
     options.c_cflag = B115200 | CS8 | CLOCAL | CREAD; //configuration du baud rate
@@ -86,7 +87,7 @@ int main(int argc, char *argv[])
 
     wpointer = &w; //Pointeur vers la fenêtre principale
     pthread_create(&thread_Receive, NULL, do_Receive, (void*)NULL);	//thread de reception des trames
-    send_Fonction(0,1); //Envoi de la fonction d'acquisition des modules sur le bus can
+    send_Fonction(0,0); //Envoi de la fonction d'acquisition des modules sur le bus can
     pthread_create(&thread_Main,NULL, mainTask, (void*)NULL); //Création du thread de logique principal
 
 
@@ -97,7 +98,9 @@ int main(int argc, char *argv[])
 //Thread de traitement des données reçues
 void *mainTask(void *args)
 {
-    int mod_Detect = 0xFF;
+    module tempMod;
+    int mod_Detect = 0;
+    //m.moduleCounter = 0;
     while(1)
     {
         while(!read_Flag);//Attend une réception complète d'une trame
@@ -107,31 +110,32 @@ void *mainTask(void *args)
         {
         case 0:
 
-            //Partie non fonctionnelle présentement
-            /*for(auto &it_mod : v_mod)//Équivalent de for each
-            {
-                if(buffer_traitement[r_pos] == it_mod.Position)//Vérifie si la réponse provenait d'un module connu
-                    mod_Detect = 0;
-            }
-            if(!mod_Detect)//Si module connu, l'ajoute à sa liste
-            {
-                v_mod.push_back(module(buffer_traitement[r_pos]));
-                v_modID.push_back(buffer_traitement[r_pos]);
-            }
+            mod_Detect = 0;
 
             m.fillObjectParams(buffer_traitement, buffer_traitement[r_fonction]); //Parsing des données reçues et modification des paramètres de l'objet module.
-
-            cout<< dec << buffer_traitement[r_fonction] << endl;
             usleep(100000); // Délai d'exécution
+            for(auto &it_mod : v_mod)//Équivalent de for each
+            {
+                if(buffer_traitement[r_pos] == it_mod.Position && v_mod.size() > 0)//Vérifie si la réponse provenait d'un module connu
+                    mod_Detect = 1;
+            }
+            if(mod_Detect == 0 && m.ID != 0)//Si module inconnu, l'ajoute à sa liste
+            {
+                v_mod.push_back(module(buffer_traitement));
+                wpointer->addModuleToMenu(m.ID);
+            }
 
+            usleep(100000); // Délai d'exécution
+            if(v_mod.size() > 0)
+                wpointer->printParams(&v_mod[0], buffer_traitement[r_fonction]); //Affichage des nouveaux paramètres dans le fenêtre principale
+            previousFunct = 0;
 
-            break;*/
+            break;
         case 1:
         case 2:
 
             m.fillObjectParams(buffer_traitement, buffer_traitement[r_fonction]); //Parsing des données reçues et modification des paramètres de l'objet module.
-            //wpointer->addModuleToMenu(m.ID);
-            //cout<< dec << buffer_traitement[r_fonction] << endl;
+
             usleep(100000); // Délai d'exécution (Opérations dans l'objet module)
             wpointer->printParams(&m, buffer_traitement[r_fonction]); //Affichage des nouveaux paramètres dans le fenêtre principale
             break;
@@ -142,7 +146,9 @@ void *mainTask(void *args)
 
         tcflush(serial, TCIOFLUSH);//Vide les buffers d'envoi/réception
         usleep(1000000);  //Délai d'exécution (1s entre les envois)
-        send_Fonction(0, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
+
+        if(wpointer->getNextFunction() != 0)
+            send_Fonction(v_mod[wpointer->getNextActiveModule()].Position, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
 
         if(previousFunct == 3)//Délai supplémentaire lors de l'édition des paramètres pour permettre au MBED de faire l'écriture dans la carte SD
             usleep(1000000);
@@ -166,9 +172,10 @@ void *do_Receive(void *args)
            trame_rx[rx_length] = 0;
            usleep(trame_rx[rx_length] * 100);//100000);
 
-           //print_RX();
+
            if(rx_length > 0)
            {
+               noReceiveCount = 0;
                if(!read_Flag) //aucune analyse en cours
                {
                    if(trame_rx[r_soh] == 123) //bon SOH
@@ -190,6 +197,7 @@ void *do_Receive(void *args)
 
                            clear_RX();//Clear le contenu du buffer de réception
 
+
                            read_Flag = true; //analyser la trame reçue
                            //parseData(buffer_traitement);
                            t = 0; //remise du temps à zéro
@@ -206,6 +214,20 @@ void *do_Receive(void *args)
                    }
                }
            }
+           else
+           {
+               if(previousFunct == 0)
+                noReceiveCount++;
+               if(noReceiveCount >= 50)//Quand le timeout de découverte est écoulé, commence la boucle principale d'acquisition
+               {
+                 wpointer->setNextFunction(2);
+                 noReceiveCount = 0;
+                 usleep(10000);
+                 clear_RX(); //Si checksum invalide, vide le buffer de réception
+                 send_Fonction(v_mod[wpointer->getNextActiveModule()].Position, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
+
+               }
+           }
        }
    } //while(1)
 }
@@ -220,14 +242,14 @@ void parseData(uint8_t* data)
     {
     case 0:
 
-        /*for(auto &it_mod : v_mod)
+        for(auto &it_mod : v_mod)
         {
             if(data[r_pos] == it_mod.Position)
                 mod_Detect = 0;
         }
         if(!mod_Detect)
         {
-            v_mod.push_back(module(data[r_pos]));
+            v_mod.push_back(module(data));
             v_modID.push_back(data[r_pos]);
         }
         usleep(10000);
@@ -235,9 +257,9 @@ void parseData(uint8_t* data)
 
         cout<< dec << data[r_fonction] << endl;
         usleep(100000); // Délai d'exécution
+        previousFunct = 0;
 
-
-        break;*/
+        break;
     case 1:
     case 2:
         usleep(10000);
@@ -254,13 +276,14 @@ void parseData(uint8_t* data)
 
     tcflush(serial, TCIOFLUSH);
     usleep(1000000);  //Délai d'exécution
-    send_Fonction(0, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
+
+    if(previousFunct != 0)
+        send_Fonction(0, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
+
     usleep(100000); //1s
 
     if(previousFunct == 3)
         usleep(1000000);
-
-
 }
 
 /* Brief:	Fonction d'envoi de requetes/informations au module
@@ -269,6 +292,7 @@ void parseData(uint8_t* data)
 */
 void send_Fonction(uint8_t pos, uint8_t fonct)
 {
+    int previousPos = -1;
     clear_TX();
     if(fonct == 3)//Construction de trame d'envoi pour édition de paramètres du MBED
     {
@@ -288,7 +312,7 @@ void send_Fonction(uint8_t pos, uint8_t fonct)
         trame_tx[t_soh] = T_SOH;
         trame_tx[t_size] = 7;//Longueur de trame
         trame_tx[t_pos] = pos;
-        trame_tx[t_fonction] = fonct;
+        trame_tx[t_fonction] = (pos != previousPos && fonct != 0) ? 1 : fonct;
         trame_tx[t_checksum] = calcul_Checksum(trame_tx, trame_tx[t_size]);
         trame_tx[t_eoh1] = T_EOH1;
         trame_tx[t_eoh2] = T_EOH2;
@@ -312,7 +336,18 @@ void send_Fonction(uint8_t pos, uint8_t fonct)
            printf("Write Failed.\n");
    }   
    previousFunct = fonct;
+   previousPos = pos;
 }
+
+/*uint32_t findFirstModule()
+{
+    uint8_t pos = 0xFF;
+    for(auto &it_mod : v_mod)
+    {
+        if(it_mod.Position < pos)
+            pos = it_mod.Position;
+    }
+}*/
 
 /**
 * @brief Méthode pour effacer le buffer de reception des trames

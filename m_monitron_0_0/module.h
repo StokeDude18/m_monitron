@@ -15,7 +15,7 @@ class module
 {
 public:
     module();
-    module(uint8_t id);
+    module(uint8_t *byteArray);
     uint32_t ID;
 
     int8_t Type;
@@ -48,8 +48,11 @@ public:
         int8_t Global_OP_Mode;
     }Control;
 
+    static int moduleCounter;
+
     void fillObjectParams(uint8_t* byteArray, uint8_t fonction);
 private:
+
 
 };
 

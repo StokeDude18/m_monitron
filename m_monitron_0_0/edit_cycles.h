@@ -14,7 +14,7 @@ class edit_Cycles : public QDialog
 public:
     explicit edit_Cycles(QWidget *parent = 0);
     ~edit_Cycles();
-    Ui::edit_Cycles *ui;
+    Ui::edit_Cycles *ui;//Pointeur vers la fenêtre graphique edit_cycles.ui
 
 private:
 

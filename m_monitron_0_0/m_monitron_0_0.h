@@ -28,8 +28,10 @@ public:
     void printParams(module* mod, uint8_t fonction);
     uint8_t getNextFunction();
     void getNewParams(module *objNewParams);
+    uint8_t getNextActiveModule();
     void buildF3Frame(uint8_t* sendBuffer);
     void setNextFunction(uint8_t function);
+    void setNextActiveModule(uint8_t modIndex);
     void addModuleToMenu(uint32_t modID);
 
 private slots: //Événements de la fenêtre graphique
@@ -38,6 +40,8 @@ private slots: //Événements de la fenêtre graphique
     void on_b_Edit_tCalibration_clicked();
     void on_b_Edit_tControl_clicked();
     void on_b_Apply_Changes_clicked();
+
+    void on_cb_Module_Select_currentIndexChanged(int index);
 
 private:
 
@@ -52,6 +56,7 @@ private:
     QMessageBox error_Msg_Box;//MessageBox pour la génération de messages d'erreur
     module m_newParams;
     uint8_t nextFunction;
+    uint8_t nextActiveModule;
 };
 
 #endif // M_MONITRON_0_0_H
