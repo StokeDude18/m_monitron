@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>E:/maina/Documents/Travaux/Hiver_2018/Projet/m_monitron/Schema/MiniMonitron.sch</source>
+    <date>2018-03-13 12:02:42</date>
+    <tool>Eeschema 4.0.6</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>MiniMonitron.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="U2">
+      <value>H11AA1M</value>
+      <footprint>mini_monitron:DIP-6_W7.62mm</footprint>
+      <datasheet>H11AA1M</datasheet>
+      <fields>
+        <field name="Package">DIP-6 Fairchild Semiconductor</field>
+        <field name="Description">DIP-6 Through Hole Single Channel 30 V 4170 Vrms Phototransistor Optocoupler</field>
+        <field name="MF">Fairchild Semiconductor</field>
+        <field name="Price">0.32 USD</field>
+        <field name="Availability">Good</field>
+      </fields>
+      <libsource lib="MiniMonitron-cache" part="H11AA1M"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>59FB1D6A</tstamp>
+    </comp>
+    <comp ref="U3">
+      <value>MCP2551-I/SN</value>
+      <footprint>mini_monitron:DIP-8_W7.62mm</footprint>
+      <libsource lib="MiniMonitron-cache" part="MCP2551-I/SN"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>59FB1DE4</tstamp>
+    </comp>
+    <comp ref="S1">
+      <value>Switch_5xDIP</value>
+      <footprint>mini_monitron:DIP-10_W7.62mm</footprint>
+      <libsource lib="MiniMonitron-cache" part="Switch_5xDIP_RevE_Date15jun2010"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A045E54</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>1k</value>
+      <footprint>mini_monitron:R_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A0470C8</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>1k</value>
+      <footprint>mini_monitron:R_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A04725D</tstamp>
+    </comp>
+    <comp ref="R3">
+      <value>1k</value>
+      <footprint>mini_monitron:R_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A0472A9</tstamp>
+    </comp>
+    <comp ref="R4">
+      <value>1k</value>
+      <footprint>mini_monitron:R_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A0472D3</tstamp>
+    </comp>
+    <comp ref="R5">
+      <value>1k</value>
+      <footprint>mini_monitron:R_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A047300</tstamp>
+    </comp>
+    <comp ref="R8">
+      <value>1k</value>
+      <footprint>mini_monitron:R_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A0486B9</tstamp>
+    </comp>
+    <comp ref="C4">
+      <value>0.1uf</value>
+      <footprint>mini_monitron:C_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A04B495</tstamp>
+    </comp>
+    <comp ref="C5">
+      <value>0.1uf</value>
+      <footprint>mini_monitron:C_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A04BD90</tstamp>
+    </comp>
+    <comp ref="C7">
+      <value>0.1uf</value>
+      <footprint>mini_monitron:C_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A04BDD4</tstamp>
+    </comp>
+    <comp ref="C9">
+      <value>0.1uf</value>
+      <footprint>mini_monitron:C_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A04BE1F</tstamp>
+    </comp>
+    <comp ref="R6">
+      <value>1k</value>
+      <footprint>mini_monitron:R_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A0E0A1F</tstamp>
+    </comp>
+    <comp ref="R7">
+      <value>1k</value>
+      <footprint>mini_monitron:R_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A0E0AA1</tstamp>
+    </comp>
+    <comp ref="J1">
+      <value>CONN_01X02</value>
+      <footprint>mini_monitron:bornier2</footprint>
+      <libsource lib="MiniMonitron-cache" part="CONN_01X02"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A81BDCF</tstamp>
+    </comp>
+    <comp ref="P1">
+      <value>conn2x18pcie</value>
+      <footprint>mini_monitron:pci-x_conn-x1_Vertical</footprint>
+      <libsource lib="MiniMonitron-cache" part="conn2x18pcie"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A81C504</tstamp>
+    </comp>
+    <comp ref="J2">
+      <value>CONN_02X20</value>
+      <footprint>mini_monitron:Pin_Header_Straight_2x20_Pitch2.54mm</footprint>
+      <libsource lib="MiniMonitron-cache" part="CONN_02X20"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A822624</tstamp>
+    </comp>
+    <comp ref="J3">
+      <value>CONN_02X20</value>
+      <footprint>mini_monitron:Pin_Header_Straight_2x20_Pitch2.54mm</footprint>
+      <libsource lib="MiniMonitron-cache" part="CONN_02X20"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A82273F</tstamp>
+    </comp>
+    <comp ref="U1">
+      <value>PCF2129AT</value>
+      <footprint>mini_monitron:SOIC-20W_7.5x12.8mm_Pitch1.27mm</footprint>
+      <libsource lib="MiniMonitron-cache" part="PCF2129AT"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A82318F</tstamp>
+    </comp>
+    <comp ref="B1">
+      <value>Battery_Holder_CR1220</value>
+      <footprint>mini_monitron:Keystone_CR1220_SMD</footprint>
+      <libsource lib="MiniMonitron-cache" part="Battery_Holder_CR1220"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A82477B</tstamp>
+    </comp>
+    <comp ref="C2">
+      <value>0.1uF</value>
+      <footprint>mini_monitron:C_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A824FB5</tstamp>
+    </comp>
+    <comp ref="C1">
+      <value>0.1uF</value>
+      <footprint>mini_monitron:C_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8252E6</tstamp>
+    </comp>
+    <comp ref="C3">
+      <value>0.1uF</value>
+      <footprint>mini_monitron:C_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8255FB</tstamp>
+    </comp>
+    <comp ref="U4">
+      <value>AXB050X43-SRZ</value>
+      <footprint>mini_monitron:AXB050X43-SRZ</footprint>
+      <libsource lib="MiniMonitron-cache" part="AXB050X43-SRZ"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8275BF</tstamp>
+    </comp>
+    <comp ref="R11">
+      <value>4.3k</value>
+      <footprint>mini_monitron:R_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8278F3</tstamp>
+    </comp>
+    <comp ref="U5">
+      <value>LM1084IT-ADJ/NOPB</value>
+      <footprint>mini_monitron:TO-220_Horizontal</footprint>
+      <libsource lib="MiniMonitron-cache" part="LM1084IT-ADJ/NOPB"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8305E4</tstamp>
+    </comp>
+    <comp ref="R10">
+      <value>100</value>
+      <footprint>mini_monitron:R_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A83110B</tstamp>
+    </comp>
+    <comp ref="R9">
+      <value>300</value>
+      <footprint>mini_monitron:R_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A83117C</tstamp>
+    </comp>
+    <comp ref="C10">
+      <value>10uF</value>
+      <footprint>mini_monitron:C_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A83278E</tstamp>
+    </comp>
+    <comp ref="C8">
+      <value>10uF</value>
+      <footprint>mini_monitron:C_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8329A6</tstamp>
+    </comp>
+    <comp ref="C11">
+      <value>10uF</value>
+      <footprint>mini_monitron:C_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A833B56</tstamp>
+    </comp>
+    <comp ref="C6">
+      <value>10uF</value>
+      <footprint>mini_monitron:C_0805_HandSoldering</footprint>
+      <libsource lib="MiniMonitron-cache" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A833CB2</tstamp>
+    </comp>
+    <comp ref="J8">
+      <value>CONN_01X02</value>
+      <footprint>mini_monitron:bornier2</footprint>
+      <libsource lib="MiniMonitron-cache" part="CONN_01X02"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8B3369</tstamp>
+    </comp>
+    <comp ref="J9">
+      <value>CONN_01X02</value>
+      <footprint>mini_monitron:bornier2</footprint>
+      <libsource lib="MiniMonitron-cache" part="CONN_01X02"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8B347C</tstamp>
+    </comp>
+    <comp ref="J10">
+      <value>CONN_01X02</value>
+      <footprint>mini_monitron:bornier2</footprint>
+      <libsource lib="MiniMonitron-cache" part="CONN_01X02"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8B3505</tstamp>
+    </comp>
+    <comp ref="J4">
+      <value>CONN_01X02</value>
+      <footprint>mini_monitron:bornier2</footprint>
+      <libsource lib="MiniMonitron-cache" part="CONN_01X02"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8B3C5B</tstamp>
+    </comp>
+    <comp ref="J5">
+      <value>CONN_01X02</value>
+      <footprint>mini_monitron:bornier2</footprint>
+      <libsource lib="MiniMonitron-cache" part="CONN_01X02"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8B3CEE</tstamp>
+    </comp>
+    <comp ref="J6">
+      <value>CONN_01X02</value>
+      <footprint>mini_monitron:bornier2</footprint>
+      <libsource lib="MiniMonitron-cache" part="CONN_01X02"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8B3D78</tstamp>
+    </comp>
+    <comp ref="HS1">
+      <value>HEATSINK</value>
+      <footprint>mini_monitron:HeatSink_TO220_Vertical_1PP</footprint>
+      <libsource lib="MiniMonitron-cache" part="HEATSINK"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8B5747</tstamp>
+    </comp>
+    <comp ref="J7">
+      <value>CONN_01X02</value>
+      <footprint>mini_monitron:bornier2</footprint>
+      <libsource lib="MiniMonitron-cache" part="CONN_01X02"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A8BD931</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="MiniMonitron-cache" part="AXB050X43-SRZ">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">AXB050X43-SRZ</field>
+      </fields>
+      <pins>
+        <pin num="1" name="ON/OFF" type="BiDi"/>
+        <pin num="2" name="VIN" type="BiDi"/>
+        <pin num="3" name="GND" type="BiDi"/>
+        <pin num="4" name="VOUT" type="BiDi"/>
+        <pin num="5" name="TRIM" type="BiDi"/>
+        <pin num="6" name="SENSE" type="BiDi"/>
+      </pins>
+    </libpart>
+    <libpart lib="MiniMonitron-cache" part="Battery_Holder_CR1220">
+      <fields>
+        <field name="Reference">B</field>
+        <field name="Value">Battery_Holder_CR1220</field>
+      </fields>
+      <pins>
+        <pin num="1" name="-" type="BiDi"/>
+        <pin num="2" name="+" type="BiDi"/>
+      </pins>
+    </libpart>
+    <libpart lib="MiniMonitron-cache" part="C">
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="MiniMonitron-cache" part="CONN_01X02">
+      <footprints>
+        <fp>Pin_Header_Straight_1X*</fp>
+        <fp>Pin_Header_Angled_1X*</fp>
+        <fp>Socket_Strip_Straight_1X*</fp>
+        <fp>Socket_Strip_Angled_1X*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">CONN_01X02</field>
+      </fields>
+      <pins>
+        <pin num="1" name="P1" type="passive"/>
+        <pin num="2" name="P2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="MiniMonitron-cache" part="CONN_02X20">
+      <footprints>
+        <fp>Pin_Header_Straight_2X*</fp>
+        <fp>Pin_Header_Angled_2X*</fp>
+        <fp>Socket_Strip_Straight_2X*</fp>
+        <fp>Socket_Strip_Angled_2X*</fp>
+        <fp>IDC_Header_Straight_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">CONN_02X20</field>
+      </fields>
+      <pins>
+        <pin num="1" name="P1" type="passive"/>
+        <pin num="2" name="P2" type="passive"/>
+        <pin num="3" name="P3" type="passive"/>
+        <pin num="4" name="P4" type="passive"/>
+        <pin num="5" name="P5" type="passive"/>
+        <pin num="6" name="P6" type="passive"/>
+        <pin num="7" name="P7" type="passive"/>
+        <pin num="8" name="P8" type="passive"/>
+        <pin num="9" name="P9" type="passive"/>
+        <pin num="10" name="P10" type="passive"/>
+        <pin num="11" name="P11" type="passive"/>
+        <pin num="12" name="P12" type="passive"/>
+        <pin num="13" name="P13" type="passive"/>
+        <pin num="14" name="P14" type="passive"/>
+        <pin num="15" name="P15" type="passive"/>
+        <pin num="16" name="P16" type="passive"/>
+        <pin num="17" name="P17" type="passive"/>
+        <pin num="18" name="P18" type="passive"/>
+        <pin num="19" name="P19" type="passive"/>
+        <pin num="20" name="P20" type="passive"/>
+        <pin num="21" name="P21" type="passive"/>
+        <pin num="22" name="P22" type="passive"/>
+        <pin num="23" name="P23" type="passive"/>
+        <pin num="24" name="P24" type="passive"/>
+        <pin num="25" name="P25" type="passive"/>
+        <pin num="26" name="P26" type="passive"/>
+        <pin num="27" name="P27" type="passive"/>
+        <pin num="28" name="P28" type="passive"/>
+        <pin num="29" name="P29" type="passive"/>
+        <pin num="30" name="P30" type="passive"/>
+        <pin num="31" name="P31" type="passive"/>
+        <pin num="32" name="P32" type="passive"/>
+        <pin num="33" name="P33" type="passive"/>
+        <pin num="34" name="P34" type="passive"/>
+        <pin num="35" name="P35" type="passive"/>
+        <pin num="36" name="P36" type="passive"/>
+        <pin num="37" name="P37" type="passive"/>
+        <pin num="38" name="P38" type="passive"/>
+        <pin num="39" name="P39" type="passive"/>
+        <pin num="40" name="P40" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="MiniMonitron-cache" part="H11AA1M">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">H11AA1M</field>
+        <field name="Footprint">DIP6</field>
+        <field name="Datasheet">H11AA1M</field>
+        <field name="Package">DIP-6 Fairchild Semiconductor</field>
+        <field name="Description">DIP-6 Through Hole Single Channel 30 V 4170 Vrms Phototransistor Optocoupler</field>
+        <field name="MF">Fairchild Semiconductor</field>
+        <field name="Price">0.32 USD</field>
+        <field name="Availability">Good</field>
+      </fields>
+      <pins>
+        <pin num="1" name="IN1" type="passive"/>
+        <pin num="2" name="IN2" type="passive"/>
+        <pin num="3" name="NC" type="NotConnected"/>
+        <pin num="4" name="E" type="passive"/>
+        <pin num="5" name="C" type="BiDi"/>
+        <pin num="6" name="B" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="MiniMonitron-cache" part="HEATSINK">
+      <fields>
+        <field name="Reference">HS</field>
+        <field name="Value">HEATSINK</field>
+      </fields>
+    </libpart>
+    <libpart lib="MiniMonitron-cache" part="LM1084IT-ADJ/NOPB">
+      <footprints>
+        <fp>TO*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">LM1084IT-ADJ/NOPB</field>
+        <field name="Footprint">TO_SOT_Packages_THT:TO-220_Vertical</field>
+      </fields>
+      <pins>
+        <pin num="1" name="ADJ" type="input"/>
+        <pin num="2" name="OUT" type="power_out"/>
+        <pin num="3" name="IN" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="MiniMonitron-cache" part="MCP2551-I/SN">
+      <footprints>
+        <fp>SOIC*Pitch1.27mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">MCP2551-I/SN</field>
+        <field name="Footprint">Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm</field>
+      </fields>
+      <pins>
+        <pin num="1" name="TXD" type="input"/>
+        <pin num="2" name="VSS" type="power_in"/>
+        <pin num="3" name="VDD" type="power_in"/>
+        <pin num="4" name="RXD" type="output"/>
+        <pin num="5" name="Vref" type="power_out"/>
+        <pin num="6" name="CANL" type="BiDi"/>
+        <pin num="7" name="CANH" type="BiDi"/>
+        <pin num="8" name="Rs" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="MiniMonitron-cache" part="PCF2129AT">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">PCF2129AT</field>
+      </fields>
+      <pins>
+        <pin num="1" name="SCL" type="input"/>
+        <pin num="2" name="SDI" type="input"/>
+        <pin num="3" name="SDO" type="input"/>
+        <pin num="4" name="SDA//CE" type="input"/>
+        <pin num="5" name="IFS" type="input"/>
+        <pin num="6" name="/TS" type="input"/>
+        <pin num="7" name="CLKOUT" type="input"/>
+        <pin num="8" name="VSS" type="input"/>
+        <pin num="9" name="~" type="NotConnected"/>
+        <pin num="10" name="~" type="NotConnected"/>
+        <pin num="11" name="~" type="NotConnected"/>
+        <pin num="12" name="~" type="NotConnected"/>
+        <pin num="13" name="~" type="NotConnected"/>
+        <pin num="14" name="~" type="NotConnected"/>
+        <pin num="15" name="~" type="NotConnected"/>
+        <pin num="16" name="~" type="NotConnected"/>
+        <pin num="17" name="/INT" type="input"/>
+        <pin num="18" name="BBS" type="input"/>
+        <pin num="19" name="VBAT" type="input"/>
+        <pin num="20" name="VDD" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="MiniMonitron-cache" part="R">
+      <footprints>
+        <fp>R_*</fp>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="MiniMonitron-cache" part="Switch_5xDIP_RevE_Date15jun2010">
+      <fields>
+        <field name="Reference">S</field>
+        <field name="Value">Switch_5xDIP_RevE_Date15jun2010</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+        <pin num="3" name="~" type="passive"/>
+        <pin num="4" name="~" type="passive"/>
+        <pin num="5" name="~" type="passive"/>
+        <pin num="6" name="~" type="passive"/>
+        <pin num="7" name="~" type="passive"/>
+        <pin num="8" name="~" type="passive"/>
+        <pin num="9" name="~" type="passive"/>
+        <pin num="10" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="MiniMonitron-cache" part="conn2x18pcie">
+      <fields>
+        <field name="Reference">P</field>
+        <field name="Value">conn2x18pcie</field>
+      </fields>
+      <pins>
+        <pin num="A1" name="A1" type="passive"/>
+        <pin num="A2" name="A2" type="passive"/>
+        <pin num="A3" name="A3" type="passive"/>
+        <pin num="A4" name="A4" type="passive"/>
+        <pin num="A5" name="A5" type="passive"/>
+        <pin num="A6" name="A6" type="passive"/>
+        <pin num="A7" name="A7" type="passive"/>
+        <pin num="A8" name="A8" type="passive"/>
+        <pin num="A9" name="A9" type="passive"/>
+        <pin num="A10" name="A10" type="passive"/>
+        <pin num="A11" name="A11" type="passive"/>
+        <pin num="A12" name="A12" type="passive"/>
+        <pin num="A13" name="A13" type="passive"/>
+        <pin num="A14" name="A14" type="passive"/>
+        <pin num="A15" name="A15" type="passive"/>
+        <pin num="A16" name="A16" type="passive"/>
+        <pin num="A17" name="A17" type="passive"/>
+        <pin num="A18" name="A18" type="passive"/>
+        <pin num="B1" name="B1" type="passive"/>
+        <pin num="B2" name="B2" type="passive"/>
+        <pin num="B3" name="B3" type="passive"/>
+        <pin num="B4" name="B4" type="passive"/>
+        <pin num="B5" name="B5" type="passive"/>
+        <pin num="B6" name="B6" type="passive"/>
+        <pin num="B7" name="B7" type="passive"/>
+        <pin num="B8" name="B8" type="passive"/>
+        <pin num="B9" name="B9" type="passive"/>
+        <pin num="B10" name="B10" type="passive"/>
+        <pin num="B11" name="B11" type="passive"/>
+        <pin num="B12" name="B12" type="passive"/>
+        <pin num="B13" name="B13" type="passive"/>
+        <pin num="B14" name="B14" type="passive"/>
+        <pin num="B15" name="B15" type="passive"/>
+        <pin num="B16" name="B16" type="passive"/>
+        <pin num="B17" name="B17" type="passive"/>
+        <pin num="B18" name="B18" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="MiniMonitron-cache">
+      <uri>E:\maina\Documents\Travaux\Hiver_2018\Projet\m_monitron\Schema\MiniMonitron-cache.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="Net-(R10-Pad2)">
+      <node ref="R10" pin="2"/>
+      <node ref="U5" pin="1"/>
+      <node ref="R9" pin="1"/>
+    </net>
+    <net code="2" name="CAN_L">
+      <node ref="J10" pin="2"/>
+      <node ref="P1" pin="A12"/>
+      <node ref="U3" pin="6"/>
+      <node ref="J6" pin="2"/>
+    </net>
+    <net code="3" name="ZERO_CROSS">
+      <node ref="J8" pin="2"/>
+      <node ref="J4" pin="2"/>
+      <node ref="U2" pin="5"/>
+      <node ref="R8" pin="2"/>
+      <node ref="P1" pin="B8"/>
+    </net>
+    <net code="4" name="+5V">
+      <node ref="U3" pin="3"/>
+      <node ref="C7" pin="1"/>
+      <node ref="C5" pin="1"/>
+      <node ref="R8" pin="1"/>
+      <node ref="C4" pin="1"/>
+      <node ref="U4" pin="6"/>
+      <node ref="C11" pin="1"/>
+      <node ref="J3" pin="4"/>
+      <node ref="J3" pin="2"/>
+      <node ref="J2" pin="2"/>
+      <node ref="J2" pin="4"/>
+      <node ref="U4" pin="4"/>
+    </net>
+    <net code="5" name="Net-(P1-PadA14)">
+      <node ref="R5" pin="1"/>
+      <node ref="S1" pin="5"/>
+      <node ref="P1" pin="A14"/>
+    </net>
+    <net code="6" name="/24VAC_1F">
+      <node ref="J1" pin="2"/>
+      <node ref="R6" pin="2"/>
+    </net>
+    <net code="7" name="/24VAC_2F">
+      <node ref="J1" pin="1"/>
+      <node ref="R7" pin="2"/>
+    </net>
+    <net code="8" name="5V_pwr_MODULE">
+      <node ref="P1" pin="B13"/>
+      <node ref="P1" pin="B10"/>
+      <node ref="P1" pin="B11"/>
+      <node ref="P1" pin="B12"/>
+      <node ref="S1" pin="6"/>
+      <node ref="S1" pin="7"/>
+      <node ref="S1" pin="8"/>
+      <node ref="S1" pin="9"/>
+      <node ref="S1" pin="10"/>
+      <node ref="P1" pin="B9"/>
+      <node ref="R10" pin="1"/>
+      <node ref="C10" pin="1"/>
+      <node ref="U5" pin="2"/>
+    </net>
+    <net code="9" name="Net-(P1-PadA18)">
+      <node ref="R1" pin="1"/>
+      <node ref="P1" pin="A18"/>
+      <node ref="S1" pin="1"/>
+    </net>
+    <net code="10" name="Net-(P1-PadA17)">
+      <node ref="R2" pin="1"/>
+      <node ref="S1" pin="2"/>
+      <node ref="P1" pin="A17"/>
+    </net>
+    <net code="11" name="Net-(P1-PadA16)">
+      <node ref="R3" pin="1"/>
+      <node ref="P1" pin="A16"/>
+      <node ref="S1" pin="3"/>
+    </net>
+    <net code="12" name="Net-(P1-PadA15)">
+      <node ref="R4" pin="1"/>
+      <node ref="P1" pin="A15"/>
+      <node ref="S1" pin="4"/>
+    </net>
+    <net code="13" name="Net-(U1-Pad2)">
+      <node ref="U1" pin="2"/>
+    </net>
+    <net code="14" name="Net-(U1-Pad3)">
+      <node ref="U1" pin="3"/>
+    </net>
+    <net code="15" name="+3V3">
+      <node ref="C9" pin="1"/>
+      <node ref="C3" pin="2"/>
+      <node ref="J3" pin="1"/>
+      <node ref="J2" pin="1"/>
+      <node ref="U1" pin="20"/>
+    </net>
+    <net code="16" name="+24V">
+      <node ref="C8" pin="1"/>
+      <node ref="J7" pin="1"/>
+      <node ref="U5" pin="3"/>
+      <node ref="U4" pin="1"/>
+      <node ref="U4" pin="2"/>
+      <node ref="C6" pin="1"/>
+      <node ref="P1" pin="B7"/>
+      <node ref="P1" pin="B6"/>
+      <node ref="P1" pin="B5"/>
+      <node ref="P1" pin="B1"/>
+      <node ref="P1" pin="B4"/>
+      <node ref="P1" pin="B2"/>
+      <node ref="P1" pin="B3"/>
+    </net>
+    <net code="17" name="Net-(U1-Pad17)">
+      <node ref="U1" pin="17"/>
+    </net>
+    <net code="18" name="Net-(U1-Pad7)">
+      <node ref="U1" pin="7"/>
+    </net>
+    <net code="19" name="Net-(U1-Pad6)">
+      <node ref="U1" pin="6"/>
+    </net>
+    <net code="20" name="GND">
+      <node ref="P1" pin="B16"/>
+      <node ref="P1" pin="A4"/>
+      <node ref="J3" pin="30"/>
+      <node ref="J2" pin="30"/>
+      <node ref="P1" pin="A5"/>
+      <node ref="J3" pin="20"/>
+      <node ref="P1" pin="A2"/>
+      <node ref="J3" pin="9"/>
+      <node ref="J3" pin="6"/>
+      <node ref="J2" pin="20"/>
+      <node ref="P1" pin="A3"/>
+      <node ref="J2" pin="14"/>
+      <node ref="J2" pin="6"/>
+      <node ref="P1" pin="B15"/>
+      <node ref="J2" pin="25"/>
+      <node ref="J2" pin="39"/>
+      <node ref="P1" pin="A1"/>
+      <node ref="P1" pin="A6"/>
+      <node ref="J2" pin="34"/>
+      <node ref="J3" pin="25"/>
+      <node ref="P1" pin="A13"/>
+      <node ref="J3" pin="34"/>
+      <node ref="J3" pin="14"/>
+      <node ref="P1" pin="A7"/>
+      <node ref="P1" pin="B14"/>
+      <node ref="J2" pin="9"/>
+      <node ref="C9" pin="2"/>
+      <node ref="R9" pin="2"/>
+      <node ref="C7" pin="2"/>
+      <node ref="U3" pin="8"/>
+      <node ref="C4" pin="2"/>
+      <node ref="C5" pin="2"/>
+      <node ref="B1" pin="1"/>
+      <node ref="R11" pin="2"/>
+      <node ref="U1" pin="8"/>
+      <node ref="P1" pin="B18"/>
+      <node ref="U4" pin="3"/>
+      <node ref="J3" pin="39"/>
+      <node ref="C3" pin="1"/>
+      <node ref="C1" pin="1"/>
+      <node ref="R2" pin="2"/>
+      <node ref="C2" pin="1"/>
+      <node ref="P1" pin="B17"/>
+      <node ref="C10" pin="2"/>
+      <node ref="R1" pin="2"/>
+      <node ref="R3" pin="2"/>
+      <node ref="R4" pin="2"/>
+      <node ref="R5" pin="2"/>
+      <node ref="U2" pin="4"/>
+      <node ref="U3" pin="2"/>
+      <node ref="J7" pin="2"/>
+      <node ref="P1" pin="A10"/>
+      <node ref="C6" pin="2"/>
+      <node ref="C11" pin="2"/>
+      <node ref="J8" pin="1"/>
+      <node ref="J4" pin="1"/>
+      <node ref="C8" pin="2"/>
+    </net>
+    <net code="21" name="RS485_A">
+      <node ref="J9" pin="2"/>
+      <node ref="J5" pin="2"/>
+      <node ref="P1" pin="A9"/>
+    </net>
+    <net code="22" name="RS485_B">
+      <node ref="P1" pin="A8"/>
+      <node ref="J5" pin="1"/>
+      <node ref="J9" pin="1"/>
+    </net>
+    <net code="23" name="GPIO4">
+      <node ref="J3" pin="7"/>
+      <node ref="J2" pin="7"/>
+    </net>
+    <net code="24" name="UART_RX">
+      <node ref="J3" pin="10"/>
+      <node ref="U3" pin="4"/>
+      <node ref="J2" pin="10"/>
+    </net>
+    <net code="25" name="Net-(R7-Pad1)">
+      <node ref="R7" pin="1"/>
+      <node ref="U2" pin="2"/>
+    </net>
+    <net code="26" name="Net-(U2-Pad3)">
+      <node ref="U2" pin="3"/>
+    </net>
+    <net code="27" name="Net-(U2-Pad6)">
+      <node ref="U2" pin="6"/>
+    </net>
+    <net code="28" name="UART_TX">
+      <node ref="J3" pin="8"/>
+      <node ref="U3" pin="1"/>
+      <node ref="J2" pin="8"/>
+    </net>
+    <net code="29" name="Net-(U3-Pad5)">
+      <node ref="U3" pin="5"/>
+    </net>
+    <net code="30" name="CAN_H">
+      <node ref="U3" pin="7"/>
+      <node ref="J10" pin="1"/>
+      <node ref="J6" pin="1"/>
+      <node ref="P1" pin="A11"/>
+    </net>
+    <net code="31" name="Net-(R6-Pad1)">
+      <node ref="R6" pin="1"/>
+      <node ref="U2" pin="1"/>
+    </net>
+    <net code="32" name="Net-(U1-Pad14)">
+      <node ref="U1" pin="14"/>
+    </net>
+    <net code="33" name="Net-(U1-Pad15)">
+      <node ref="U1" pin="15"/>
+    </net>
+    <net code="34" name="Net-(U1-Pad16)">
+      <node ref="U1" pin="16"/>
+    </net>
+    <net code="35" name="Net-(U1-Pad13)">
+      <node ref="U1" pin="13"/>
+    </net>
+    <net code="36" name="I2C_SCL">
+      <node ref="U1" pin="1"/>
+      <node ref="J3" pin="5"/>
+      <node ref="J2" pin="5"/>
+    </net>
+    <net code="37" name="I2C_SDA">
+      <node ref="J3" pin="3"/>
+      <node ref="J2" pin="3"/>
+      <node ref="U1" pin="4"/>
+    </net>
+    <net code="38" name="Net-(U1-Pad9)">
+      <node ref="U1" pin="9"/>
+    </net>
+    <net code="39" name="Net-(U1-Pad10)">
+      <node ref="U1" pin="10"/>
+    </net>
+    <net code="40" name="Net-(U1-Pad11)">
+      <node ref="U1" pin="11"/>
+    </net>
+    <net code="41" name="Net-(U1-Pad12)">
+      <node ref="U1" pin="12"/>
+    </net>
+    <net code="42" name="Net-(R11-Pad1)">
+      <node ref="U4" pin="5"/>
+      <node ref="R11" pin="1"/>
+    </net>
+    <net code="43" name="Net-(B1-Pad2)">
+      <node ref="B1" pin="2"/>
+      <node ref="U1" pin="19"/>
+      <node ref="C2" pin="2"/>
+    </net>
+    <net code="44" name="Net-(C1-Pad2)">
+      <node ref="U1" pin="18"/>
+      <node ref="U1" pin="5"/>
+      <node ref="C1" pin="2"/>
+    </net>
+    <net code="45" name="ID_SC">
+      <node ref="J2" pin="28"/>
+      <node ref="J3" pin="28"/>
+    </net>
+    <net code="46" name="GPIO19">
+      <node ref="J2" pin="35"/>
+      <node ref="J3" pin="35"/>
+    </net>
+    <net code="47" name="GPIO23">
+      <node ref="J2" pin="16"/>
+      <node ref="J3" pin="16"/>
+    </net>
+    <net code="48" name="SPI_CE1">
+      <node ref="J2" pin="26"/>
+      <node ref="J3" pin="26"/>
+    </net>
+    <net code="49" name="GPIO16">
+      <node ref="J2" pin="36"/>
+      <node ref="J3" pin="36"/>
+    </net>
+    <net code="50" name="3V3_pwr">
+      <node ref="J2" pin="17"/>
+      <node ref="J3" pin="17"/>
+    </net>
+    <net code="51" name="ID_SD">
+      <node ref="J3" pin="27"/>
+      <node ref="J2" pin="27"/>
+    </net>
+    <net code="52" name="GPIO26">
+      <node ref="J2" pin="37"/>
+      <node ref="J3" pin="37"/>
+    </net>
+    <net code="53" name="GPIO24">
+      <node ref="J3" pin="18"/>
+      <node ref="J2" pin="18"/>
+    </net>
+    <net code="54" name="GPIO20">
+      <node ref="J3" pin="38"/>
+      <node ref="J2" pin="38"/>
+    </net>
+    <net code="55" name="SPI_MOSI">
+      <node ref="J3" pin="19"/>
+      <node ref="J2" pin="19"/>
+    </net>
+    <net code="56" name="GPIO5">
+      <node ref="J3" pin="29"/>
+      <node ref="J2" pin="29"/>
+    </net>
+    <net code="57" name="GPIO25">
+      <node ref="J3" pin="22"/>
+      <node ref="J2" pin="22"/>
+    </net>
+    <net code="58" name="GPIO21">
+      <node ref="J2" pin="40"/>
+      <node ref="J3" pin="40"/>
+    </net>
+    <net code="59" name="CPIO17">
+      <node ref="J3" pin="11"/>
+      <node ref="J2" pin="11"/>
+    </net>
+    <net code="60" name="SPI_MISO">
+      <node ref="J3" pin="21"/>
+      <node ref="J2" pin="21"/>
+    </net>
+    <net code="61" name="GPIO6">
+      <node ref="J3" pin="31"/>
+      <node ref="J2" pin="31"/>
+    </net>
+    <net code="62" name="PCM_CLK">
+      <node ref="J2" pin="12"/>
+      <node ref="J3" pin="12"/>
+    </net>
+    <net code="63" name="GPIO12">
+      <node ref="J2" pin="32"/>
+      <node ref="J3" pin="32"/>
+    </net>
+    <net code="64" name="GPIO27">
+      <node ref="J2" pin="13"/>
+      <node ref="J3" pin="13"/>
+    </net>
+    <net code="65" name="SPI_SCLK">
+      <node ref="J3" pin="23"/>
+      <node ref="J2" pin="23"/>
+    </net>
+    <net code="66" name="GPIO13">
+      <node ref="J3" pin="33"/>
+      <node ref="J2" pin="33"/>
+    </net>
+    <net code="67" name="SPI_CE0">
+      <node ref="J3" pin="24"/>
+      <node ref="J2" pin="24"/>
+    </net>
+    <net code="68" name="GPIO22">
+      <node ref="J3" pin="15"/>
+      <node ref="J2" pin="15"/>
+    </net>
+  </nets>
+</export>

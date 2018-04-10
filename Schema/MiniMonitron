@@ -1,0 +1,51 @@
+Source,E:/maina/Documents/Travaux/Hiver_2018/Projet/m_monitron/Schema/MiniMonitron.sch
+Kicad Rev,Eeschema 4.0.6
+Generated Date,2018-03-13 11:58:48
+
+Title,Not Set
+Company,Not Set
+Revision,Not Set
+Date Issue,Not Set
+
+Reference,Value,Package,Description,MF,Price,Availability,Library,Library Ref
+U2,H11AA1M,DIP-6 Fairchild Semiconductor,DIP-6 Through Hole Single Channel 30 V 4170 Vrms Phototransistor Optocoupler,Fairchild Semiconductor,0.32 USD,Good,MiniMonitron-cache,H11AA1M
+U3,MCP2551-I/SN,MiniMonitron-cache,MCP2551-I/SN
+S1,Switch_5xDIP,MiniMonitron-cache,Switch_5xDIP_RevE_Date15jun2010
+R1,1k,MiniMonitron-cache,R
+R2,1k,MiniMonitron-cache,R
+R3,1k,MiniMonitron-cache,R
+R4,1k,MiniMonitron-cache,R
+R5,1k,MiniMonitron-cache,R
+R8,1k,MiniMonitron-cache,R
+C4,0.1uf,MiniMonitron-cache,C
+C5,0.1uf,MiniMonitron-cache,C
+C7,0.1uf,MiniMonitron-cache,C
+C9,0.1uf,MiniMonitron-cache,C
+R6,1k,MiniMonitron-cache,R
+R7,1k,MiniMonitron-cache,R
+J1,CONN_01X02,MiniMonitron-cache,CONN_01X02
+P1,conn2x18pcie,MiniMonitron-cache,conn2x18pcie
+J2,CONN_02X20,MiniMonitron-cache,CONN_02X20
+J3,CONN_02X20,MiniMonitron-cache,CONN_02X20
+U1,PCF2129AT,MiniMonitron-cache,PCF2129AT
+B1,Battery_Holder_CR1220,MiniMonitron-cache,Battery_Holder_CR1220
+C2,0.1uF,MiniMonitron-cache,C
+C1,0.1uF,MiniMonitron-cache,C
+C3,0.1uF,MiniMonitron-cache,C
+U4,AXB050X43-SRZ,MiniMonitron-cache,AXB050X43-SRZ
+R11,4.3k,MiniMonitron-cache,R
+U5,LM1084IT-ADJ/NOPB,MiniMonitron-cache,LM1084IT-ADJ/NOPB
+R10,100,MiniMonitron-cache,R
+R9,300,MiniMonitron-cache,R
+C10,10uF,MiniMonitron-cache,C
+C8,10uF,MiniMonitron-cache,C
+C11,10uF,MiniMonitron-cache,C
+C6,10uF,MiniMonitron-cache,C
+J8,CONN_01X02,MiniMonitron-cache,CONN_01X02
+J9,CONN_01X02,MiniMonitron-cache,CONN_01X02
+J10,CONN_01X02,MiniMonitron-cache,CONN_01X02
+J4,CONN_01X02,MiniMonitron-cache,CONN_01X02
+J5,CONN_01X02,MiniMonitron-cache,CONN_01X02
+J6,CONN_01X02,MiniMonitron-cache,CONN_01X02
+HS1,HEATSINK,MiniMonitron-cache,HEATSINK
+J7,CONN_01X02,MiniMonitron-cache,CONN_01X02
