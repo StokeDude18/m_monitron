@@ -54,6 +54,7 @@ void m_monitron_0_0::on_b_Edit_tLecture_clicked()
         {
           m_newParams.Setpoint = edit_w_Lecture.ui->tb_new_setpoint->text().toFloat();
           m_newParams.Var_Rate = edit_w_Lecture.ui->tb_new_var_rate->text().toFloat();
+          printf("Var rate: %f", m_newParams.Var_Rate);
         }
         catch(exception& e)//Si erreur lors de la conversion, affiche un message d'erreur
         {
@@ -317,6 +318,7 @@ void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
     sendBuffer[t3_VarRate2]  = u_varRate.b[1];
     sendBuffer[t3_VarRate3]  = u_varRate.b[2];
     sendBuffer[t3_VarRate4]  = u_varRate.b[3];
+    printf("Var Rate::: %f", u_varRate.f);
 
     u_cycle1.i = m_newParams.Cycles.Cycle1;
     sendBuffer[t3_Cycle1_1]  = u_cycle1.b[0];
@@ -356,6 +358,8 @@ void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
     sendBuffer[t3_AlarmRange4] = u_alarm_range.b[3];
 
     sendBuffer[t3_OP_Mode] = m_newParams.Control.OP_Mode;
+
+    printf("F3\n");
 }
 
 //Événement au clic du bouton Apply changes
