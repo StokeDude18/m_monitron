@@ -18,7 +18,7 @@
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
+#include <editline.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -29,11 +29,11 @@ public:
     QLabel *l_Alarm_Range;
     QLabel *l_COntrol_Range;
     QLabel *l_GOP_Mode;
-    QLineEdit *tb_New_Control_Range;
+    EditLine *tb_New_Control_Range;
     QComboBox *cb_GOP_Mode;
     QLabel *l_OP_Mode;
     QComboBox *cb_OP_Mode;
-    QLineEdit *tb_New_Alarm_Range;
+    EditLine *tb_New_Alarm_Range;
     QLabel *l_Alarm_Mode;
     QComboBox *cb_Alarm_Mode;
 
@@ -66,7 +66,7 @@ public:
         l_GOP_Mode->setObjectName(QStringLiteral("l_GOP_Mode"));
         l_GOP_Mode->setGeometry(QRect(85, 240, 261, 26));
         l_GOP_Mode->setFont(font);
-        tb_New_Control_Range = new QLineEdit(edit_Control_OP);
+        tb_New_Control_Range = new EditLine(edit_Control_OP);
         tb_New_Control_Range->setObjectName(QStringLiteral("tb_New_Control_Range"));
         tb_New_Control_Range->setGeometry(QRect(345, 60, 156, 31));
         QFont font2;
@@ -85,7 +85,7 @@ public:
         cb_OP_Mode->setObjectName(QStringLiteral("cb_OP_Mode"));
         cb_OP_Mode->setGeometry(QRect(345, 180, 151, 31));
         cb_OP_Mode->setFont(font);
-        tb_New_Alarm_Range = new QLineEdit(edit_Control_OP);
+        tb_New_Alarm_Range = new EditLine(edit_Control_OP);
         tb_New_Alarm_Range->setObjectName(QStringLiteral("tb_New_Alarm_Range"));
         tb_New_Alarm_Range->setGeometry(QRect(345, 120, 156, 31));
         tb_New_Alarm_Range->setFont(font2);

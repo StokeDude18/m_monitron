@@ -94,7 +94,7 @@
     <string>Global Operation Mode:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="tb_New_Control_Range">
+  <widget class="EditLine" name="tb_New_Control_Range">
    <property name="geometry">
     <rect>
      <x>345</x>
@@ -178,7 +178,7 @@
     </property>
    </item>
   </widget>
-  <widget class="QLineEdit" name="tb_New_Alarm_Range">
+  <widget class="EditLine" name="tb_New_Alarm_Range">
    <property name="geometry">
     <rect>
      <x>345</x>
@@ -238,6 +238,13 @@
    </item>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>EditLine</class>
+   <extends>QLineEdit</extends>
+   <header location="global">editline.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

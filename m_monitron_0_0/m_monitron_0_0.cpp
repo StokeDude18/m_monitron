@@ -45,6 +45,7 @@ void m_monitron_0_0::on_b_Edit_tLecture_clicked()
     qs_lecture.sprintf("%.2f", m.Var_Rate);
     edit_w_Lecture.ui->tb_new_var_rate->setText(qs_lecture);
 
+    //edit_w_Lecture.initEntry();
     edit_w_Lecture.exec();//Affiche la fenêtre de dialogue
 
     if(edit_w_Lecture.result() == QDialog::Accepted)//Bouton OK

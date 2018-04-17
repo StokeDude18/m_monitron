@@ -16,6 +16,9 @@ public:
     ~edit_Cycles();
     Ui::edit_Cycles *ui;//Pointeur vers la fenêtre graphique edit_cycles.ui
 
+private slots:
+    void onFocus(bool hasFocus);
+
 private:
 
 };

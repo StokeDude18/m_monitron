@@ -3,6 +3,9 @@
 #include "communication.h"
 #include <QString>
 
+#include "numpad.h"
+#include "ui_numpad.h"
+#include "editline.h"
 
 //Constructeur
 edit_Cycles::edit_Cycles(QWidget *parent) :
@@ -17,9 +20,28 @@ edit_Cycles::edit_Cycles(QWidget *parent) :
     ui->tb_Cycle2->setValidator(new QIntValidator(0,1000));
     ui->tb_Setpoint1->setValidator(new QDoubleValidator(0,1000, 2));
     ui->tb_Setpoint2->setValidator(new QDoubleValidator(0,1000, 2));
+
+    connect(ui->tb_Cycle1, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+    connect(ui->tb_Cycle2, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+    connect(ui->tb_Setpoint1, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+    connect(ui->tb_Setpoint2, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
 }
 
 edit_Cycles::~edit_Cycles()
 {
     delete ui;
+}
+
+void edit_Cycles::onFocus(bool hasFocus)
+{
+    EditLine *edlObj = (EditLine *)sender();
+    Numpad num;
+
+    if(hasFocus == true)
+    {
+        num.exec();
+        if(num.result() == QDialog::Accepted)
+            edlObj->setText(num.ui->le_Entry->text());
+        ui->buttonBox->setFocus();
+    }
 }

@@ -16,6 +16,9 @@ public:
     ~edit_Control_OP();
     Ui::edit_Control_OP *ui;//Pointeur vers la fenêtre graphique edit_control.ui
 
+private slots:
+    void onFocus(bool hasFocus);
+
 private:
 
 };

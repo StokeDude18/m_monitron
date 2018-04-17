@@ -18,21 +18,21 @@
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
+#include <editline.h>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_edit_Cycles
 {
 public:
-    QDialogButtonBox *dialogButtonBox;
-    QLineEdit *tb_Setpoint2;
+    QDialogButtonBox *buttonBox;
+    EditLine *tb_Setpoint2;
     QLabel *l_Cycle1_2;
-    QLineEdit *tb_Cycle2;
-    QLineEdit *tb_Setpoint1;
+    EditLine *tb_Cycle2;
+    EditLine *tb_Setpoint1;
     QLabel *l_Setpoint_Cycle_3;
     QLabel *l_Cycle2_2;
-    QLineEdit *tb_Cycle1;
+    EditLine *tb_Cycle1;
     QLabel *l_Setpoint_Cycle_4;
     QCheckBox *cb_Cycle_Mode_Toggle;
 
@@ -44,22 +44,22 @@ public:
         QFont font;
         font.setPointSize(14);
         edit_Cycles->setFont(font);
-        dialogButtonBox = new QDialogButtonBox(edit_Cycles);
-        dialogButtonBox->setObjectName(QStringLiteral("dialogButtonBox"));
-        dialogButtonBox->setGeometry(QRect(190, 380, 181, 32));
-        dialogButtonBox->setOrientation(Qt::Horizontal);
-        dialogButtonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
-        tb_Setpoint2 = new QLineEdit(edit_Cycles);
+        buttonBox = new QDialogButtonBox(edit_Cycles);
+        buttonBox->setObjectName(QStringLiteral("buttonBox"));
+        buttonBox->setGeometry(QRect(190, 380, 181, 32));
+        buttonBox->setOrientation(Qt::Horizontal);
+        buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        tb_Setpoint2 = new EditLine(edit_Cycles);
         tb_Setpoint2->setObjectName(QStringLiteral("tb_Setpoint2"));
         tb_Setpoint2->setGeometry(QRect(370, 190, 141, 22));
         l_Cycle1_2 = new QLabel(edit_Cycles);
         l_Cycle1_2->setObjectName(QStringLiteral("l_Cycle1_2"));
         l_Cycle1_2->setGeometry(QRect(30, 110, 76, 16));
         l_Cycle1_2->setFont(font);
-        tb_Cycle2 = new QLineEdit(edit_Cycles);
+        tb_Cycle2 = new EditLine(edit_Cycles);
         tb_Cycle2->setObjectName(QStringLiteral("tb_Cycle2"));
         tb_Cycle2->setGeometry(QRect(110, 190, 141, 22));
-        tb_Setpoint1 = new QLineEdit(edit_Cycles);
+        tb_Setpoint1 = new EditLine(edit_Cycles);
         tb_Setpoint1->setObjectName(QStringLiteral("tb_Setpoint1"));
         tb_Setpoint1->setGeometry(QRect(370, 110, 141, 22));
         l_Setpoint_Cycle_3 = new QLabel(edit_Cycles);
@@ -70,7 +70,7 @@ public:
         l_Cycle2_2->setObjectName(QStringLiteral("l_Cycle2_2"));
         l_Cycle2_2->setGeometry(QRect(30, 190, 81, 16));
         l_Cycle2_2->setFont(font);
-        tb_Cycle1 = new QLineEdit(edit_Cycles);
+        tb_Cycle1 = new EditLine(edit_Cycles);
         tb_Cycle1->setObjectName(QStringLiteral("tb_Cycle1"));
         tb_Cycle1->setGeometry(QRect(110, 110, 141, 22));
         l_Setpoint_Cycle_4 = new QLabel(edit_Cycles);
@@ -83,8 +83,8 @@ public:
         cb_Cycle_Mode_Toggle->setLayoutDirection(Qt::RightToLeft);
 
         retranslateUi(edit_Cycles);
-        QObject::connect(dialogButtonBox, SIGNAL(accepted()), edit_Cycles, SLOT(accept()));
-        QObject::connect(dialogButtonBox, SIGNAL(rejected()), edit_Cycles, SLOT(reject()));
+        QObject::connect(buttonBox, SIGNAL(accepted()), edit_Cycles, SLOT(accept()));
+        QObject::connect(buttonBox, SIGNAL(rejected()), edit_Cycles, SLOT(reject()));
 
         QMetaObject::connectSlotsByName(edit_Cycles);
     } // setupUi

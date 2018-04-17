@@ -16,6 +16,9 @@ public:
     ~edit_Calibration();
     Ui::edit_Calibration *ui;//Pointeur vers la fenêtre graphique edit_calibration.ui
 
+private slots:
+    void onFocus(bool hasFocus);
+
 private:
 
 };

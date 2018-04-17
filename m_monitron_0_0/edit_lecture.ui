@@ -31,7 +31,7 @@
     <string>New Setpoint:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="tb_new_var_rate">
+  <widget class="EditLine" name="tb_new_var_rate">
    <property name="geometry">
     <rect>
      <x>415</x>
@@ -70,7 +70,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="tb_new_setpoint">
+  <widget class="EditLine" name="tb_new_setpoint">
    <property name="geometry">
     <rect>
      <x>415</x>
@@ -110,6 +110,13 @@
    </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>EditLine</class>
+   <extends>QLineEdit</extends>
+   <header location="global">editline.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

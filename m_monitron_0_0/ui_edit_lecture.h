@@ -17,7 +17,7 @@
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
+#include <editline.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -25,9 +25,9 @@ class Ui_edit_Lecture
 {
 public:
     QLabel *l_Setpoint;
-    QLineEdit *tb_new_var_rate;
+    EditLine *tb_new_var_rate;
     QDialogButtonBox *buttonBox;
-    QLineEdit *tb_new_setpoint;
+    EditLine *tb_new_setpoint;
     QLabel *l_Var_Rate;
 
     void setupUi(QDialog *edit_Lecture)
@@ -41,7 +41,7 @@ public:
         QFont font;
         font.setPointSize(24);
         l_Setpoint->setFont(font);
-        tb_new_var_rate = new QLineEdit(edit_Lecture);
+        tb_new_var_rate = new EditLine(edit_Lecture);
         tb_new_var_rate->setObjectName(QStringLiteral("tb_new_var_rate"));
         tb_new_var_rate->setGeometry(QRect(415, 170, 156, 36));
         QFont font1;
@@ -54,7 +54,7 @@ public:
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
         buttonBox->setCenterButtons(true);
-        tb_new_setpoint = new QLineEdit(edit_Lecture);
+        tb_new_setpoint = new EditLine(edit_Lecture);
         tb_new_setpoint->setObjectName(QStringLiteral("tb_new_setpoint"));
         tb_new_setpoint->setGeometry(QRect(415, 80, 156, 36));
         tb_new_setpoint->setFont(font1);

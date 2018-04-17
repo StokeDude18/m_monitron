@@ -18,7 +18,7 @@
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
+#include <editline.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -28,14 +28,14 @@ public:
     QDialogButtonBox *buttonBox;
     QGroupBox *gb_Point1;
     QLabel *l_P1_mV;
-    QLineEdit *tb_P1_mV;
+    EditLine *tb_P1_mV;
     QLabel *l_P1_Convert_Unit;
-    QLineEdit *tb_P1_Convert_Unit;
+    EditLine *tb_P1_Convert_Unit;
     QGroupBox *gb_Point2;
     QLabel *l_P2_mV;
-    QLineEdit *tb_P2_mV;
+    EditLine *tb_P2_mV;
     QLabel *l_P2_Convert_Unit;
-    QLineEdit *tb_P2_Convert_Unit;
+    EditLine *tb_P2_Convert_Unit;
 
     void setupUi(QDialog *edit_Calibration)
     {
@@ -63,14 +63,15 @@ public:
         font1.setBold(false);
         font1.setWeight(50);
         l_P1_mV->setFont(font1);
-        tb_P1_mV = new QLineEdit(gb_Point1);
+        tb_P1_mV = new EditLine(gb_Point1);
         tb_P1_mV->setObjectName(QStringLiteral("tb_P1_mV"));
         tb_P1_mV->setGeometry(QRect(150, 50, 131, 21));
+        tb_P1_mV->setFocusPolicy(Qt::ClickFocus);
         l_P1_Convert_Unit = new QLabel(gb_Point1);
         l_P1_Convert_Unit->setObjectName(QStringLiteral("l_P1_Convert_Unit"));
         l_P1_Convert_Unit->setGeometry(QRect(10, 90, 131, 16));
         l_P1_Convert_Unit->setFont(font1);
-        tb_P1_Convert_Unit = new QLineEdit(gb_Point1);
+        tb_P1_Convert_Unit = new EditLine(gb_Point1);
         tb_P1_Convert_Unit->setObjectName(QStringLiteral("tb_P1_Convert_Unit"));
         tb_P1_Convert_Unit->setGeometry(QRect(150, 90, 131, 21));
         gb_Point2 = new QGroupBox(edit_Calibration);
@@ -81,14 +82,14 @@ public:
         l_P2_mV->setObjectName(QStringLiteral("l_P2_mV"));
         l_P2_mV->setGeometry(QRect(10, 50, 131, 16));
         l_P2_mV->setFont(font1);
-        tb_P2_mV = new QLineEdit(gb_Point2);
+        tb_P2_mV = new EditLine(gb_Point2);
         tb_P2_mV->setObjectName(QStringLiteral("tb_P2_mV"));
         tb_P2_mV->setGeometry(QRect(150, 50, 131, 21));
         l_P2_Convert_Unit = new QLabel(gb_Point2);
         l_P2_Convert_Unit->setObjectName(QStringLiteral("l_P2_Convert_Unit"));
         l_P2_Convert_Unit->setGeometry(QRect(10, 90, 131, 16));
         l_P2_Convert_Unit->setFont(font1);
-        tb_P2_Convert_Unit = new QLineEdit(gb_Point2);
+        tb_P2_Convert_Unit = new EditLine(gb_Point2);
         tb_P2_Convert_Unit->setObjectName(QStringLiteral("tb_P2_Convert_Unit"));
         tb_P2_Convert_Unit->setGeometry(QRect(150, 90, 131, 21));
 

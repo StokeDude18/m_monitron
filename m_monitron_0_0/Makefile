@@ -55,11 +55,15 @@ SOURCES       = main.cpp \
 		edit_lecture.cpp \
 		edit_control_op.cpp \
 		DBAccess.cpp \
-		module.cpp moc_m_monitron_0_0.cpp \
+		module.cpp \
+		numpad.cpp \
+		editline.cpp moc_m_monitron_0_0.cpp \
 		moc_edit_cycles.cpp \
 		moc_edit_calibration.cpp \
 		moc_edit_lecture.cpp \
-		moc_edit_control_op.cpp
+		moc_edit_control_op.cpp \
+		moc_numpad.cpp \
+		moc_editline.cpp
 OBJECTS       = main.o \
 		m_monitron_0_0.o \
 		edit_cycles.o \
@@ -68,11 +72,15 @@ OBJECTS       = main.o \
 		edit_control_op.o \
 		DBAccess.o \
 		module.o \
+		numpad.o \
+		editline.o \
 		moc_m_monitron_0_0.o \
 		moc_edit_cycles.o \
 		moc_edit_calibration.o \
 		moc_edit_lecture.o \
-		moc_edit_control_op.o
+		moc_edit_control_op.o \
+		moc_numpad.o \
+		moc_editline.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -167,14 +175,18 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		edit_control_op.h \
 		DBAccess.h \
 		communication.h \
-		module.h main.cpp \
+		module.h \
+		numpad.h \
+		editline.h main.cpp \
 		m_monitron_0_0.cpp \
 		edit_cycles.cpp \
 		edit_calibration.cpp \
 		edit_lecture.cpp \
 		edit_control_op.cpp \
 		DBAccess.cpp \
-		module.cpp
+		module.cpp \
+		numpad.cpp \
+		editline.cpp
 QMAKE_TARGET  = m_monitron_0_0
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = m_monitron_0_0
@@ -202,7 +214,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): ui_m_monitron_0_0.h ui_edit_cycles.h ui_edit_calibration.h ui_edit_lecture.h ui_edit_control_op.h $(OBJECTS)  
+$(TARGET): ui_m_monitron_0_0.h ui_edit_cycles.h ui_edit_calibration.h ui_edit_lecture.h ui_edit_control_op.h ui_numpad.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: m_monitron_0_0.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -402,9 +414,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents m_monitron_0_0.h edit_cycles.h edit_calibration.h edit_lecture.h edit_control_op.h DBAccess.h communication.h module.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp m_monitron_0_0.cpp edit_cycles.cpp edit_calibration.cpp edit_lecture.cpp edit_control_op.cpp DBAccess.cpp module.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents m_monitron_0_0.ui edit_cycles.ui edit_calibration.ui edit_lecture.ui edit_control_op.ui $(DISTDIR)/
+	$(COPY_FILE) --parents m_monitron_0_0.h edit_cycles.h edit_calibration.h edit_lecture.h edit_control_op.h DBAccess.h communication.h module.h numpad.h editline.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp m_monitron_0_0.cpp edit_cycles.cpp edit_calibration.cpp edit_lecture.cpp edit_control_op.cpp DBAccess.cpp module.cpp numpad.cpp editline.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents m_monitron_0_0.ui edit_cycles.ui edit_calibration.ui edit_lecture.ui edit_control_op.ui numpad.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -427,10 +439,13 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_m_monitron_0_0.cpp moc_edit_cycles.cpp moc_edit_calibration.cpp moc_edit_lecture.cpp moc_edit_control_op.cpp
+compiler_moc_header_make_all: moc_m_monitron_0_0.cpp moc_edit_cycles.cpp moc_edit_calibration.cpp moc_edit_lecture.cpp moc_edit_control_op.cpp moc_numpad.cpp moc_editline.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_m_monitron_0_0.cpp moc_edit_cycles.cpp moc_edit_calibration.cpp moc_edit_lecture.cpp moc_edit_control_op.cpp
+	-$(DEL_FILE) moc_m_monitron_0_0.cpp moc_edit_cycles.cpp moc_edit_calibration.cpp moc_edit_lecture.cpp moc_edit_control_op.cpp moc_numpad.cpp moc_editline.cpp
 moc_m_monitron_0_0.cpp: edit_lecture.h \
+		ui_edit_lecture.h \
+		editline.h \
+		numpad.h \
 		edit_cycles.h \
 		edit_calibration.h \
 		edit_control_op.h \
@@ -444,17 +459,26 @@ moc_edit_cycles.cpp: edit_cycles.h
 moc_edit_calibration.cpp: edit_calibration.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubuntu/Monitron/m_monitron_0_0 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include edit_calibration.h -o moc_edit_calibration.cpp
 
-moc_edit_lecture.cpp: edit_lecture.h
+moc_edit_lecture.cpp: ui_edit_lecture.h \
+		editline.h \
+		numpad.h \
+		edit_lecture.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubuntu/Monitron/m_monitron_0_0 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include edit_lecture.h -o moc_edit_lecture.cpp
 
 moc_edit_control_op.cpp: edit_control_op.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubuntu/Monitron/m_monitron_0_0 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include edit_control_op.h -o moc_edit_control_op.cpp
 
+moc_numpad.cpp: numpad.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubuntu/Monitron/m_monitron_0_0 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include numpad.h -o moc_numpad.cpp
+
+moc_editline.cpp: editline.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubuntu/Monitron/m_monitron_0_0 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include editline.h -o moc_editline.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_m_monitron_0_0.h ui_edit_cycles.h ui_edit_calibration.h ui_edit_lecture.h ui_edit_control_op.h
+compiler_uic_make_all: ui_m_monitron_0_0.h ui_edit_cycles.h ui_edit_calibration.h ui_edit_lecture.h ui_edit_control_op.h ui_numpad.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_m_monitron_0_0.h ui_edit_cycles.h ui_edit_calibration.h ui_edit_lecture.h ui_edit_control_op.h
+	-$(DEL_FILE) ui_m_monitron_0_0.h ui_edit_cycles.h ui_edit_calibration.h ui_edit_lecture.h ui_edit_control_op.h ui_numpad.h
 ui_m_monitron_0_0.h: m_monitron_0_0.ui
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic m_monitron_0_0.ui -o ui_m_monitron_0_0.h
 
@@ -464,11 +488,15 @@ ui_edit_cycles.h: edit_cycles.ui
 ui_edit_calibration.h: edit_calibration.ui
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic edit_calibration.ui -o ui_edit_calibration.h
 
-ui_edit_lecture.h: edit_lecture.ui
+ui_edit_lecture.h: edit_lecture.ui \
+		editline.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic edit_lecture.ui -o ui_edit_lecture.h
 
 ui_edit_control_op.h: edit_control_op.ui
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic edit_control_op.ui -o ui_edit_control_op.h
+
+ui_numpad.h: numpad.ui
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic numpad.ui -o ui_numpad.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -482,6 +510,9 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 
 main.o: main.cpp m_monitron_0_0.h \
 		edit_lecture.h \
+		ui_edit_lecture.h \
+		editline.h \
+		numpad.h \
 		edit_cycles.h \
 		edit_calibration.h \
 		edit_control_op.h \
@@ -492,12 +523,14 @@ main.o: main.cpp m_monitron_0_0.h \
 
 m_monitron_0_0.o: m_monitron_0_0.cpp m_monitron_0_0.h \
 		edit_lecture.h \
+		ui_edit_lecture.h \
+		editline.h \
+		numpad.h \
 		edit_cycles.h \
 		edit_calibration.h \
 		edit_control_op.h \
 		module.h \
 		ui_m_monitron_0_0.h \
-		ui_edit_lecture.h \
 		ui_edit_cycles.h \
 		ui_edit_calibration.h \
 		ui_edit_control_op.h \
@@ -505,19 +538,55 @@ m_monitron_0_0.o: m_monitron_0_0.cpp m_monitron_0_0.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o m_monitron_0_0.o m_monitron_0_0.cpp
 
 edit_cycles.o: edit_cycles.cpp edit_cycles.h \
-		ui_edit_cycles.h
+		ui_edit_cycles.h \
+		communication.h \
+		module.h \
+		m_monitron_0_0.h \
+		edit_lecture.h \
+		ui_edit_lecture.h \
+		editline.h \
+		numpad.h \
+		edit_calibration.h \
+		edit_control_op.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o edit_cycles.o edit_cycles.cpp
 
 edit_calibration.o: edit_calibration.cpp edit_calibration.h \
-		ui_edit_calibration.h
+		ui_edit_calibration.h \
+		communication.h \
+		module.h \
+		m_monitron_0_0.h \
+		edit_lecture.h \
+		ui_edit_lecture.h \
+		editline.h \
+		numpad.h \
+		edit_cycles.h \
+		edit_control_op.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o edit_calibration.o edit_calibration.cpp
 
 edit_lecture.o: edit_lecture.cpp edit_lecture.h \
-		ui_edit_lecture.h
+		ui_edit_lecture.h \
+		editline.h \
+		numpad.h \
+		communication.h \
+		module.h \
+		m_monitron_0_0.h \
+		edit_cycles.h \
+		edit_calibration.h \
+		edit_control_op.h \
+		ui_numpad.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o edit_lecture.o edit_lecture.cpp
 
 edit_control_op.o: edit_control_op.cpp edit_control_op.h \
-		ui_edit_control_op.h
+		ui_edit_control_op.h \
+		communication.h \
+		module.h \
+		m_monitron_0_0.h \
+		edit_lecture.h \
+		ui_edit_lecture.h \
+		editline.h \
+		numpad.h \
+		edit_cycles.h \
+		edit_calibration.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o edit_control_op.o edit_control_op.cpp
 
 DBAccess.o: DBAccess.cpp DBAccess.h
@@ -527,11 +596,23 @@ module.o: module.cpp module.h \
 		communication.h \
 		m_monitron_0_0.h \
 		edit_lecture.h \
+		ui_edit_lecture.h \
+		editline.h \
+		numpad.h \
 		edit_cycles.h \
 		edit_calibration.h \
 		edit_control_op.h \
 		ui_m_monitron_0_0.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o module.o module.cpp
+
+numpad.o: numpad.cpp numpad.h \
+		ui_numpad.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o numpad.o numpad.cpp
+
+editline.o: editline.cpp editline.h \
+		numpad.h \
+		ui_numpad.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o editline.o editline.cpp
 
 moc_m_monitron_0_0.o: moc_m_monitron_0_0.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_m_monitron_0_0.o moc_m_monitron_0_0.cpp
@@ -547,6 +628,12 @@ moc_edit_lecture.o: moc_edit_lecture.cpp
 
 moc_edit_control_op.o: moc_edit_control_op.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_edit_control_op.o moc_edit_control_op.cpp
+
+moc_numpad.o: moc_numpad.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_numpad.o moc_numpad.cpp
+
+moc_editline.o: moc_editline.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_editline.o moc_editline.cpp
 
 ####### Install
 

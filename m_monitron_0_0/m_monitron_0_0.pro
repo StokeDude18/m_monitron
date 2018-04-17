@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     edit_control_op.cpp \
     DBAccess.cpp \
     module.cpp \
-    numpad.cpp
+    numpad.cpp \
+    editline.cpp
 
 HEADERS  += m_monitron_0_0.h \
     edit_cycles.h \
@@ -30,7 +31,8 @@ HEADERS  += m_monitron_0_0.h \
     DBAccess.h \
     communication.h \
     module.h \
-    numpad.h
+    numpad.h \
+    editline.h
 
 FORMS    += m_monitron_0_0.ui \
     edit_cycles.ui \

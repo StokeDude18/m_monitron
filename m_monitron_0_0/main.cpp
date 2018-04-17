@@ -67,11 +67,11 @@ int main(int argc, char *argv[])
     if(serial == -1)//Si erreur dans l'ouverture
     {
         printf("ERROR");
-        while(serial == -1)
+        /*while(serial == -1)
         {
             usleep(1000000);
             serial = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY); //Ouverture du port série
-        }
+        }*/
     }
     tcgetattr(serial, &options);
     options.c_cflag = B115200 | CS8 | CLOCAL | CREAD; //configuration du baud rate
