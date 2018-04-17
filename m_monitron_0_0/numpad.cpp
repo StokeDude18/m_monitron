@@ -83,10 +83,11 @@ void Numpad::createLayout()
     layout->setSpacing(6);
 
     for(int i = 0; i < 9; i++)
-        layout->addWidget(buttons[i+1], i/3, i%3);
+        layout->addWidget(buttons[i+1], 2- i/3 , i%3);
+
     layout->addWidget(buttons[0], 3, 1);
-    layout->addWidget(buttons[10],3,0);
-    layout->addWidget(buttons[11],3,2);
+    layout->addWidget(buttons[DOT],3,0);
+    layout->addWidget(buttons[BACK],3,2);
 
     ui->VL->addLayout(layout);
 }

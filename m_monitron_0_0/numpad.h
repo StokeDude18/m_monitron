@@ -23,8 +23,10 @@ private slots:
     void onPadClick(int digit);
 
 private:
-
-    QPushButton *buttons[12];
+    static const int NB_BOUTONS = 12;
+    static const int DOT = 10;
+    static const int BACK = 11;
+    QPushButton *buttons[NB_BOUTONS];
     void createLayout();   
 };
 
