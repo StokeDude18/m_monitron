@@ -1,5 +1,5 @@
 Drill report for E:\maina\Documents\Travaux\Hiver_2018\Projet\m_monitron\Schema\MiniMonitron.kicad_pcb
-Created on 2018-04-10 12:10:43
+Created on 2018-04-16 16:28:53
 
 Copper Layer Stackup:
     =============================================================
@@ -10,23 +10,23 @@ Copper Layer Stackup:
 Drill file 'MiniMonitron.drl' contains
     plated through holes:
     =============================================================
-    T1  0,40mm  0,016"  (153 holes)
+    T1  0,40mm  0,016"  (152 holes)
     T2  0,80mm  0,031"  (24 holes)
     T3  0,80mm  0,032"  (36 holes)
     T4  1,00mm  0,039"  (83 holes)
     T5  1,52mm  0,060"  (16 holes)
 
-    Total plated holes count 312
+    Total plated holes count 311
 
 
-Drill file 'MiniMonitron-NPTH.drl' contains
+Not plated through holes are merged with plated holes
     unplated through holes:
     =============================================================
-    T1  1,00mm  0,039"  (1 hole)
-    T2  1,30mm  0,051"  (1 hole)
-    T3  2,40mm  0,095"  (2 holes)
-    T4  3,00mm  0,118"  (6 holes)
-    T5  3,50mm  0,138"  (1 hole)
-    T6  3,56mm  0,140"  (1 hole)
+    T6  1,00mm  0,039"  (1 hole)
+    T7  1,30mm  0,051"  (1 hole)
+    T8  2,40mm  0,095"  (2 holes)
+    T9  3,00mm  0,118"  (6 holes)
+    T10  3,50mm  0,138"  (1 hole)
+    T11  3,56mm  0,140"  (1 hole)
 
     Total unplated holes count 12

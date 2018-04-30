@@ -740,7 +740,7 @@ L R R12
 U 1 1 5A8278F3
 P 9550 4150
 F 0 "R12" V 9630 4150 50  0000 C CNN
-F 1 "4.3k" V 9550 4150 50  0000 C CNN
+F 1 "10k" V 9550 4150 50  0000 C CNN
 F 2 "mini_monitron:R_0805_HandSoldering" V 9480 4150 50  0001 C CNN
 F 3 "" H 9550 4150 50  0001 C CNN
 	1    9550 4150
@@ -1586,9 +1586,9 @@ Wire Wire Line
 	8250 5700 8550 5700
 Text Notes 8650 3450 0    60   ~ 0
 Alimentations PI\n\n
-Text Notes 5550 3400 0    60   ~ 0
+Text Notes 5650 3400 0    60   ~ 0
 CAN
-Text Notes 5600 4850 0    60   ~ 0
+Text Notes 5450 5000 0    60   ~ 0
 ZERO CROSS
 Text Notes 1600 5850 0    60   ~ 0
 RTC
@@ -1597,7 +1597,7 @@ PCIE
 Text Notes 1850 3800 0    60   ~ 0
 BORNIERS
 Text Notes 9300 1900 0    60   ~ 0
-Entrée 24VAC\n
+Entrée 24VDC\n
 Text Notes 8500 5000 0    60   ~ 0
 Alimentations module\n\n\n
 $EndSCHEMATC
