@@ -23,6 +23,8 @@ bool end_fonct0 = false;
 uint8_t t= 0; //temps écoulé
 uint8_t previousFunct = 0;
 uint8_t receivedFunction = 0;
+int previousPos = -1;
+
 bool read_Flag = false;					
 
 //Chaînes d'entrée de données pour la BD
@@ -114,15 +116,15 @@ void *mainTask(void *args)
 
             m.fillObjectParams(buffer_traitement, buffer_traitement[r_fonction]); //Parsing des données reçues et modification des paramètres de l'objet module.
             usleep(100000); // Délai d'exécution
-            for(auto &it_mod : v_mod)//Équivalent de for each
+            for(auto &it_mod : v_mod)//Pour chaque module connu
             {
                 if(buffer_traitement[r_pos] == it_mod.Position && v_mod.size() > 0)//Vérifie si la réponse provenait d'un module connu
                     mod_Detect = 1;
             }
             if(mod_Detect == 0 && m.ID != 0)//Si module inconnu, l'ajoute à sa liste
             {
-                v_mod.push_back(module(buffer_traitement));
-                wpointer->addModuleToMenu(m.ID);
+                v_mod.push_back(module(buffer_traitement));//Ajoute un objet module au vecteur
+                wpointer->addModuleToMenu(m.ID);//Ajoute l'ID du nouveau module au combo box de la fenêtre principale
             }
 
             usleep(100000); // Délai d'exécution
@@ -225,7 +227,6 @@ void *do_Receive(void *args)
                  usleep(10000);
                  clear_RX(); //Si checksum invalide, vide le buffer de réception
                  send_Fonction(v_mod[wpointer->getNextActiveModule()].Position, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
-
                }
            }
        }
@@ -250,7 +251,7 @@ void parseData(uint8_t* data)
         if(!mod_Detect)
         {
             v_mod.push_back(module(data));
-            v_modID.push_back(data[r_pos]);
+
         }
         usleep(10000);
         m.fillObjectParams(data, data[r_fonction]); //Parsing des données reçues et modification des paramètres de l'objet module.
@@ -280,7 +281,7 @@ void parseData(uint8_t* data)
     if(previousFunct != 0)
         send_Fonction(0, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
 
-    usleep(100000); //1s
+    usleep(100000); //100ms
 
     if(previousFunct == 3)
         usleep(1000000);
@@ -292,7 +293,7 @@ void parseData(uint8_t* data)
 */
 void send_Fonction(uint8_t pos, uint8_t fonct)
 {
-    int previousPos = -1;
+
     clear_TX();
     if(fonct == 3)//Construction de trame d'envoi pour édition de paramètres du MBED
     {
@@ -312,15 +313,14 @@ void send_Fonction(uint8_t pos, uint8_t fonct)
         trame_tx[t_soh] = T_SOH;
         trame_tx[t_size] = 7;//Longueur de trame
         trame_tx[t_pos] = pos;
+        //Si on vient de changer le module courant dans l'interface, redemande au module toutes ses informations (fonction 1)
         trame_tx[t_fonction] = (pos != previousPos && fonct != 0) ? 1 : fonct;
         trame_tx[t_checksum] = calcul_Checksum(trame_tx, trame_tx[t_size]);
         trame_tx[t_eoh1] = T_EOH1;
         trame_tx[t_eoh2] = T_EOH2;
 
         if(fonct == 1 && previousFunct == 3)
-            wpointer->setNextFunction(2);
-        /*if(wpointer->getNextFunction() == 1)
-            wpointer->setNextFunction(2);*/
+            wpointer->setNextFunction(2);        
     }
 
 
@@ -338,16 +338,6 @@ void send_Fonction(uint8_t pos, uint8_t fonct)
    previousFunct = fonct;
    previousPos = pos;
 }
-
-/*uint32_t findFirstModule()
-{
-    uint8_t pos = 0xFF;
-    for(auto &it_mod : v_mod)
-    {
-        if(it_mod.Position < pos)
-            pos = it_mod.Position;
-    }
-}*/
 
 /**
 * @brief Méthode pour effacer le buffer de reception des trames

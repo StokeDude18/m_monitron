@@ -68,7 +68,7 @@
      <string>Raw value (mV):</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="tb_P1_mV">
+   <widget class="EditLine" name="tb_P1_mV">
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -76,6 +76,9 @@
       <width>131</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::ClickFocus</enum>
     </property>
    </widget>
    <widget class="QLabel" name="l_P1_Convert_Unit">
@@ -98,7 +101,7 @@
      <string>Converted value:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="tb_P1_Convert_Unit">
+   <widget class="EditLine" name="tb_P1_Convert_Unit">
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -148,7 +151,7 @@
      <string>Raw value (mV):</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="tb_P2_mV">
+   <widget class="EditLine" name="tb_P2_mV">
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -178,7 +181,7 @@
      <string>Converted value:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="tb_P2_Convert_Unit">
+   <widget class="EditLine" name="tb_P2_Convert_Unit">
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -190,6 +193,13 @@
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>EditLine</class>
+   <extends>QLineEdit</extends>
+   <header location="global">editline.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

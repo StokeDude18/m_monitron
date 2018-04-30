@@ -48,8 +48,7 @@ void module::fillObjectParams(uint8_t *byteArray, uint8_t fonction)
 
     Type = byteArray[7];
     Position = byteArray[2];
-    if(Position == 127)
-        cout << "WTF" << endl;
+
 
     if(fonction > 0 && fonction < 3)
     {

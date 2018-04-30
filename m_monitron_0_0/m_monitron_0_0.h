@@ -8,6 +8,7 @@
 #include "edit_calibration.h"
 #include "edit_control_op.h"
 #include "module.h"
+#include "numpad.h"
 
 #include <QDialog>
 #include <QMessageBox>
@@ -52,6 +53,7 @@ private:
     edit_Cycles edit_w_Cycles;
     edit_Calibration edit_w_Calib;
     edit_Control_OP edit_w_ControlOP;
+    Numpad numpad;
 
     QMessageBox error_Msg_Box;//MessageBox pour la génération de messages d'erreur
     module m_newParams;

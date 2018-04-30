@@ -19,7 +19,9 @@ SOURCES += main.cpp\
     edit_lecture.cpp \
     edit_control_op.cpp \
     DBAccess.cpp \
-    module.cpp
+    module.cpp \
+    numpad.cpp \
+    editline.cpp
 
 HEADERS  += m_monitron_0_0.h \
     edit_cycles.h \
@@ -28,13 +30,16 @@ HEADERS  += m_monitron_0_0.h \
     edit_control_op.h \
     DBAccess.h \
     communication.h \
-    module.h
+    module.h \
+    numpad.h \
+    editline.h
 
 FORMS    += m_monitron_0_0.ui \
     edit_cycles.ui \
     edit_calibration.ui \
     edit_lecture.ui \
-    edit_control_op.ui
+    edit_control_op.ui \
+    numpad.ui
 
 QMAKE_CXXFLAGS += -std=c++0x -pthread
 #QMAKE_CFLAGS += -std=c++0x -pthread
