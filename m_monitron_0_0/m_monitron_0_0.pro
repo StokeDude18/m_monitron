@@ -14,14 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         m_monitron_0_0.cpp \
-    edit_calibration.cpp \
     DBAccess.cpp \
     module.cpp \
     numpad.cpp \
     editline.cpp
 
 HEADERS  += m_monitron_0_0.h \
-    edit_calibration.h \
     DBAccess.h \
     communication.h \
     module.h \
@@ -29,7 +27,6 @@ HEADERS  += m_monitron_0_0.h \
     editline.h
 
 FORMS    += m_monitron_0_0.ui \
-    edit_calibration.ui \
     numpad.ui
 
 QMAKE_CXXFLAGS += -std=c++0x -pthread

@@ -229,7 +229,7 @@ void send_Fonction(uint8_t pos, uint8_t fonct)
     if(fonct == 3)//Construction de trame d'envoi pour édition de paramètres du MBED
     {
         trame_tx[t_soh] = T_SOH;
-        trame_tx[t_size] = 37;//Longueur de trame
+        trame_tx[t_size] = 53;//Longueur de trame
         trame_tx[t_pos] = pos;
         trame_tx[t_fonction] = fonct;
         wpointer->buildF3Frame(trame_tx);

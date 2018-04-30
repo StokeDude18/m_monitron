@@ -1,7 +1,5 @@
 #include "m_monitron_0_0.h"
 #include "ui_m_monitron_0_0.h"
-#include "edit_calibration.h"
-#include "ui_edit_calibration.h"
 
 #include "communication.h"
 #include "editline.h"
@@ -16,6 +14,7 @@
 #include <QtGui>
 #include <QString>
 #include <vector>
+#include <QPalette>
 
 using namespace std;
 
@@ -35,6 +34,9 @@ m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui
     connect(ui->tb_Setpoint1, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
     connect(ui->tb_Setpoint2, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
 
+    connect(ui->tb_ConvertedValue1, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+    connect(ui->tb_ConvertedValue2, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+
     connect(ui->tb_AlarmRange, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
     connect(ui->tb_ControlRange, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
 
@@ -42,6 +44,8 @@ m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui
     v_textBoxArray.push_back(ui->tb_VarRate);
     v_textBoxArray.push_back(ui->tb_Cycle1);
     v_textBoxArray.push_back(ui->tb_Cycle2);
+    v_textBoxArray.push_back(ui->tb_ConvertedValue1);
+    v_textBoxArray.push_back(ui->tb_ConvertedValue2);
     v_textBoxArray.push_back(ui->tb_Setpoint1);
     v_textBoxArray.push_back(ui->tb_Setpoint2);
     v_textBoxArray.push_back(ui->tb_AlarmRange);
@@ -51,6 +55,8 @@ m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui
     ui->tb_VarRate->setValidator(new QDoubleValidator(0,1000, 2));
     ui->tb_Cycle1->setValidator(new QIntValidator(0,1000));
     ui->tb_Cycle2->setValidator(new QIntValidator(0,1000));
+    ui->tb_ConvertedValue1->setValidator(new QDoubleValidator(0,1000, 2));
+    ui->tb_ConvertedValue2->setValidator(new QDoubleValidator(0,1000, 2));
     ui->tb_Setpoint1->setValidator(new QDoubleValidator(0,1000, 2));
     ui->tb_Setpoint2->setValidator(new QDoubleValidator(0,1000, 2));
     ui->tb_AlarmRange->setValidator(new QDoubleValidator(0,1000, 2));
@@ -58,6 +64,7 @@ m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui
 
     nextFunction = 0;//prépare la prochaine fonction à envoyer
     nextActiveModule = 0;
+    calibModeActive = false;
 }
 
 m_monitron_0_0::~m_monitron_0_0()
@@ -67,9 +74,12 @@ m_monitron_0_0::~m_monitron_0_0()
 
 void m_monitron_0_0::onFocus(bool hasFocus)
 {
+    QString qs;
     EditLine *edlObj = (EditLine *)sender();
     QPalette p;
     p.setColor(QPalette::Base, Qt::red);
+    QPalette pTab;
+
     Numpad * num;
     if(edlObj->validator()->inherits("QDoubleValidator"))
         num = new Numpad(true);
@@ -82,8 +92,20 @@ void m_monitron_0_0::onFocus(bool hasFocus)
         if(num->result() == QDialog::Accepted)
         {
             if(edlObj->text() != num->ui->le_Entry->text())
+            {
                 edlObj->setPalette(p);
-            edlObj->setText(num->ui->le_Entry->text());
+                p.setColor(QPalette::Button, Qt::red);
+                ui->b_Apply_Changes->setPalette(p);
+            }
+            if(edlObj == ui->tb_ConvertedValue1)
+            {
+                ui->l_RawValueP1_Current->setText(ui->l_Lecture_mV_Current->text());
+            }
+            else if(edlObj == ui->tb_ConvertedValue2)
+            {
+                ui->l_RawValueP2_Current->setText(ui->l_Lecture_mV_Current->text());
+            }
+            edlObj->setText(num->ui->le_Entry->text());            
         }
         delete num;
         ui->b_Apply_Changes->setFocus();
@@ -136,7 +158,7 @@ void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
         ui->l_current_Reading->setText(qs);
 
 
-        if(fonction == 1)
+        if(fonction == 1 && !calibModeActive)
         {
             qs.sprintf("%.2f", mod->Setpoint);
             ui->tb_Setpoint->setText(qs);
@@ -158,16 +180,16 @@ void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
             ui->l_Cycle_Mode_Current_State->setText((mod->Cycles.Cycle_Mode_State == 1) ? "ON" : "OFF");
 
             qs.sprintf("%.2f", mod->Calib.raw_P1);
-            ui->l_Current_P1_raw->setText(qs);
+            ui->l_RawValueP1_Current->setText(qs);
 
             qs.sprintf("%.2f", mod->Calib.converted_P1);
-            ui->l_Current_P1_converted->setText(qs);
+            ui->tb_ConvertedValue1->setText(qs);
 
             qs.sprintf("%.2f", mod->Calib.raw_P2);
-            ui->l_Current_P2_raw->setText(qs);
+            ui->l_RawValueP2_Current->setText(qs);
 
             qs.sprintf("%.2f", mod->Calib.converted_P2);
-            ui->l_Current_P2_converted->setText(qs);
+            ui->tb_ConvertedValue2->setText(qs);
 
             qs.sprintf("%.2f", mod->Reading_mV);
             ui->l_Lecture_mV_Current->setText(qs);
@@ -184,12 +206,21 @@ void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
 
             m_newParams = *mod;
         }
+        else if(calibModeActive)
+        {
+            qs.sprintf("%.2f", mod->Reading_mV);
+            //m_newParams = *mod;
+        }
     }
 }
 
 //Méthode publique servant à évaluer dicter au processus principal la prochaîne requête au module d'acquisition
 uint8_t m_monitron_0_0::getNextFunction()
 {
+    if(nextFunction == 3)
+        calibModeActive = false;
+    else if(calibModeActive)
+        nextFunction = 1;
     return nextFunction;
 }
 
@@ -216,10 +247,10 @@ void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
     int2bytes    u_cycle2;
     float2bytes  u_cycle1_setpoint;
     float2bytes  u_cycle2_setpoint;
-    /*float2bytes  u_calib1_raw;
+    float2bytes  u_calib1_raw;
     float2bytes  u_calib2_raw;
     float2bytes  u_calib1_converted;
-    float2bytes  u_calib2_converted;*/
+    float2bytes  u_calib2_converted;
     float2bytes  u_control_range;
     float2bytes  u_alarm_range;
 
@@ -257,10 +288,30 @@ void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
     sendBuffer[t3_Setpoint2_3]  = u_cycle2_setpoint.b[2];
     sendBuffer[t3_Setpoint2_4]  = u_cycle2_setpoint.b[3];
 
-    /*u_calib1_raw.f = m_newParams.Calib.raw_P1;
-    u_calib2_raw.f = m_newParams.Calib.raw_P2;
+    u_calib1_raw.f = m_newParams.Calib.raw_P1;
+    sendBuffer[t3_CalibRaw1_1] = u_calib1_raw.b[0];
+    sendBuffer[t3_CalibRaw1_2] = u_calib1_raw.b[1];
+    sendBuffer[t3_CalibRaw1_3] = u_calib1_raw.b[2];
+    sendBuffer[t3_CalibRaw1_4] = u_calib1_raw.b[3];
+
     u_calib1_converted.f = m_newParams.Calib.converted_P1;
-    u_calib2_converted.f = m_newParams.Calib.converted_P2;*/
+    sendBuffer[t3_CalibConverted1_1] = u_calib1_converted.b[0];
+    sendBuffer[t3_CalibConverted1_2] = u_calib1_converted.b[1];
+    sendBuffer[t3_CalibConverted1_3] = u_calib1_converted.b[2];
+    sendBuffer[t3_CalibConverted1_4] = u_calib1_converted.b[3];
+
+    u_calib2_raw.f = m_newParams.Calib.raw_P2;
+    sendBuffer[t3_CalibRaw2_1] = u_calib2_raw.b[0];
+    sendBuffer[t3_CalibRaw2_2] = u_calib2_raw.b[1];
+    sendBuffer[t3_CalibRaw2_3] = u_calib2_raw.b[2];
+    sendBuffer[t3_CalibRaw2_4] = u_calib2_raw.b[3];
+
+    u_calib2_converted.f = m_newParams.Calib.converted_P2;
+    sendBuffer[t3_CalibConverted2_1] = u_calib2_converted.b[0];
+    sendBuffer[t3_CalibConverted2_2] = u_calib2_converted.b[1];
+    sendBuffer[t3_CalibConverted2_3] = u_calib2_converted.b[2];
+    sendBuffer[t3_CalibConverted2_4] = u_calib2_converted.b[3];
+
 
     u_control_range.f = m_newParams.Control.Control_Range;
     sendBuffer[t3_ControlRange1] = u_control_range.b[0];
@@ -284,10 +335,17 @@ void m_monitron_0_0::on_b_Apply_Changes_clicked()
 {
     QPalette p;
     p.setColor(QPalette::Base, Qt::white);
+    p.setColor(QPalette::Button, Qt::white);
     m_newParams.Setpoint = ui->tb_Setpoint->text().toDouble();
     m_newParams.Var_Rate = ui->tb_VarRate->text().toDouble();
     m_newParams.Cycles.Cycle1 = ui->tb_Cycle1->text().toInt();
     m_newParams.Cycles.Cycle2 = ui->tb_Cycle2->text().toInt();
+
+    m_newParams.Calib.raw_P1 = ui->l_RawValueP1_Current->text().toDouble();
+    m_newParams.Calib.converted_P1 = ui->tb_ConvertedValue1->text().toDouble();
+    m_newParams.Calib.raw_P2 = ui->l_RawValueP2_Current->text().toDouble();
+    m_newParams.Calib.converted_P2 = ui->tb_ConvertedValue2->text().toDouble();
+
     m_newParams.Cycles.Setpoint1 = ui->tb_Setpoint1->text().toDouble();
     m_newParams.Cycles.Setpoint2 = ui->tb_Setpoint2->text().toDouble();
     m_newParams.Control.Alarm_Range = ui->tb_AlarmRange->text().toDouble();
@@ -295,9 +353,17 @@ void m_monitron_0_0::on_b_Apply_Changes_clicked()
 
     for(auto &it_el : v_textBoxArray)
         it_el->setPalette(p);
+    ui->b_Apply_Changes->setPalette(p);
 
+    if(calibModeActive)
+    {
+        ui->b_Calibration->setEnabled(true);
+        ui->tb_ConvertedValue1->setEnabled(false);
+        ui->tb_ConvertedValue2->setEnabled(false);
+        ui->l_UserMessage->setText("");
+    }
     //Spécifie au programme que la prochaine trame d'envoi sera une trame d'édition de paramètres
-    nextFunction = 3;
+    setNextFunction(3);
 }
 
 
@@ -323,4 +389,19 @@ uint8_t m_monitron_0_0::getNextActiveModule()
 void m_monitron_0_0::setNextActiveModule(uint8_t modIndex)
 {
     nextActiveModule = modIndex;
+}
+
+void m_monitron_0_0::on_b_Calibration_clicked()
+{
+    QPalette p;
+    p.setColor(QPalette::WindowText, Qt::red);
+    if(calibModeActive == false)
+    {
+        calibModeActive = true;
+        ui->b_Calibration->setEnabled(false);
+        ui->tb_ConvertedValue1->setEnabled(true);
+        ui->tb_ConvertedValue2->setEnabled(true);
+        ui->l_UserMessage->setText("You need to apply the changes to quit calibration mode.");
+        ui->l_UserMessage->setPalette(p);
+    }
 }
