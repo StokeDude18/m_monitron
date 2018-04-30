@@ -97,59 +97,6 @@
        <string>Variation rate:</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="b_Edit_tLecture">
-      <property name="geometry">
-       <rect>
-        <x>655</x>
-        <y>10</y>
-        <width>116</width>
-        <height>66</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Edit</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="l_Current_Setpoint">
-      <property name="geometry">
-       <rect>
-        <x>315</x>
-        <y>110</y>
-        <width>136</width>
-        <height>36</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>30</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>0.00</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="l_Current_Var_Rate">
-      <property name="geometry">
-       <rect>
-        <x>315</x>
-        <y>185</y>
-        <width>141</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>30</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>0.00</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="l_current_Reading">
       <property name="geometry">
        <rect>
@@ -168,6 +115,42 @@
       </property>
       <property name="text">
        <string>0.00</string>
+      </property>
+     </widget>
+     <widget class="EditLine" name="tb_Setpoint">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>105</y>
+        <width>186</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>30</pointsize>
+       </font>
+      </property>
+     </widget>
+     <widget class="EditLine" name="tb_VarRate">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>180</y>
+        <width>186</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>30</pointsize>
+       </font>
       </property>
      </widget>
     </widget>
@@ -191,19 +174,6 @@
       </property>
       <property name="text">
        <string>Cycle mode status:</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="b_Edit_tCycles">
-      <property name="geometry">
-       <rect>
-        <x>655</x>
-        <y>10</y>
-        <width>116</width>
-        <height>66</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Edit</string>
       </property>
      </widget>
      <widget class="QLabel" name="l_Setpoint_Cycle_1">
@@ -278,90 +248,6 @@
        <string>Cycle 1:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="l_Current_Cycle_1">
-      <property name="geometry">
-       <rect>
-        <x>160</x>
-        <y>110</y>
-        <width>66</width>
-        <height>36</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>24</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QLabel" name="l_Current_Cycle_2">
-      <property name="geometry">
-       <rect>
-        <x>160</x>
-        <y>190</y>
-        <width>66</width>
-        <height>36</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>24</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QLabel" name="l_Current_Cycle_Setpoint_1">
-      <property name="geometry">
-       <rect>
-        <x>425</x>
-        <y>115</y>
-        <width>86</width>
-        <height>26</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>24</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QLabel" name="l_Current_Cycle_Setpoint_2">
-      <property name="geometry">
-       <rect>
-        <x>425</x>
-        <y>195</y>
-        <width>86</width>
-        <height>26</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>24</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
      <widget class="QLabel" name="l_Cycle_Mode_Current_State">
       <property name="geometry">
        <rect>
@@ -380,6 +266,66 @@
       </property>
       <property name="text">
        <string>OFF</string>
+      </property>
+     </widget>
+     <widget class="EditLine" name="tb_Cycle1">
+      <property name="geometry">
+       <rect>
+        <x>155</x>
+        <y>110</y>
+        <width>81</width>
+        <height>36</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+     </widget>
+     <widget class="EditLine" name="tb_Cycle2">
+      <property name="geometry">
+       <rect>
+        <x>155</x>
+        <y>190</y>
+        <width>81</width>
+        <height>36</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+     </widget>
+     <widget class="EditLine" name="tb_Setpoint1">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>110</y>
+        <width>156</width>
+        <height>36</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+     </widget>
+     <widget class="EditLine" name="tb_Setpoint2">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>190</y>
+        <width>156</width>
+        <height>36</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>24</pointsize>
+       </font>
       </property>
      </widget>
     </widget>
@@ -728,26 +674,13 @@
        <string>Global Operation Mode:</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="b_Edit_tControl">
+     <widget class="EditLine" name="tb_ControlRange">
       <property name="geometry">
        <rect>
-        <x>655</x>
-        <y>10</y>
+        <x>340</x>
+        <y>20</y>
         <width>116</width>
-        <height>66</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Edit</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="l_Current_Control_Range">
-      <property name="geometry">
-       <rect>
-        <x>320</x>
-        <y>25</y>
-        <width>66</width>
-        <height>21</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
@@ -757,17 +690,31 @@
         <bold>true</bold>
        </font>
       </property>
-      <property name="text">
-       <string>X</string>
-      </property>
      </widget>
-     <widget class="QLabel" name="l_Current_Operation_Mode">
+     <widget class="EditLine" name="tb_AlarmRange">
       <property name="geometry">
        <rect>
-        <x>320</x>
+        <x>340</x>
+        <y>60</y>
+        <width>116</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="cb_OpMode">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
         <y>115</y>
-        <width>186</width>
-        <height>21</height>
+        <width>116</width>
+        <height>26</height>
        </rect>
       </property>
       <property name="font">
@@ -776,18 +723,15 @@
         <weight>75</weight>
         <bold>true</bold>
        </font>
-      </property>
-      <property name="text">
-       <string>X</string>
       </property>
      </widget>
-     <widget class="QLabel" name="l_Current_Gloabal_Operation_Mode">
+     <widget class="QComboBox" name="cb_GOpMode">
       <property name="geometry">
        <rect>
-        <x>320</x>
-        <y>160</y>
-        <width>191</width>
-        <height>21</height>
+        <x>340</x>
+        <y>155</y>
+        <width>116</width>
+        <height>26</height>
        </rect>
       </property>
       <property name="font">
@@ -796,29 +740,6 @@
         <weight>75</weight>
         <bold>true</bold>
        </font>
-      </property>
-      <property name="text">
-       <string>X</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="l_Current_Alarm_Range">
-      <property name="geometry">
-       <rect>
-        <x>320</x>
-        <y>70</y>
-        <width>66</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>X</string>
       </property>
      </widget>
     </widget>
@@ -849,9 +770,9 @@
    <widget class="QComboBox" name="cb_Module_Select">
     <property name="geometry">
      <rect>
-      <x>505</x>
+      <x>430</x>
       <y>375</y>
-      <width>286</width>
+      <width>361</width>
       <height>36</height>
      </rect>
     </property>
@@ -876,6 +797,13 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>EditLine</class>
+   <extends>QLineEdit</extends>
+   <header>editline.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

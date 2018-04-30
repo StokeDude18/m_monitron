@@ -14,8 +14,10 @@ class Numpad : public QDialog//, public QWidget
 
 public:
     explicit Numpad(QWidget *parent = 0);
+    explicit Numpad(bool floatValuesEnabled, QWidget *parent = 0);
     ~Numpad();
     Ui::Numpad *ui;
+
 signals:
     void digitClicked(int digit);
 
