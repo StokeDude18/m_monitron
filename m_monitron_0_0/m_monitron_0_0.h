@@ -3,12 +3,9 @@
 
 #include <QMainWindow>
 
-#include "edit_lecture.h"
-#include "edit_cycles.h"
-#include "edit_calibration.h"
-#include "edit_control_op.h"
 #include "module.h"
 #include "numpad.h"
+#include "editline.h"
 
 #include <QDialog>
 #include <QMessageBox>
@@ -36,29 +33,23 @@ public:
     void addModuleToMenu(uint32_t modID);
 
 private slots: //Événements de la fenêtre graphique
-    void on_b_Edit_tLecture_clicked();
-    void on_b_Edit_tCycles_clicked();
-    void on_b_Edit_tCalibration_clicked();
-    void on_b_Edit_tControl_clicked();
     void on_b_Apply_Changes_clicked();
-
     void on_cb_Module_Select_currentIndexChanged(int index);
+    void onFocus(bool hasFocus);
+
+
+    void on_b_Calibration_clicked();
 
 private:
 
     Ui::m_monitron_0_0 *ui;//Pointeur vers la fenêtre graphique m_monitron_0_0.ui
 
-    //Fenètres d'édition
-    edit_Lecture edit_w_Lecture;
-    edit_Cycles edit_w_Cycles;
-    edit_Calibration edit_w_Calib;
-    edit_Control_OP edit_w_ControlOP;
-    Numpad numpad;
-
     QMessageBox error_Msg_Box;//MessageBox pour la génération de messages d'erreur
     module m_newParams;
     uint8_t nextFunction;
     uint8_t nextActiveModule;
+    bool calibModeActive;
+    vector<EditLine*> v_textBoxArray;
 };
 
 #endif // M_MONITRON_0_0_H

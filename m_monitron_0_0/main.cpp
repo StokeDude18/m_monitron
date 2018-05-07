@@ -44,8 +44,6 @@ vector<module> v_mod;
 int noReceiveCount = 0;
 
 m_monitron_0_0 *wpointer; //Pointeur d'objet m_monitron_0_0
-//QTimer *timer = new QTimer(this);
-
 
 DBAccess db; //Objet pour l'accès à la base de données
 
@@ -55,11 +53,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     m_monitron_0_0 w;	//Objet m_monitron_0_0 pour fenêtre principale
 
-    //m = new module();
-    w.show();//Affiche le cadre de la fenêtre principale
-
-    //m = new module();
-    //cout << "Init" << endl; //Ligne de debug
+    w.show();//Affiche le cadre de la fenêtre principale    
 
     pthread_t thread_Receive, thread_Main; //Objets pour la création des deux threads générés par le main
     //Configuration de la communication série   
@@ -78,20 +72,15 @@ int main(int argc, char *argv[])
     options.c_iflag = IGNPAR; //ignorer erreur de parité
     options.c_oflag = 0; //raw output
     options.c_lflag = 0; //echo off, non-canonical
-    //options.c_cc[VMIN] = 0;//Read non blocant
-    //options.c_cc[VTIME] = 2;//200 ms read timout
 
     //flush pour activer les settings du port
     tcflush(serial, TCIFLUSH);
     tcsetattr(serial, TCSANOW, &options);
 
-
-
     wpointer = &w; //Pointeur vers la fenêtre principale
     pthread_create(&thread_Receive, NULL, do_Receive, (void*)NULL);	//thread de reception des trames
     send_Fonction(0,0); //Envoi de la fonction d'acquisition des modules sur le bus can
     pthread_create(&thread_Main,NULL, mainTask, (void*)NULL); //Création du thread de logique principal
-
 
     return a.exec(); //Exécution de la boucle principale faisant la gestion de la fenêtre
 }
@@ -102,7 +91,7 @@ void *mainTask(void *args)
 {
     module tempMod;
     int mod_Detect = 0;
-    //m.moduleCounter = 0;
+
     while(1)
     {
         while(!read_Flag);//Attend une réception complète d'une trame
@@ -172,8 +161,7 @@ void *do_Receive(void *args)
        {
            int rx_length = read(serial, (void*)trame_rx, NB_TRAME -1); //Lecture sur le port série 
            trame_rx[rx_length] = 0;
-           usleep(trame_rx[rx_length] * 100);//100000);
-
+           usleep(trame_rx[rx_length] * 100);
 
            if(rx_length > 0)
            {
@@ -181,9 +169,7 @@ void *do_Receive(void *args)
                if(!read_Flag) //aucune analyse en cours
                {
                    if(trame_rx[r_soh] == 123) //bon SOH
-                   {
-
-                       //read_Flag = true;
+                   {                       
                        usleep(/*trame_rx[rx_length * 100]*/100000);
 
                        if(trame_rx[trame_rx[r_size]-2] == calcul_Checksum(trame_rx, trame_rx[r_size])) //Si checksum valide
@@ -199,13 +185,10 @@ void *do_Receive(void *args)
 
                            clear_RX();//Clear le contenu du buffer de réception
 
-
                            read_Flag = true; //analyser la trame reçue
-                           //parseData(buffer_traitement);
+
                            t = 0; //remise du temps à zéro
-                       }
-                       /*else
-                           read_Flag = true; //analyser la trame reçue*/
+                       }                       
                    }
                    else//Checksum invalide
                    {
@@ -222,70 +205,18 @@ void *do_Receive(void *args)
                 noReceiveCount++;
                if(noReceiveCount >= 50)//Quand le timeout de découverte est écoulé, commence la boucle principale d'acquisition
                {
-                 wpointer->setNextFunction(2);
+                 wpointer->setNextFunction(1);
                  noReceiveCount = 0;
                  usleep(10000);
                  clear_RX(); //Si checksum invalide, vide le buffer de réception
                  send_Fonction(v_mod[wpointer->getNextActiveModule()].Position, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
+                 wpointer->setNextFunction(2);
                }
            }
        }
    } //while(1)
 }
 
-//Fonction d'essai pour remplacer le thread mainTask
-//Non fonctionnel pour l'instant
-void parseData(uint8_t* data)
-{
-    int mod_Detect = 0xFF;
-    read_Flag = false;
-    switch(data[r_fonction])
-    {
-    case 0:
-
-        for(auto &it_mod : v_mod)
-        {
-            if(data[r_pos] == it_mod.Position)
-                mod_Detect = 0;
-        }
-        if(!mod_Detect)
-        {
-            v_mod.push_back(module(data));
-
-        }
-        usleep(10000);
-        m.fillObjectParams(data, data[r_fonction]); //Parsing des données reçues et modification des paramètres de l'objet module.
-
-        cout<< dec << data[r_fonction] << endl;
-        usleep(100000); // Délai d'exécution
-        previousFunct = 0;
-
-        break;
-    case 1:
-    case 2:
-        usleep(10000);
-        m.fillObjectParams(data, data[r_fonction]); //Parsing des données reçues et modification des paramètres de l'objet module.
-       // wpointer->addModuleToMenu(m.ID);
-        cout<< dec << data[r_fonction] << endl;
-        usleep(100000); // Délai d'exécution
-        wpointer->printParams(&m, data[r_fonction]); //Affichage des nouveaux paramètres dans le fenêtre principale
-        break;
-    case 3:
-        wpointer->setNextFunction(1);
-        break;
-    }
-
-    tcflush(serial, TCIOFLUSH);
-    usleep(1000000);  //Délai d'exécution
-
-    if(previousFunct != 0)
-        send_Fonction(0, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
-
-    usleep(100000); //100ms
-
-    if(previousFunct == 3)
-        usleep(1000000);
-}
 
 /* Brief:	Fonction d'envoi de requetes/informations au module
  * Params:	pos: 	Position du module dans l'ordre de découverte du PI
@@ -298,7 +229,7 @@ void send_Fonction(uint8_t pos, uint8_t fonct)
     if(fonct == 3)//Construction de trame d'envoi pour édition de paramètres du MBED
     {
         trame_tx[t_soh] = T_SOH;
-        trame_tx[t_size] = 37;//Longueur de trame
+        trame_tx[t_size] = 53;//Longueur de trame
         trame_tx[t_pos] = pos;
         trame_tx[t_fonction] = fonct;
         wpointer->buildF3Frame(trame_tx);
@@ -407,7 +338,7 @@ bool tableVerify(string name)
 {
    string* tables = new string[NB_MODULE];
    tables=db.showTable();
-   for(int i=0;i<sizeof(tables);i++)
+   for(uint i=0;i<sizeof(tables);i++)
    {
        if(name.compare(tables[i]) == 0) //nom de table existant
            return true;

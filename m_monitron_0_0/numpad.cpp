@@ -11,9 +11,13 @@
 #include <QString>
 #include <QRect>
 
-Numpad::Numpad(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Numpad)//, QWidget(parent)
+//Constructeur par défaut, ne pas utiliser
+Numpad::Numpad(QWidget *parent) : QDialog(parent), ui(new Ui::Numpad)
+{
+    ui->setupUi(this);
+}
+
+Numpad::Numpad(bool floatValuesEnabled, QWidget *parent) : QDialog(parent), ui(new Ui::Numpad)
 {
     ui->setupUi(this);
 
@@ -31,13 +35,13 @@ Numpad::Numpad(QWidget *parent) :
         connect(buttons[i], SIGNAL(clicked()), signalMapper, SLOT(map()));
     }
 
-    buttons[10] = new QPushButton(".", this);
-    signalMapper->setMapping(buttons[10], 10);
-    connect(buttons[10], SIGNAL(clicked()), signalMapper, SLOT(map()));
+    buttons[DOT] = new QPushButton(".", this);
+    signalMapper->setMapping(buttons[DOT], 10);
+    connect(buttons[DOT], SIGNAL(clicked()), signalMapper, SLOT(map()));
 
-    buttons[11] = new QPushButton("Back", this);
-    signalMapper->setMapping(buttons[11], 11);
-    connect(buttons[11], SIGNAL(clicked()), signalMapper, SLOT(map()));
+    buttons[BACK] = new QPushButton("Back", this);
+    signalMapper->setMapping(buttons[BACK], 11);
+    connect(buttons[BACK], SIGNAL(clicked()), signalMapper, SLOT(map()));
 
     for(auto &i_button: buttons)
     {
@@ -48,6 +52,8 @@ Numpad::Numpad(QWidget *parent) :
 
     createLayout();
     connect(this, SIGNAL(digitClicked(int)), this, SLOT(onPadClick(int)));
+    if(floatValuesEnabled == false)
+        buttons[DOT]->setVisible(false);
 }
 
 Numpad::~Numpad()
@@ -62,11 +68,11 @@ void Numpad::onPadClick(int digit)
     case 0 ... 9:
         ui->le_Entry->setText(ui->le_Entry->text() + QString::number(digit));
         break;
-    case 10:
+    case DOT:
         if(!ui->le_Entry->text().contains('.'))
             ui->le_Entry->setText(ui->le_Entry->text() + '.');
         break;
-    case 11:
+    case BACK:
         //ui->le_Entry->setText(ui->le_Entry->text() + '\b');
         ui->le_Entry->backspace();
         break;

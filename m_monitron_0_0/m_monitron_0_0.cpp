@@ -1,14 +1,10 @@
 #include "m_monitron_0_0.h"
 #include "ui_m_monitron_0_0.h"
-#include "edit_lecture.h"
-#include "edit_calibration.h"
-#include "edit_control_op.h"
 
-#include "ui_edit_lecture.h"
-#include "ui_edit_cycles.h"
-#include "ui_edit_calibration.h"
-#include "ui_edit_control_op.h"
 #include "communication.h"
+#include "editline.h"
+#include "numpad.h"
+#include "ui_numpad.h"
 
 #include <QtWidgets>
 #include <QApplication>
@@ -17,15 +13,58 @@
 #include <exception>
 #include <QtGui>
 #include <QString>
+#include <vector>
+#include <QPalette>
 
 using namespace std;
 
 //Constructeur
 m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui::m_monitron_0_0)
 {
-    ui->setupUi(this);    
+    ui->setupUi(this);
+    ui->cb_OpMode->addItem("Enabled");
+    ui->cb_OpMode->addItem("Disabled");
+    ui->cb_GOpMode->addItem("Enabled");
+    ui->cb_GOpMode->addItem("Disabled");
+    connect(ui->tb_Setpoint, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+    connect(ui->tb_VarRate, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+
+    connect(ui->tb_Cycle1, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+    connect(ui->tb_Cycle2, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+    connect(ui->tb_Setpoint1, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+    connect(ui->tb_Setpoint2, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+
+    connect(ui->tb_ConvertedValue1, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+    connect(ui->tb_ConvertedValue2, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+
+    connect(ui->tb_AlarmRange, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+    connect(ui->tb_ControlRange, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+
+    v_textBoxArray.push_back(ui->tb_Setpoint);
+    v_textBoxArray.push_back(ui->tb_VarRate);
+    v_textBoxArray.push_back(ui->tb_Cycle1);
+    v_textBoxArray.push_back(ui->tb_Cycle2);
+    v_textBoxArray.push_back(ui->tb_ConvertedValue1);
+    v_textBoxArray.push_back(ui->tb_ConvertedValue2);
+    v_textBoxArray.push_back(ui->tb_Setpoint1);
+    v_textBoxArray.push_back(ui->tb_Setpoint2);
+    v_textBoxArray.push_back(ui->tb_AlarmRange);
+    v_textBoxArray.push_back(ui->tb_ControlRange);
+
+    ui->tb_Setpoint->setValidator(new QDoubleValidator(0,1000, 2));
+    ui->tb_VarRate->setValidator(new QDoubleValidator(0,1000, 2));
+    ui->tb_Cycle1->setValidator(new QIntValidator(0,1000));
+    ui->tb_Cycle2->setValidator(new QIntValidator(0,1000));
+    ui->tb_ConvertedValue1->setValidator(new QDoubleValidator(0,1000, 2));
+    ui->tb_ConvertedValue2->setValidator(new QDoubleValidator(0,1000, 2));
+    ui->tb_Setpoint1->setValidator(new QDoubleValidator(0,1000, 2));
+    ui->tb_Setpoint2->setValidator(new QDoubleValidator(0,1000, 2));
+    ui->tb_AlarmRange->setValidator(new QDoubleValidator(0,1000, 2));
+    ui->tb_ControlRange->setValidator(new QDoubleValidator(0,1000, 2));
+
     nextFunction = 0;//prépare la prochaine fonction à envoyer
     nextActiveModule = 0;
+    calibModeActive = false;
 }
 
 m_monitron_0_0::~m_monitron_0_0()
@@ -33,146 +72,43 @@ m_monitron_0_0::~m_monitron_0_0()
     delete ui;
 }
 
-//Événement Click du bouton Edit de l'onglet Reading de la fenêtre
-void m_monitron_0_0::on_b_Edit_tLecture_clicked()
-{    
-    QString qs_lecture;
-
-    //Conversion des valeurs de l'objet en QString dans les boîtes de texte de la fenêtre d'édition
-    qs_lecture.sprintf("%.2f", m.Setpoint);
-    edit_w_Lecture.ui->tb_new_setpoint->setText(qs_lecture);
-
-    qs_lecture.sprintf("%.2f", m.Var_Rate);
-    edit_w_Lecture.ui->tb_new_var_rate->setText(qs_lecture);
-
-    //edit_w_Lecture.initEntry();
-    edit_w_Lecture.exec();//Affiche la fenêtre de dialogue
-
-    if(edit_w_Lecture.result() == QDialog::Accepted)//Bouton OK
-    {
-        //Conversion des valeurs dans les boîtes de texte
-        try
-        {
-          m_newParams.Setpoint = edit_w_Lecture.ui->tb_new_setpoint->text().toFloat();
-          m_newParams.Var_Rate = edit_w_Lecture.ui->tb_new_var_rate->text().toFloat();
-          printf("Var rate: %f", m_newParams.Var_Rate);
-        }
-        catch(exception& e)//Si erreur lors de la conversion, affiche un message d'erreur
-        {
-            error_Msg_Box.setText("Please enter a valid value.");
-            error_Msg_Box.exec();
-        }          
-    }
-}
-
-//Événement Click du bouton Edit de l'onglet Cycles de la fenêtre
-void m_monitron_0_0::on_b_Edit_tCycles_clicked()
+void m_monitron_0_0::onFocus(bool hasFocus)
 {
-    QString qs_cycles;
+    QString qs;
+    EditLine *edlObj = (EditLine *)sender();
+    QPalette p;
+    p.setColor(QPalette::Base, Qt::red);
+    QPalette pTab;
 
+    Numpad * num;
+    if(edlObj->validator()->inherits("QDoubleValidator"))
+        num = new Numpad(true);
+    else
+        num = new Numpad(false);
 
-    //Conversion des valeurs de l'objet en QString dans les boîtes de texte de la fenêtre d'édition
-    qs_cycles.sprintf("%u", m.Cycles.Cycle1);
-    edit_w_Cycles.ui->tb_Cycle1->setText(qs_cycles);
-
-    qs_cycles.sprintf("%u", m.Cycles.Cycle2);
-    edit_w_Cycles.ui->tb_Cycle2->setText(qs_cycles);
-
-    qs_cycles.sprintf("%.2f", m.Cycles.Setpoint1);
-    edit_w_Cycles.ui->tb_Setpoint1->setText(qs_cycles);
-
-    qs_cycles.sprintf("%.2f", m.Cycles.Setpoint2);
-    edit_w_Cycles.ui->tb_Setpoint2->setText(qs_cycles);
-
-    edit_w_Cycles.exec();//Affiche la fenêtre de dialogue
-
-    if(edit_w_Cycles.result() == QDialog::Accepted)//Bouton OK
+    if(hasFocus == true)
     {
-        //Conversion des valeurs dans les boîtes de texte
-        try
+        num->exec();
+        if(num->result() == QDialog::Accepted)
         {
-            m_newParams.Cycles.Cycle1 = edit_w_Cycles.ui->tb_Cycle1->text().toInt();
-            m_newParams.Cycles.Cycle2 = edit_w_Cycles.ui->tb_Cycle2->text().toInt();
-            m_newParams.Cycles.Setpoint1 = edit_w_Cycles.ui->tb_Setpoint1->text().toFloat();
-            m_newParams.Cycles.Setpoint2 = edit_w_Cycles.ui->tb_Setpoint2->text().toFloat();
+            if(edlObj->text() != num->ui->le_Entry->text())
+            {
+                edlObj->setPalette(p);
+                p.setColor(QPalette::Button, Qt::red);
+                ui->b_Apply_Changes->setPalette(p);
+            }
+            if(edlObj == ui->tb_ConvertedValue1)
+            {
+                ui->l_RawValueP1_Current->setText(ui->l_Lecture_mV_Current->text());
+            }
+            else if(edlObj == ui->tb_ConvertedValue2)
+            {
+                ui->l_RawValueP2_Current->setText(ui->l_Lecture_mV_Current->text());
+            }
+            edlObj->setText(num->ui->le_Entry->text());            
         }
-        catch(exception& e)//Si erreur lors de la conversion, affiche un message d'erreur
-        {
-            error_Msg_Box.setText("Please enter a valid value.");
-            error_Msg_Box.exec();
-        }
-    }
-}
-
-//Événement Click du bouton Edit de l'onglet Calib de la fenêtre
-void m_monitron_0_0::on_b_Edit_tCalibration_clicked()
-{
-    QString qs_calib;
-
-    //Conversion des valeurs de l'objet en QString dans les boîtes de texte de la fenêtre d'édition
-    qs_calib.sprintf("%.2f", m.Calib.raw_P1);
-    edit_w_Calib.ui->tb_P1_mV->setText(qs_calib);
-
-    qs_calib.sprintf("%.2f", m.Calib.raw_P2);
-    edit_w_Calib.ui->tb_P2_mV->setText(qs_calib);
-
-    qs_calib.sprintf("%.2f", m.Calib.converted_P1);
-    edit_w_Calib.ui->tb_P1_Convert_Unit->setText(qs_calib);
-
-    qs_calib.sprintf("%.2f", m.Calib.converted_P2);
-    edit_w_Calib.ui->tb_P2_Convert_Unit->setText(qs_calib);
-
-    edit_w_Calib.exec();//Affiche la fenêtre de dialogue
-
-    if(edit_w_Calib.result() == QDialog::Accepted)//Bouton OK
-    {
-        //Conversion des valeurs dans les boîtes de texte
-        try
-        {
-          m_newParams.Calib.raw_P1 = edit_w_Calib.ui->tb_P1_mV->text().toFloat();
-          m_newParams.Calib.converted_P1 = edit_w_Calib.ui->tb_P1_Convert_Unit->text().toFloat();
-          m_newParams.Calib.raw_P2 = edit_w_Calib.ui->tb_P2_mV->text().toFloat();
-          m_newParams.Calib.converted_P2 = edit_w_Calib.ui->tb_P2_Convert_Unit->text().toFloat();
-        }
-        catch(exception& e)//Si erreur lors de la conversion, affiche un message d'erreur
-        {
-            error_Msg_Box.setText("Please enter a valid value.");
-            error_Msg_Box.exec();
-        }
-    }
-}
-
-
-//Événement Click du bouton Edit de l'onglet Control de la fenêtre
-void m_monitron_0_0::on_b_Edit_tControl_clicked()
-{
-    QString qs_control;
-
-    //Conversion des valeurs de l'objet en QString dans les boîtes de texte de la fenêtre d'édition
-    qs_control.sprintf("%.2f", m.Control.Alarm_Range);
-    edit_w_ControlOP.ui->tb_New_Alarm_Range->setText(qs_control);
-
-    qs_control.sprintf("%.2f", m.Control.Control_Range);
-    edit_w_ControlOP.ui->tb_New_Control_Range->setText(qs_control);
-
-    edit_w_ControlOP.exec();//Affiche la fenêtre de dialogue
-
-    if(edit_w_ControlOP.result() == QDialog::Accepted)//Bouton OK
-    {
-        //Conversion des valeurs dans les boîtes de texte
-        try
-        {
-            m_newParams.Control.Alarm_Range = edit_w_ControlOP.ui->tb_New_Alarm_Range->text().toFloat();
-            m_newParams.Control.Control_Range = edit_w_ControlOP.ui->tb_New_Control_Range->text().toFloat();
-            m_newParams.Control.Alarm = (edit_w_ControlOP.ui->cb_Alarm_Mode->currentText() == "Enabled") ? 1 : 0;
-            m_newParams.Control.OP_Mode = (edit_w_ControlOP.ui->cb_OP_Mode->currentText() == "Enabled") ? 1 : 0;
-            m_newParams.Control.Global_OP_Mode = (edit_w_ControlOP.ui->cb_GOP_Mode->currentText() == "Enabled") ? 1 : 0;
-        }
-        catch(exception& e)//Si erreur lors de la conversion, affiche un message d'erreur
-        {
-            error_Msg_Box.setText("Please enter a valid value.");
-            error_Msg_Box.exec();
-        }
+        delete num;
+        ui->b_Apply_Changes->setFocus();
     }
 }
 
@@ -220,53 +156,60 @@ void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
     {
         qs.sprintf("%.2f", mod->Lecture);
         ui->l_current_Reading->setText(qs);
-        qs.sprintf("%.2f", mod->Setpoint);
-        ui->l_Current_Setpoint->setText(qs);
-        qs.sprintf("%.2f", mod->Var_Rate);
-        ui->l_Current_Var_Rate->setText(qs);
 
-        if(fonction == 1)
+
+        if(fonction == 1 && !calibModeActive)
         {
+            qs.sprintf("%.2f", mod->Setpoint);
+            ui->tb_Setpoint->setText(qs);
+            qs.sprintf("%.2f", mod->Var_Rate);
+            ui->tb_VarRate->setText(qs);
+
             qs.sprintf("%u", mod->Cycles.Cycle1);
-            ui->l_Current_Cycle_1->setText(qs);
+            ui->tb_Cycle1->setText(qs);
 
             qs.sprintf("%u", mod->Cycles.Cycle2);
-            ui->l_Current_Cycle_2->setText(qs);
+            ui->tb_Cycle2->setText(qs);
 
             qs.sprintf("%.2f", mod->Cycles.Setpoint1);
-            ui->l_Current_Cycle_Setpoint_1->setText(qs);
+            ui->tb_Setpoint1->setText(qs);
 
             qs.sprintf("%.2f", mod->Cycles.Setpoint2);
-            ui->l_Current_Cycle_Setpoint_2->setText(qs);
+            ui->tb_Setpoint2->setText(qs);
 
             ui->l_Cycle_Mode_Current_State->setText((mod->Cycles.Cycle_Mode_State == 1) ? "ON" : "OFF");
 
             qs.sprintf("%.2f", mod->Calib.raw_P1);
-            ui->l_Current_P1_raw->setText(qs);
+            ui->l_RawValueP1_Current->setText(qs);
 
             qs.sprintf("%.2f", mod->Calib.converted_P1);
-            ui->l_Current_P1_converted->setText(qs);
+            ui->tb_ConvertedValue1->setText(qs);
 
             qs.sprintf("%.2f", mod->Calib.raw_P2);
-            ui->l_Current_P2_raw->setText(qs);
+            ui->l_RawValueP2_Current->setText(qs);
 
             qs.sprintf("%.2f", mod->Calib.converted_P2);
-            ui->l_Current_P2_converted->setText(qs);
+            ui->tb_ConvertedValue2->setText(qs);
 
             qs.sprintf("%.2f", mod->Reading_mV);
             ui->l_Lecture_mV_Current->setText(qs);
 
             qs.sprintf("%.2f", mod->Control.Control_Range);
-            ui->l_Current_Control_Range->setText(qs);
+            ui->tb_ControlRange->setText(qs);
 
             qs.sprintf("%.2f", mod->Control.Alarm_Range);
-            ui->l_Current_Alarm_Range->setText(qs);
+            ui->tb_AlarmRange->setText(qs);
 
-            ui->l_Current_Operation_Mode->setText((mod->Control.OP_Mode == 1) ? "Enabled": "Disabled");
+            ui->cb_OpMode->setCurrentIndex((mod->Control.OP_Mode == 1) ? 0: 1);
 
-            ui->l_Current_Gloabal_Operation_Mode->setText((mod->Control.Global_OP_Mode == 1) ? "Enabled": "Disabled");
+            ui->cb_GOpMode->setCurrentIndex((mod->Control.Global_OP_Mode == 1) ? 0: 1);
 
             m_newParams = *mod;
+        }
+        else if(calibModeActive)
+        {
+            qs.sprintf("%.2f", mod->Reading_mV);
+            //m_newParams = *mod;
         }
     }
 }
@@ -274,6 +217,10 @@ void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
 //Méthode publique servant à évaluer dicter au processus principal la prochaîne requête au module d'acquisition
 uint8_t m_monitron_0_0::getNextFunction()
 {
+    if(nextFunction == 3)
+        calibModeActive = false;
+    else if(calibModeActive)
+        nextFunction = 1;
     return nextFunction;
 }
 
@@ -300,10 +247,10 @@ void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
     int2bytes    u_cycle2;
     float2bytes  u_cycle1_setpoint;
     float2bytes  u_cycle2_setpoint;
-    /*float2bytes  u_calib1_raw;
+    float2bytes  u_calib1_raw;
     float2bytes  u_calib2_raw;
     float2bytes  u_calib1_converted;
-    float2bytes  u_calib2_converted;*/
+    float2bytes  u_calib2_converted;
     float2bytes  u_control_range;
     float2bytes  u_alarm_range;
 
@@ -341,10 +288,30 @@ void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
     sendBuffer[t3_Setpoint2_3]  = u_cycle2_setpoint.b[2];
     sendBuffer[t3_Setpoint2_4]  = u_cycle2_setpoint.b[3];
 
-    /*u_calib1_raw.f = m_newParams.Calib.raw_P1;
-    u_calib2_raw.f = m_newParams.Calib.raw_P2;
+    u_calib1_raw.f = m_newParams.Calib.raw_P1;
+    sendBuffer[t3_CalibRaw1_1] = u_calib1_raw.b[0];
+    sendBuffer[t3_CalibRaw1_2] = u_calib1_raw.b[1];
+    sendBuffer[t3_CalibRaw1_3] = u_calib1_raw.b[2];
+    sendBuffer[t3_CalibRaw1_4] = u_calib1_raw.b[3];
+
     u_calib1_converted.f = m_newParams.Calib.converted_P1;
-    u_calib2_converted.f = m_newParams.Calib.converted_P2;*/
+    sendBuffer[t3_CalibConverted1_1] = u_calib1_converted.b[0];
+    sendBuffer[t3_CalibConverted1_2] = u_calib1_converted.b[1];
+    sendBuffer[t3_CalibConverted1_3] = u_calib1_converted.b[2];
+    sendBuffer[t3_CalibConverted1_4] = u_calib1_converted.b[3];
+
+    u_calib2_raw.f = m_newParams.Calib.raw_P2;
+    sendBuffer[t3_CalibRaw2_1] = u_calib2_raw.b[0];
+    sendBuffer[t3_CalibRaw2_2] = u_calib2_raw.b[1];
+    sendBuffer[t3_CalibRaw2_3] = u_calib2_raw.b[2];
+    sendBuffer[t3_CalibRaw2_4] = u_calib2_raw.b[3];
+
+    u_calib2_converted.f = m_newParams.Calib.converted_P2;
+    sendBuffer[t3_CalibConverted2_1] = u_calib2_converted.b[0];
+    sendBuffer[t3_CalibConverted2_2] = u_calib2_converted.b[1];
+    sendBuffer[t3_CalibConverted2_3] = u_calib2_converted.b[2];
+    sendBuffer[t3_CalibConverted2_4] = u_calib2_converted.b[3];
+
 
     u_control_range.f = m_newParams.Control.Control_Range;
     sendBuffer[t3_ControlRange1] = u_control_range.b[0];
@@ -366,8 +333,37 @@ void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
 //Événement au clic du bouton Apply changes
 void m_monitron_0_0::on_b_Apply_Changes_clicked()
 {
+    QPalette p;
+    p.setColor(QPalette::Base, Qt::white);
+    p.setColor(QPalette::Button, Qt::white);
+    m_newParams.Setpoint = ui->tb_Setpoint->text().toDouble();
+    m_newParams.Var_Rate = ui->tb_VarRate->text().toDouble();
+    m_newParams.Cycles.Cycle1 = ui->tb_Cycle1->text().toInt();
+    m_newParams.Cycles.Cycle2 = ui->tb_Cycle2->text().toInt();
+
+    m_newParams.Calib.raw_P1 = ui->l_RawValueP1_Current->text().toDouble();
+    m_newParams.Calib.converted_P1 = ui->tb_ConvertedValue1->text().toDouble();
+    m_newParams.Calib.raw_P2 = ui->l_RawValueP2_Current->text().toDouble();
+    m_newParams.Calib.converted_P2 = ui->tb_ConvertedValue2->text().toDouble();
+
+    m_newParams.Cycles.Setpoint1 = ui->tb_Setpoint1->text().toDouble();
+    m_newParams.Cycles.Setpoint2 = ui->tb_Setpoint2->text().toDouble();
+    m_newParams.Control.Alarm_Range = ui->tb_AlarmRange->text().toDouble();
+    m_newParams.Control.Control_Range = ui->tb_ControlRange->text().toDouble();
+
+    for(auto &it_el : v_textBoxArray)
+        it_el->setPalette(p);
+    ui->b_Apply_Changes->setPalette(p);
+
+    if(calibModeActive)
+    {
+        ui->b_Calibration->setEnabled(true);
+        ui->tb_ConvertedValue1->setEnabled(false);
+        ui->tb_ConvertedValue2->setEnabled(false);
+        ui->l_UserMessage->setText("");
+    }
     //Spécifie au programme que la prochaine trame d'envoi sera une trame d'édition de paramètres
-    nextFunction = 3;
+    setNextFunction(3);
 }
 
 
@@ -382,7 +378,6 @@ void m_monitron_0_0::addModuleToMenu(uint32_t modID)
 
 void m_monitron_0_0::on_cb_Module_Select_currentIndexChanged(int index)
 {
-    //setNextFunction(1);
     setNextActiveModule(index);
 }
 
@@ -394,4 +389,19 @@ uint8_t m_monitron_0_0::getNextActiveModule()
 void m_monitron_0_0::setNextActiveModule(uint8_t modIndex)
 {
     nextActiveModule = modIndex;
+}
+
+void m_monitron_0_0::on_b_Calibration_clicked()
+{
+    QPalette p;
+    p.setColor(QPalette::WindowText, Qt::red);
+    if(calibModeActive == false)
+    {
+        calibModeActive = true;
+        ui->b_Calibration->setEnabled(false);
+        ui->tb_ConvertedValue1->setEnabled(true);
+        ui->tb_ConvertedValue2->setEnabled(true);
+        ui->l_UserMessage->setText("You need to apply the changes to quit calibration mode.");
+        ui->l_UserMessage->setPalette(p);
+    }
 }
