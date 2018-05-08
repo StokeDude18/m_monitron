@@ -92,7 +92,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         cb_O_Mode = new QTabWidget(centralWidget);
         cb_O_Mode->setObjectName(QStringLiteral("cb_O_Mode"));
-        cb_O_Mode->setGeometry(QRect(10, 15, 781, 351));
+        cb_O_Mode->setGeometry(QRect(25, 15, 781, 351));
         QFont font1;
         font1.setPointSize(16);
         cb_O_Mode->setFont(font1);
@@ -114,7 +114,7 @@ public:
         l_Taux_Var->setFont(font2);
         l_current_Reading = new QLabel(t_Lecture);
         l_current_Reading->setObjectName(QStringLiteral("l_current_Reading"));
-        l_current_Reading->setGeometry(QRect(315, 40, 131, 36));
+        l_current_Reading->setGeometry(QRect(315, 40, 176, 36));
         QFont font3;
         font3.setPointSize(30);
         font3.setBold(true);
@@ -194,7 +194,7 @@ public:
         l_Val_Convertie->setFont(font5);
         l_Lecture_mV_Current = new QLabel(t_Calibration);
         l_Lecture_mV_Current->setObjectName(QStringLiteral("l_Lecture_mV_Current"));
-        l_Lecture_mV_Current->setGeometry(QRect(310, 30, 136, 26));
+        l_Lecture_mV_Current->setGeometry(QRect(310, 20, 171, 31));
         QFont font6;
         font6.setPointSize(22);
         font6.setBold(true);
@@ -236,7 +236,7 @@ public:
         l_RawValueP2->setFont(font7);
         l_RawValueP1_Current = new QLabel(t_Calibration);
         l_RawValueP1_Current->setObjectName(QStringLiteral("l_RawValueP1_Current"));
-        l_RawValueP1_Current->setGeometry(QRect(620, 130, 91, 26));
+        l_RawValueP1_Current->setGeometry(QRect(620, 130, 141, 26));
         QFont font8;
         font8.setPointSize(20);
         font8.setBold(true);
@@ -244,7 +244,7 @@ public:
         l_RawValueP1_Current->setFont(font8);
         l_RawValueP2_Current = new QLabel(t_Calibration);
         l_RawValueP2_Current->setObjectName(QStringLiteral("l_RawValueP2_Current"));
-        l_RawValueP2_Current->setGeometry(QRect(620, 185, 91, 26));
+        l_RawValueP2_Current->setGeometry(QRect(620, 185, 141, 26));
         l_RawValueP2_Current->setFont(font8);
         cb_O_Mode->addTab(t_Calibration, QString());
         t_Control_OP = new QWidget();
@@ -296,10 +296,11 @@ public:
         b_Apply_Changes->setFont(font10);
         cb_Module_Select = new QComboBox(centralWidget);
         cb_Module_Select->setObjectName(QStringLiteral("cb_Module_Select"));
-        cb_Module_Select->setGeometry(QRect(430, 375, 361, 36));
+        cb_Module_Select->setGeometry(QRect(385, 375, 406, 36));
+        cb_Module_Select->setFont(font10);
         l_UserMessage = new QLabel(centralWidget);
         l_UserMessage->setObjectName(QStringLiteral("l_UserMessage"));
-        l_UserMessage->setGeometry(QRect(15, 375, 396, 41));
+        l_UserMessage->setGeometry(QRect(15, 375, 346, 41));
         QPalette palette;
         QBrush brush(QColor(0, 0, 0, 255));
         brush.setStyle(Qt::SolidPattern);

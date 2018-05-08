@@ -115,10 +115,8 @@ void m_monitron_0_0::onFocus(bool hasFocus)
 //Méthode servant à afficher des nouveaux paramètres dans l'interface usager
 void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
 {
-    //string qs = "Device ID: " + to_string(mod->ID) + "  Position: " + to_string((char)mod->Position) + "  Type: " + to_string((char)mod->Type);
     char module_type[20];
-    QString qs;// = QString("Device ID: %1  Position: %2  Type: %3").arg(to_string(mod->ID), to_string((char)mod->Position), to_string((char)mod->Type));
-
+    QString qs;
     //Détermine le texte à afficher dans la barre d'état en fonction du type de capteur
     switch(mod->Type)
     {
@@ -209,7 +207,7 @@ void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
         else if(calibModeActive)
         {
             qs.sprintf("%.2f", mod->Reading_mV);
-            //m_newParams = *mod;
+            ui->l_Lecture_mV_Current->setText(qs);
         }
     }
 }
@@ -255,7 +253,7 @@ void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
     float2bytes  u_alarm_range;
 
     u_setpoint.f = m_newParams.Setpoint;
-    printf("Setpoint: %f\n", m_newParams.Setpoint);
+    //printf("Setpoint: %f\n", m_newParams.Setpoint);
     sendBuffer[t3_Setpoint1] = u_setpoint.b[0];
     sendBuffer[t3_Setpoint2] = u_setpoint.b[1];
     sendBuffer[t3_Setpoint3] = u_setpoint.b[2];
@@ -266,7 +264,7 @@ void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
     sendBuffer[t3_VarRate2]  = u_varRate.b[1];
     sendBuffer[t3_VarRate3]  = u_varRate.b[2];
     sendBuffer[t3_VarRate4]  = u_varRate.b[3];
-    printf("Var Rate::: %f", u_varRate.f);
+    //printf("Var Rate::: %f", u_varRate.f);
 
     u_cycle1.i = m_newParams.Cycles.Cycle1;
     sendBuffer[t3_Cycle1_1]  = u_cycle1.b[0];
@@ -327,7 +325,7 @@ void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
 
     sendBuffer[t3_OP_Mode] = m_newParams.Control.OP_Mode;
 
-    printf("F3\n");
+    //printf("F3\n");
 }
 
 //Événement au clic du bouton Apply changes
@@ -369,11 +367,34 @@ void m_monitron_0_0::on_b_Apply_Changes_clicked()
 
 //Méthode ajoutant les numéros d'identification des modules dans un combo box de la fenêtre principale
 //pour la sélection du module courant
-void m_monitron_0_0::addModuleToMenu(uint32_t modID)
+void m_monitron_0_0::addModuleToMenu(uint32_t modID, uint8_t type, uint8_t position)
 {
     QString qs;
-    qs.sprintf("%d", modID);
-    ui->cb_Module_Select->addItem(qs);//Ajout du ID du module.
+    QString s;
+    switch(type)
+    {
+    case 0:
+        s = "Temp.";
+        break;
+    case 1:
+        s = "Ox.";
+        break;
+    case 2:
+        s = "Sal.";
+        break;
+    case 3:
+        s = "PH";
+        break;
+    case 4:
+        s = "Flow";
+        break;
+    case 5:
+        s = "Level";
+        break;
+    }
+
+    qs.sprintf("%d Pos. %d Type: ", modID, position);
+    ui->cb_Module_Select->addItem(qs + s);//Ajout du ID du module.
 }
 
 void m_monitron_0_0::on_cb_Module_Select_currentIndexChanged(int index)

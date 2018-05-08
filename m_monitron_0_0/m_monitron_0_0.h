@@ -30,7 +30,7 @@ public:
     void buildF3Frame(uint8_t* sendBuffer);
     void setNextFunction(uint8_t function);
     void setNextActiveModule(uint8_t modIndex);
-    void addModuleToMenu(uint32_t modID);
+    void addModuleToMenu(uint32_t modID, uint8_t type, uint8_t position);
 
 private slots: //Événements de la fenêtre graphique
     void on_b_Apply_Changes_clicked();
