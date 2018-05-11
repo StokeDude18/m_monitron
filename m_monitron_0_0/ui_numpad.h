@@ -34,17 +34,17 @@ public:
     {
         if (Numpad->objectName().isEmpty())
             Numpad->setObjectName(QStringLiteral("Numpad"));
-        Numpad->resize(430, 525);
+        Numpad->resize(430, 455);
         verticalLayoutWidget = new QWidget(Numpad);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(0, 75, 426, 386));
+        verticalLayoutWidget->setGeometry(QRect(0, 75, 426, 311));
         VL = new QVBoxLayout(verticalLayoutWidget);
         VL->setObjectName(QStringLiteral("VL"));
         VL->setSizeConstraint(QLayout::SetDefaultConstraint);
         VL->setContentsMargins(20, 10, 20, 10);
         buttonBox = new QDialogButtonBox(Numpad);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
-        buttonBox->setGeometry(QRect(120, 476, 186, 31));
+        buttonBox->setGeometry(QRect(125, 400, 171, 31));
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
