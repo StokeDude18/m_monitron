@@ -23,8 +23,10 @@ m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui
 {
     ui->setupUi(this);
     ui->cb_OpMode->addItem("Enabled");
+    ui->cb_OpMode->addItem("Enabled, Alarms off");
     ui->cb_OpMode->addItem("Disabled");
     ui->cb_GOpMode->addItem("Enabled");
+    ui->cb_GOpMode->addItem("Enabled, Alarms off");
     ui->cb_GOpMode->addItem("Disabled");
     connect(ui->tb_Setpoint, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
     connect(ui->tb_VarRate, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
@@ -39,6 +41,12 @@ m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui
 
     connect(ui->tb_AlarmRange, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
     connect(ui->tb_ControlRange, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
+
+    connect(ui->cb_OpMode, SIGNAL(currentIndexChanged(int)),this, SLOT(cbIndexChanged(int)));
+    connect(ui->cb_GOpMode, SIGNAL(currentIndexChanged(int)),this, SLOT(cbIndexChanged(int)));
+
+    ui->cb_OpMode->blockSignals(true);
+    ui->cb_GOpMode->blockSignals(true);
 
     v_textBoxArray.push_back(ui->tb_Setpoint);
     v_textBoxArray.push_back(ui->tb_VarRate);
@@ -65,6 +73,7 @@ m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui
     nextFunction = 0;//prépare la prochaine fonction à envoyer
     nextActiveModule = 0;
     calibModeActive = false;
+    comboBoxEnabled = false;
 }
 
 m_monitron_0_0::~m_monitron_0_0()
@@ -198,9 +207,9 @@ void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
             qs.sprintf("%.2f", mod->Control.Alarm_Range);
             ui->tb_AlarmRange->setText(qs);
 
-            ui->cb_OpMode->setCurrentIndex((mod->Control.OP_Mode == 1) ? 0: 1);
+            ui->cb_OpMode->setCurrentIndex(mod->Control.OP_Mode);
 
-            ui->cb_GOpMode->setCurrentIndex((mod->Control.Global_OP_Mode == 1) ? 0: 1);
+            ui->cb_GOpMode->setCurrentIndex(mod->Control.Global_OP_Mode);
 
             m_newParams = *mod;
         }
@@ -324,6 +333,7 @@ void m_monitron_0_0::buildF3Frame(uint8_t* sendBuffer)
     sendBuffer[t3_AlarmRange4] = u_alarm_range.b[3];
 
     sendBuffer[t3_OP_Mode] = m_newParams.Control.OP_Mode;
+    //sendBuffer[]
 
     //printf("F3\n");
 }
@@ -348,10 +358,13 @@ void m_monitron_0_0::on_b_Apply_Changes_clicked()
     m_newParams.Cycles.Setpoint2 = ui->tb_Setpoint2->text().toDouble();
     m_newParams.Control.Alarm_Range = ui->tb_AlarmRange->text().toDouble();
     m_newParams.Control.Control_Range = ui->tb_ControlRange->text().toDouble();
+    m_newParams.Control.OP_Mode = ui->cb_OpMode->currentIndex();
 
     for(auto &it_el : v_textBoxArray)
         it_el->setPalette(p);
     ui->b_Apply_Changes->setPalette(p);
+    ui->cb_OpMode->setPalette(p);
+    ui->cb_GOpMode->setPalette(p);
 
     if(calibModeActive)
     {
@@ -425,4 +438,20 @@ void m_monitron_0_0::on_b_Calibration_clicked()
         ui->l_UserMessage->setText("You need to apply the changes to quit calibration mode.");
         ui->l_UserMessage->setPalette(p);
     }
+}
+
+void m_monitron_0_0::cbIndexChanged(int index)
+{
+    QComboBox *cbObj = (QComboBox*)sender();
+    QPalette p;
+    p.setColor(QPalette::Button, Qt::red);
+    cbObj->setPalette(p);
+    ui->b_Apply_Changes->setPalette(p);
+}
+
+void m_monitron_0_0::enableComboBox()
+{
+    ui->cb_OpMode->blockSignals(false);
+    ui->cb_GOpMode->blockSignals(false);
+    comboBoxEnabled = true;
 }

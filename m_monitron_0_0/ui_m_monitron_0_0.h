@@ -280,11 +280,11 @@ public:
         tb_AlarmRange->setFont(font8);
         cb_OpMode = new QComboBox(t_Control_OP);
         cb_OpMode->setObjectName(QStringLiteral("cb_OpMode"));
-        cb_OpMode->setGeometry(QRect(340, 115, 116, 26));
+        cb_OpMode->setGeometry(QRect(340, 115, 236, 26));
         cb_OpMode->setFont(font8);
         cb_GOpMode = new QComboBox(t_Control_OP);
         cb_GOpMode->setObjectName(QStringLiteral("cb_GOpMode"));
-        cb_GOpMode->setGeometry(QRect(340, 155, 116, 26));
+        cb_GOpMode->setGeometry(QRect(340, 155, 236, 26));
         cb_GOpMode->setFont(font8);
         cb_O_Mode->addTab(t_Control_OP, QString());
         t_Graph = new QWidget();
@@ -332,7 +332,7 @@ public:
 
         retranslateUi(m_monitron_0_0);
 
-        cb_O_Mode->setCurrentIndex(0);
+        cb_O_Mode->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(m_monitron_0_0);

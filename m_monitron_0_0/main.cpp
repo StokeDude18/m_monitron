@@ -138,6 +138,9 @@ void *mainTask(void *args)
 
             usleep(100000); // Délai d'exécution (Opérations dans l'objet module)
             wpointer->printParams(&m, buffer_traitement[r_fonction]); //Affichage des nouveaux paramètres dans le fenêtre principale
+
+            if(wpointer->comboBoxEnabled == false)
+                wpointer->enableComboBox();
             break;
         case 3:
             wpointer->setNextFunction(1);//À l'édition des paramètres, redemande au module sa configuration complète
@@ -222,7 +225,7 @@ void *do_Receive(void *args)
                  if(v_mod.size() != 0)
                  {
                     send_Fonction(v_mod[wpointer->getNextActiveModule()].Position, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
-                    wpointer->setNextFunction(2);
+                    wpointer->setNextFunction(2);                    
                  }
 
                  else

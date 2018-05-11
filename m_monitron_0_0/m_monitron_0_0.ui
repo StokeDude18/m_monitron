@@ -40,7 +40,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="t_Lecture">
      <attribute name="title">
@@ -700,7 +700,7 @@
        <rect>
         <x>340</x>
         <y>115</y>
-        <width>116</width>
+        <width>236</width>
         <height>26</height>
        </rect>
       </property>
@@ -717,7 +717,7 @@
        <rect>
         <x>340</x>
         <y>155</y>
-        <width>116</width>
+        <width>236</width>
         <height>26</height>
        </rect>
       </property>

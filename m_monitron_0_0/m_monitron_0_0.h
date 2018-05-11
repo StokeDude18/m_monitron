@@ -31,14 +31,19 @@ public:
     void setNextFunction(uint8_t function);
     void setNextActiveModule(uint8_t modIndex);
     void addModuleToMenu(uint32_t modID, uint8_t type, uint8_t position);
+    void enableComboBox();
+    bool comboBoxEnabled;
+
 
 private slots: //Événements de la fenêtre graphique
     void on_b_Apply_Changes_clicked();
     void on_cb_Module_Select_currentIndexChanged(int index);
     void onFocus(bool hasFocus);
-
+    void cbIndexChanged(int index);
 
     void on_b_Calibration_clicked();
+
+
 
 private:
 

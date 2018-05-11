@@ -15,7 +15,6 @@ class EditLine : public QLineEdit
 public:
     EditLine(QWidget * parent = 0);
     ~EditLine();
-   // EditLine(const QString & contents, QWidget * parent = 0);
 signals:
     void focussed(bool hasFocus);
 
