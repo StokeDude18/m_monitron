@@ -9,14 +9,15 @@
 
 using namespace std;
 
-module::module()
+module::module()//Constructeur par défaut, ne pas utiliser
 {
 
-    //moduleCounter = 0;
 }
+
+//Constructeur remplissant les champs de type, position et ID de l'objet
 module::module(uint8_t *byteArray)
 {
-    fillObjectParams(byteArray,0);
+    fillObjectParams(byteArray,0);//Passe la fonction zéro en deuxième paramètre
 }
 
 //Méthode utilisée pour convertir une trame découpée en octets vers les paramètres de l'objet module
@@ -39,19 +40,21 @@ void module::fillObjectParams(uint8_t *byteArray, uint8_t fonction)
     float2bytes  u_control_range;
     float2bytes  u_alarm_range;
 
+    //Construction de l'ID à partir du tableau de bytes
     u_IDconv.b[0] = byteArray[r_id0];
     u_IDconv.b[1] = byteArray[r_id1];
     u_IDconv.b[2] = byteArray[r_id2];
     u_IDconv.b[3] = byteArray[r_id3];
     ID = u_IDconv.i;
 
-
     Type = byteArray[7];
     Position = byteArray[2];
 
-
+    //Si fonction 1 ou 2
     if(fonction > 0 && fonction < 3)
     {
+        //Déconstruit la trame selon et peuple les paramètres de l'objet
+
         u_Reading.b[0] = byteArray[9];
         u_Reading.b[1] = byteArray[10];
         u_Reading.b[2] = byteArray[11];

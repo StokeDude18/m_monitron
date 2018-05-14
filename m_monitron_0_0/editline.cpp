@@ -15,19 +15,15 @@ EditLine::~EditLine()
 
 }
 
+//Méthode appelée quand le textbox prend le focus
 void EditLine::focusInEvent(QFocusEvent *e)
 {
     QLineEdit::focusInEvent(e);
-    if(e->reason() == Qt::MouseFocusReason)
-        emit(focussed(true));
+    if(e->reason() == Qt::MouseFocusReason)//Si l'événement de prise de focus est généré par la souris (clic)
+        emit(focussed(true));//Émet le signal focussed
 }
 
-void EditLine::focusOutEvent(QFocusEvent *e)
-{
-    QLineEdit::focusOutEvent(e);
-    if(e->reason() == Qt::MouseFocusReason)
-        emit(focussed(false));
-}
+
 
 
 

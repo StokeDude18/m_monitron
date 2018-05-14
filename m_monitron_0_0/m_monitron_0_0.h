@@ -40,7 +40,6 @@ private slots: //Événements de la fenêtre graphique
     void on_cb_Module_Select_currentIndexChanged(int index);
     void onFocus(bool hasFocus);
     void cbIndexChanged(int index);
-
     void on_b_Calibration_clicked();
 
 
