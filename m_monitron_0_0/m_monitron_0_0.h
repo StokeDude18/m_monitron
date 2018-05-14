@@ -22,7 +22,7 @@ public:
     explicit m_monitron_0_0(QWidget *parent = 0);
     ~m_monitron_0_0();    
 
-    //Prototypes de méthodes
+    //Méthodes
     void printParams(module* mod, uint8_t fonction);
     uint8_t getNextFunction();
     void getNewParams(module *objNewParams);
@@ -41,8 +41,6 @@ private slots: //Événements de la fenêtre graphique
     void onFocus(bool hasFocus);
     void cbIndexChanged(int index);
     void on_b_Calibration_clicked();
-
-
 
 private:
 
