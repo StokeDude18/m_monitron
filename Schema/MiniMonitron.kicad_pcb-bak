@@ -3,12 +3,12 @@
   (general
     (links 170)
     (no_connects 0)
-    (area 65.660999 27.356999 230.711001 91.091001)
+    (area 60.554 19.345 245.928858 91.14408)
     (thickness 1.6)
     (drawings 34)
     (tracks 985)
     (zones 0)
-    (modules 53)
+    (modules 52)
     (nets 52)
   )
 
@@ -2557,18 +2557,6 @@
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 90))
     )
-  )
-
-  (module mini_monitron:heatsink_via (layer F.Cu) (tedit 5ADE2109) (tstamp 5ADE22BE)
-    (at 186.944 84.836)
-    (fp_text reference REF** (at 5.975 -2.7) (layer F.SilkS) hide
-      (effects (font (size 1 1) (thickness 0.15)))
-    )
-    (fp_text value heatsink_via (at -3.075 -3.4) (layer F.Fab) hide
-      (effects (font (size 1 1) (thickness 0.15)))
-    )
-    (pad 1 thru_hole circle (at 0 0) (size 1.27 1.27) (drill 1.27) (layers *.Cu *.Mask)
-      (solder_mask_margin 1.27) (zone_connect 0))
   )
 
   (gr_text ° (at 84.4296 46.42104) (layer F.SilkS)
