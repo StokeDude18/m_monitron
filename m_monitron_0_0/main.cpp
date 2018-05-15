@@ -79,7 +79,16 @@ int main(int argc, char *argv[])
 
     wpointer = &w; //Pointeur vers la fenêtre principale
     pthread_create(&thread_Receive, NULL, do_Receive, (void*)NULL);	//thread de reception des trames
-    send_Fonction(0,0); //Envoi de la fonction d'acquisition des modules sur le bus can
+    try
+    {
+        send_Fonction(0,0); //Envoi de la fonction d'acquisition des modules sur le bus can
+    }
+    catch(int i)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Erreur dans la communication avec le module d'acquisition");
+        msgBox.exec();
+    }
     pthread_create(&thread_Main,NULL, mainTask, (void*)NULL); //Création du thread de logique principal
 
     return a.exec(); //Exécution de la boucle principale faisant la gestion de la fenêtre
@@ -113,7 +122,7 @@ void *mainTask(void *args)
             if(mod_Detect == 0 && m.ID != 0)//Si module inconnu, l'ajoute à sa liste
             {
                 v_mod.push_back(module(buffer_traitement));//Ajoute un objet module au vecteur
-                wpointer->addModuleToMenu(m.ID);//Ajoute l'ID du nouveau module au combo box de la fenêtre principale
+                wpointer->addModuleToMenu(m.ID, m.Type, m.Position);//Ajoute l'ID du nouveau module au combo box de la fenêtre principale
             }
 
             usleep(100000); // Délai d'exécution
@@ -129,6 +138,9 @@ void *mainTask(void *args)
 
             usleep(100000); // Délai d'exécution (Opérations dans l'objet module)
             wpointer->printParams(&m, buffer_traitement[r_fonction]); //Affichage des nouveaux paramètres dans le fenêtre principale
+
+            if(wpointer->comboBoxEnabled == false)
+                wpointer->enableComboBox();
             break;
         case 3:
             wpointer->setNextFunction(1);//À l'édition des paramètres, redemande au module sa configuration complète
@@ -209,8 +221,21 @@ void *do_Receive(void *args)
                  noReceiveCount = 0;
                  usleep(10000);
                  clear_RX(); //Si checksum invalide, vide le buffer de réception
-                 send_Fonction(v_mod[wpointer->getNextActiveModule()].Position, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
-                 wpointer->setNextFunction(2);
+
+                 if(v_mod.size() != 0)
+                 {
+                    send_Fonction(v_mod[wpointer->getNextActiveModule()].Position, wpointer->getNextFunction()); //Demande à la fenêtre principale la prochaine requete à faire
+                    wpointer->setNextFunction(2);                    
+                 }
+
+                 else
+                 {
+                    QMessageBox msgbox;
+                    msgbox.setText("Aucun module trouvé sur le réseau.");
+                    msgbox.exec();
+                    noReceiveCount = 0;
+                    wpointer->setNextFunction(0);
+                 }
                }
            }
        }

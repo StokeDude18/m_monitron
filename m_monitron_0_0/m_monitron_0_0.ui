@@ -28,7 +28,7 @@
    <widget class="QTabWidget" name="cb_O_Mode">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>25</x>
       <y>15</y>
       <width>781</width>
       <height>351</height>
@@ -40,7 +40,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="t_Lecture">
      <attribute name="title">
@@ -105,7 +105,7 @@
        <rect>
         <x>315</x>
         <y>40</y>
-        <width>131</width>
+        <width>176</width>
         <height>36</height>
        </rect>
       </property>
@@ -390,9 +390,9 @@
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>30</y>
-        <width>136</width>
-        <height>26</height>
+        <y>20</y>
+        <width>171</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
@@ -547,7 +547,7 @@
        <rect>
         <x>620</x>
         <y>130</y>
-        <width>91</width>
+        <width>141</width>
         <height>26</height>
        </rect>
       </property>
@@ -567,7 +567,7 @@
        <rect>
         <x>620</x>
         <y>185</y>
-        <width>91</width>
+        <width>141</width>
         <height>26</height>
        </rect>
       </property>
@@ -700,7 +700,7 @@
        <rect>
         <x>340</x>
         <y>115</y>
-        <width>116</width>
+        <width>236</width>
         <height>26</height>
        </rect>
       </property>
@@ -717,7 +717,7 @@
        <rect>
         <x>340</x>
         <y>155</y>
-        <width>116</width>
+        <width>236</width>
         <height>26</height>
        </rect>
       </property>
@@ -757,11 +757,16 @@
    <widget class="QComboBox" name="cb_Module_Select">
     <property name="geometry">
      <rect>
-      <x>430</x>
+      <x>385</x>
       <y>375</y>
-      <width>361</width>
+      <width>406</width>
       <height>36</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
     </property>
    </widget>
    <widget class="QLabel" name="l_UserMessage">
@@ -769,7 +774,7 @@
      <rect>
       <x>15</x>
       <y>375</y>
-      <width>396</width>
+      <width>346</width>
       <height>41</height>
      </rect>
     </property>
