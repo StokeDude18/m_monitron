@@ -54,6 +54,7 @@ private:
     uint8_t nextActiveModule;
     bool calibModeActive;
     vector<EditLine*> v_textBoxArray;
+    Numpad * num;
 };
 
 #endif // M_MONITRON_0_0_H

@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>75</y>
+     <y>80</y>
      <width>426</width>
-     <height>311</height>
+     <height>306</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="VL">
@@ -43,8 +43,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>125</x>
-     <y>400</y>
+     <x>135</x>
+     <y>405</y>
      <width>171</width>
      <height>31</height>
     </rect>
@@ -70,8 +70,8 @@
   <widget class="QLineEdit" name="le_Entry">
    <property name="geometry">
     <rect>
-     <x>9</x>
-     <y>25</y>
+     <x>10</x>
+     <y>10</y>
      <width>411</width>
      <height>36</height>
     </rect>
@@ -82,6 +82,48 @@
      <weight>50</weight>
      <bold>false</bold>
     </font>
+   </property>
+  </widget>
+  <widget class="QLabel" name="l_Val_mV">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>225</x>
+     <y>55</y>
+     <width>111</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="l_mV">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>55</y>
+     <width>76</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

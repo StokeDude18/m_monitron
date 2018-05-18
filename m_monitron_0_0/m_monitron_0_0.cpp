@@ -98,7 +98,7 @@ void m_monitron_0_0::onFocus(bool hasFocus)
     QPalette p;
     p.setColor(QPalette::Base, Qt::red);
 
-    Numpad * num;
+
 
     //Détermine si le numpad doit inclure le bouton point (.)
     if(edlObj->validator()->inherits("QDoubleValidator"))
@@ -112,6 +112,7 @@ void m_monitron_0_0::onFocus(bool hasFocus)
 
         if(num->result() == QDialog::Accepted)//Si le bouton OK du numpad a généré la fermeture de celui-ci
         {
+
             /*Si la valeur entrée est différente de la valeur déjà présente dans le textbox,
               met le champ concerné et le bouton apply changes en rouge*/
             if(edlObj->text() != num->ui->le_Entry->text())
@@ -120,6 +121,7 @@ void m_monitron_0_0::onFocus(bool hasFocus)
                 p.setColor(QPalette::Button, Qt::red);
                 ui->b_Apply_Changes->setPalette(p);
             }
+
 
             /*Si le champ sélectionné est un champ de calibration, la valeur
               en mV associée à la valeur entrée sera la valeur (en mV) courante*/
@@ -134,7 +136,7 @@ void m_monitron_0_0::onFocus(bool hasFocus)
 
             edlObj->setText(num->ui->le_Entry->text());//Copie le texte du champ du numpad dans le textbox
         }
-        delete num;//détruit l'objet numpad
+        num = NULL;//détruit l'objet numpad
         ui->b_Apply_Changes->setFocus();//Donne le focus de la fenêtre au bouton Apply changes
     }
 }
@@ -239,6 +241,15 @@ void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
             //Ne rafraîchit seulement que le champ de la lecture en mV
             qs.sprintf("%.2f", mod->Reading_mV);
             ui->l_Lecture_mV_Current->setText(qs);
+            try
+            {
+                if(num != NULL)//Si numpad affiché, met à jour la valeur en mV au bas du numpad
+                {
+                    num->ui->l_mV->setText("Val. mv:");
+                    num->ui->l_Val_mV->setText(qs);
+                }
+            }
+            catch(int i){};
         }
     }
 }
@@ -497,6 +508,7 @@ void m_monitron_0_0::enableComboBox()
     comboBoxEnabled = true;
 }
 
+//Permet de quitter le programme à partir de l'interface
 void m_monitron_0_0::on_b_exit_clicked()
 {
     QApplication::quit();
