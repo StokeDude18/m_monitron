@@ -22,6 +22,7 @@ Numpad::Numpad(bool floatValuesEnabled, QWidget *parent) : QDialog(parent), ui(n
 {
     ui->setupUi(this);
 
+    setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     //Ajoute un validateur au textbox du numpad
     ui->le_Entry->setValidator(new QDoubleValidator(0,1000, 2));
     QFont font;

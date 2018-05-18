@@ -7,8 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>430</width>
-    <height>455</height>
+    <height>438</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Numpad</string>
@@ -43,8 +49,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>135</x>
-     <y>405</y>
+     <x>130</x>
+     <y>395</y>
      <width>171</width>
      <height>31</height>
     </rect>

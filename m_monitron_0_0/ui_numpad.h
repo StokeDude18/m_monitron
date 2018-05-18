@@ -37,7 +37,12 @@ public:
     {
         if (Numpad->objectName().isEmpty())
             Numpad->setObjectName(QStringLiteral("Numpad"));
-        Numpad->resize(430, 455);
+        Numpad->resize(430, 438);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(Numpad->sizePolicy().hasHeightForWidth());
+        Numpad->setSizePolicy(sizePolicy);
         verticalLayoutWidget = new QWidget(Numpad);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
         verticalLayoutWidget->setGeometry(QRect(0, 80, 426, 306));
@@ -47,12 +52,12 @@ public:
         VL->setContentsMargins(20, 10, 20, 10);
         buttonBox = new QDialogButtonBox(Numpad);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
-        buttonBox->setGeometry(QRect(135, 405, 171, 31));
-        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(buttonBox->sizePolicy().hasHeightForWidth());
-        buttonBox->setSizePolicy(sizePolicy);
+        buttonBox->setGeometry(QRect(130, 395, 171, 31));
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(buttonBox->sizePolicy().hasHeightForWidth());
+        buttonBox->setSizePolicy(sizePolicy1);
         QFont font;
         font.setPointSize(15);
         buttonBox->setFont(font);

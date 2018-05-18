@@ -108,6 +108,7 @@ void m_monitron_0_0::onFocus(bool hasFocus)
 
     if(hasFocus == true)//Si l'événement de focus était un "focus in"
     {
+        //num->showFullScreen();
         num->exec();//Affiche le numpad
 
         if(num->result() == QDialog::Accepted)//Si le bouton OK du numpad a généré la fermeture de celui-ci
