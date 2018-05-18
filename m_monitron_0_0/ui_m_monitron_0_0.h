@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'm_monitron_0_0.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -73,6 +73,7 @@ public:
     QComboBox *cb_OpMode;
     QComboBox *cb_GOpMode;
     QWidget *t_Graph;
+    QPushButton *b_exit;
     QPushButton *b_Apply_Changes;
     QComboBox *cb_Module_Select;
     QLabel *l_UserMessage;
@@ -289,6 +290,9 @@ public:
         cb_O_Mode->addTab(t_Control_OP, QString());
         t_Graph = new QWidget();
         t_Graph->setObjectName(QStringLiteral("t_Graph"));
+        b_exit = new QPushButton(t_Graph);
+        b_exit->setObjectName(QStringLiteral("b_exit"));
+        b_exit->setGeometry(QRect(60, 40, 251, 141));
         cb_O_Mode->addTab(t_Graph, QString());
         b_Apply_Changes = new QPushButton(centralWidget);
         b_Apply_Changes->setObjectName(QStringLiteral("b_Apply_Changes"));
@@ -321,7 +325,7 @@ public:
         m_monitron_0_0->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(m_monitron_0_0);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 800, 36));
+        menuBar->setGeometry(QRect(0, 0, 800, 40));
         m_monitron_0_0->setMenuBar(menuBar);
         sbar_Device_Informations = new QStatusBar(m_monitron_0_0);
         sbar_Device_Informations->setObjectName(QStringLiteral("sbar_Device_Informations"));
@@ -332,7 +336,7 @@ public:
 
         retranslateUi(m_monitron_0_0);
 
-        cb_O_Mode->setCurrentIndex(3);
+        cb_O_Mode->setCurrentIndex(4);
 
 
         QMetaObject::connectSlotsByName(m_monitron_0_0);
@@ -340,41 +344,42 @@ public:
 
     void retranslateUi(QMainWindow *m_monitron_0_0)
     {
-        m_monitron_0_0->setWindowTitle(QApplication::translate("m_monitron_0_0", "Mini Monitron V0.0", 0));
+        m_monitron_0_0->setWindowTitle(QApplication::translate("m_monitron_0_0", "Mini Monitron V0.0", Q_NULLPTR));
 #ifndef QT_NO_STATUSTIP
         m_monitron_0_0->setStatusTip(QString());
 #endif // QT_NO_STATUSTIP
-        l_Lecture->setText(QApplication::translate("m_monitron_0_0", "Reading:", 0));
-        l_Setpoint->setText(QApplication::translate("m_monitron_0_0", "Setpoint:", 0));
-        l_Taux_Var->setText(QApplication::translate("m_monitron_0_0", "Variation rate:", 0));
-        l_current_Reading->setText(QApplication::translate("m_monitron_0_0", "0.00", 0));
-        cb_O_Mode->setTabText(cb_O_Mode->indexOf(t_Lecture), QApplication::translate("m_monitron_0_0", "Reading", 0));
-        l_Cycle_Mode_State->setText(QApplication::translate("m_monitron_0_0", "Cycle mode status:", 0));
-        l_Setpoint_Cycle_1->setText(QApplication::translate("m_monitron_0_0", "Setpoint 1:", 0));
-        l_Cycle2->setText(QApplication::translate("m_monitron_0_0", "Cycle 2:", 0));
-        l_Setpoint_Cycle_2->setText(QApplication::translate("m_monitron_0_0", "Setpoint 2:", 0));
-        l_Cycle1->setText(QApplication::translate("m_monitron_0_0", "Cycle 1:", 0));
-        l_Cycle_Mode_Current_State->setText(QApplication::translate("m_monitron_0_0", "OFF", 0));
-        cb_O_Mode->setTabText(cb_O_Mode->indexOf(t_Cycles), QApplication::translate("m_monitron_0_0", "Cycles", 0));
-        l_Lecture_mV->setText(QApplication::translate("m_monitron_0_0", "Reading (mV):", 0));
-        b_Calibration->setText(QApplication::translate("m_monitron_0_0", "Calibrate", 0));
-        l_Val_Convertie->setText(QApplication::translate("m_monitron_0_0", "Converted value: ", 0));
+        l_Lecture->setText(QApplication::translate("m_monitron_0_0", "Reading:", Q_NULLPTR));
+        l_Setpoint->setText(QApplication::translate("m_monitron_0_0", "Setpoint:", Q_NULLPTR));
+        l_Taux_Var->setText(QApplication::translate("m_monitron_0_0", "Variation rate:", Q_NULLPTR));
+        l_current_Reading->setText(QApplication::translate("m_monitron_0_0", "0.00", Q_NULLPTR));
+        cb_O_Mode->setTabText(cb_O_Mode->indexOf(t_Lecture), QApplication::translate("m_monitron_0_0", "Reading", Q_NULLPTR));
+        l_Cycle_Mode_State->setText(QApplication::translate("m_monitron_0_0", "Cycle mode status:", Q_NULLPTR));
+        l_Setpoint_Cycle_1->setText(QApplication::translate("m_monitron_0_0", "Setpoint 1:", Q_NULLPTR));
+        l_Cycle2->setText(QApplication::translate("m_monitron_0_0", "Cycle 2:", Q_NULLPTR));
+        l_Setpoint_Cycle_2->setText(QApplication::translate("m_monitron_0_0", "Setpoint 2:", Q_NULLPTR));
+        l_Cycle1->setText(QApplication::translate("m_monitron_0_0", "Cycle 1:", Q_NULLPTR));
+        l_Cycle_Mode_Current_State->setText(QApplication::translate("m_monitron_0_0", "OFF", Q_NULLPTR));
+        cb_O_Mode->setTabText(cb_O_Mode->indexOf(t_Cycles), QApplication::translate("m_monitron_0_0", "Cycles", Q_NULLPTR));
+        l_Lecture_mV->setText(QApplication::translate("m_monitron_0_0", "Reading (mV):", Q_NULLPTR));
+        b_Calibration->setText(QApplication::translate("m_monitron_0_0", "Calibrate", Q_NULLPTR));
+        l_Val_Convertie->setText(QApplication::translate("m_monitron_0_0", "Converted value: ", Q_NULLPTR));
         l_Lecture_mV_Current->setText(QString());
-        l_Lecture_Converted_Current->setText(QApplication::translate("m_monitron_0_0", "0.00", 0));
-        l_P1_Convert_Unit->setText(QApplication::translate("m_monitron_0_0", "Converted value P1:", 0));
-        l_P2_Convert_Unit->setText(QApplication::translate("m_monitron_0_0", "Converted value P2:", 0));
-        l_RawValueP1->setText(QApplication::translate("m_monitron_0_0", "Raw Value P1:", 0));
-        l_RawValueP2->setText(QApplication::translate("m_monitron_0_0", "Raw Value P2:", 0));
+        l_Lecture_Converted_Current->setText(QApplication::translate("m_monitron_0_0", "0.00", Q_NULLPTR));
+        l_P1_Convert_Unit->setText(QApplication::translate("m_monitron_0_0", "Converted value P1:", Q_NULLPTR));
+        l_P2_Convert_Unit->setText(QApplication::translate("m_monitron_0_0", "Converted value P2:", Q_NULLPTR));
+        l_RawValueP1->setText(QApplication::translate("m_monitron_0_0", "Raw Value P1:", Q_NULLPTR));
+        l_RawValueP2->setText(QApplication::translate("m_monitron_0_0", "Raw Value P2:", Q_NULLPTR));
         l_RawValueP1_Current->setText(QString());
         l_RawValueP2_Current->setText(QString());
-        cb_O_Mode->setTabText(cb_O_Mode->indexOf(t_Calibration), QApplication::translate("m_monitron_0_0", "Calibration", 0));
-        l_Control_Range->setText(QApplication::translate("m_monitron_0_0", "Control range:", 0));
-        l_Alarm_Range->setText(QApplication::translate("m_monitron_0_0", "Alarm range:", 0));
-        l_OP_Mode->setText(QApplication::translate("m_monitron_0_0", "Operation Mode:", 0));
-        l_GOP_Mode->setText(QApplication::translate("m_monitron_0_0", "Global Operation Mode:", 0));
-        cb_O_Mode->setTabText(cb_O_Mode->indexOf(t_Control_OP), QApplication::translate("m_monitron_0_0", "Control & OP", 0));
-        cb_O_Mode->setTabText(cb_O_Mode->indexOf(t_Graph), QApplication::translate("m_monitron_0_0", "Graph", 0));
-        b_Apply_Changes->setText(QApplication::translate("m_monitron_0_0", "Apply changes", 0));
+        cb_O_Mode->setTabText(cb_O_Mode->indexOf(t_Calibration), QApplication::translate("m_monitron_0_0", "Calibration", Q_NULLPTR));
+        l_Control_Range->setText(QApplication::translate("m_monitron_0_0", "Control range:", Q_NULLPTR));
+        l_Alarm_Range->setText(QApplication::translate("m_monitron_0_0", "Alarm range:", Q_NULLPTR));
+        l_OP_Mode->setText(QApplication::translate("m_monitron_0_0", "Operation Mode:", Q_NULLPTR));
+        l_GOP_Mode->setText(QApplication::translate("m_monitron_0_0", "Global Operation Mode:", Q_NULLPTR));
+        cb_O_Mode->setTabText(cb_O_Mode->indexOf(t_Control_OP), QApplication::translate("m_monitron_0_0", "Control & OP", Q_NULLPTR));
+        b_exit->setText(QApplication::translate("m_monitron_0_0", "Exit app", Q_NULLPTR));
+        cb_O_Mode->setTabText(cb_O_Mode->indexOf(t_Graph), QApplication::translate("m_monitron_0_0", "Graph", Q_NULLPTR));
+        b_Apply_Changes->setText(QApplication::translate("m_monitron_0_0", "Apply changes", Q_NULLPTR));
         l_UserMessage->setText(QString());
     } // retranslateUi
 
