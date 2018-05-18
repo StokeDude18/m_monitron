@@ -496,3 +496,8 @@ void m_monitron_0_0::enableComboBox()
     ui->cb_GOpMode->blockSignals(false);
     comboBoxEnabled = true;
 }
+
+void m_monitron_0_0::on_b_exit_clicked()
+{
+    QApplication::quit();
+}

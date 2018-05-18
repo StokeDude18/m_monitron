@@ -42,6 +42,8 @@ private slots: //Événements de la fenêtre graphique
     void cbIndexChanged(int index);
     void on_b_Calibration_clicked();
 
+    void on_b_exit_clicked();
+
 private:
 
     Ui::m_monitron_0_0 *ui;//Pointeur vers la fenêtre graphique m_monitron_0_0.ui

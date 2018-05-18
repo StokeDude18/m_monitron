@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     m_monitron_0_0 w;	//Objet m_monitron_0_0 pour fenêtre principale
 
-    w.show();//Affiche le cadre de la fenêtre principale    
+    w.showFullScreen();//Affiche le cadre de la fenêtre principale
 
     pthread_t thread_Receive, thread_Main; //Objets pour la création des deux threads générés par le main
     //Configuration de la communication série   

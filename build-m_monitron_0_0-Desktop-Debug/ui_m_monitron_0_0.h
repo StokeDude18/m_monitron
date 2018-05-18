@@ -73,6 +73,7 @@ public:
     QComboBox *cb_OpMode;
     QComboBox *cb_GOpMode;
     QWidget *t_Graph;
+    QPushButton *b_exit;
     QPushButton *b_Apply_Changes;
     QComboBox *cb_Module_Select;
     QLabel *l_UserMessage;
@@ -289,6 +290,9 @@ public:
         cb_O_Mode->addTab(t_Control_OP, QString());
         t_Graph = new QWidget();
         t_Graph->setObjectName(QStringLiteral("t_Graph"));
+        b_exit = new QPushButton(t_Graph);
+        b_exit->setObjectName(QStringLiteral("b_exit"));
+        b_exit->setGeometry(QRect(60, 40, 251, 141));
         cb_O_Mode->addTab(t_Graph, QString());
         b_Apply_Changes = new QPushButton(centralWidget);
         b_Apply_Changes->setObjectName(QStringLiteral("b_Apply_Changes"));
@@ -321,7 +325,7 @@ public:
         m_monitron_0_0->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(m_monitron_0_0);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 800, 36));
+        menuBar->setGeometry(QRect(0, 0, 800, 40));
         m_monitron_0_0->setMenuBar(menuBar);
         sbar_Device_Informations = new QStatusBar(m_monitron_0_0);
         sbar_Device_Informations->setObjectName(QStringLiteral("sbar_Device_Informations"));
@@ -332,7 +336,7 @@ public:
 
         retranslateUi(m_monitron_0_0);
 
-        cb_O_Mode->setCurrentIndex(3);
+        cb_O_Mode->setCurrentIndex(4);
 
 
         QMetaObject::connectSlotsByName(m_monitron_0_0);
@@ -373,6 +377,7 @@ public:
         l_OP_Mode->setText(QApplication::translate("m_monitron_0_0", "Operation Mode:", Q_NULLPTR));
         l_GOP_Mode->setText(QApplication::translate("m_monitron_0_0", "Global Operation Mode:", Q_NULLPTR));
         cb_O_Mode->setTabText(cb_O_Mode->indexOf(t_Control_OP), QApplication::translate("m_monitron_0_0", "Control & OP", Q_NULLPTR));
+        b_exit->setText(QApplication::translate("m_monitron_0_0", "Exit app", Q_NULLPTR));
         cb_O_Mode->setTabText(cb_O_Mode->indexOf(t_Graph), QApplication::translate("m_monitron_0_0", "Graph", Q_NULLPTR));
         b_Apply_Changes->setText(QApplication::translate("m_monitron_0_0", "Apply changes", Q_NULLPTR));
         l_UserMessage->setText(QString());
