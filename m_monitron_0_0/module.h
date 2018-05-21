@@ -1,3 +1,12 @@
+/*	File:	module.h
+ *	Author:	Alfred M.-Quintin
+ *	Date:	Avril 2018
+ *
+ *	Brief:	Fichier contenant les prototypes des méthodes de la classe module,
+ *          ainsi que toutes les variables membres de celle-ci
+ *
+ */
+
 #ifndef MODULE_H
 #define MODULE_H
 

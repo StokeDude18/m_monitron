@@ -1,3 +1,17 @@
+/*	File:	main.cpp
+ *	Author:	Alfred M.-Quintin
+ *	Date:	Mai 2018
+ *
+ *	Brief:	Fichier principal de l'application. Toute la gestion de faite dans
+ *          ce fichier fait la gestion de le communication avec les modules
+ *          d'acquisition/contrôle. Les deux blocs les plus importants de ce
+ *          fichier sont les threads de réception et d'analyse des données.
+ *          À la réception d'une trame valide, les valeurs sont mises à jour
+ *          dans l'interface graphique et une nouvelle trame est envoyée au
+ *          module d'acquisition.
+ *
+ */
+
 #include "m_monitron_0_0.h"
 #include <QApplication>
 #include "communication.h"

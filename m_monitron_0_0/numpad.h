@@ -1,3 +1,11 @@
+/*	File:	numpad.h
+ *	Author:	Alfred M.-Quintin
+ *	Date:	Mai 2018
+ *
+ *	Brief:	Fichier contenant les prototypes de méthodes et les variables
+ *          membres de la classe Numpad.
+ */
+
 #ifndef NUMPAD_H
 #define NUMPAD_H
 

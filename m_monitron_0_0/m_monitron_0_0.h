@@ -1,3 +1,12 @@
+/*	File:	m_monitron_0_0.h
+ *	Author:	Alfred M.-Quintin
+ *	Date:	Mai 2018
+ *
+ *	Brief:	Fichier contenant tous les prototypes de méthodes et toutes
+ *          les variables membres de la classe m_monitron_0_0.
+ *
+ */
+
 #ifndef M_MONITRON_0_0_H
 #define M_MONITRON_0_0_H
 
