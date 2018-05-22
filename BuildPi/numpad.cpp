@@ -1,3 +1,11 @@
+/*	File:	numpad.cpp
+ *	Author:	Alfred M.-Quintin
+ *	Date:	Mai 2018
+ *
+ *	Brief:	Fichier contenant La logique derrière le clavier virtuel affiché
+ *          au moment d'éditer les champs de texte de la fenêtre principale.
+ *
+ */
 #include "numpad.h"
 #include "ui_numpad.h"
 #include <QSignalMapper>

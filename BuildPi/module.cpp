@@ -1,3 +1,13 @@
+/*	File:	module.cpp
+ *	Author:	Alfred M.-Quintin
+ *	Date:	Avril 2018
+ *
+ *	Brief:	Fichier contenant la logique derrière les objets de type module.
+ *          La seule méthode de cette classe est la métode "fillObjectParams"
+ *          qui sert à déconstruire une trame reçue pour en extraire les
+ *          paramètres reçus.
+ */
+
 #include "module.h"
 #include "communication.h"
 #include "m_monitron_0_0.h"

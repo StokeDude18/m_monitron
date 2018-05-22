@@ -1,3 +1,13 @@
+/*	File:	DBAccess.cpp
+ *	Author:	Alfred M.-Quintin
+ *	Date:	Feb. 2018
+ *
+ *	Brief:	Fichier contenant les méthodes de la classe DBAccess. Cette
+ *          classe sert à faire un log d'édition de paramètres et aussi
+ *          de noter des données de manière périodique dans pour la
+ *          création de graphiques.
+ *
+ */
 #include "DBAccess.h"
 #include <boost/lexical_cast.hpp>
 

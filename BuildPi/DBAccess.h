@@ -1,10 +1,16 @@
+/*	File:	DBAcess.h
+ *	Author:	Alfred M.-Quintin
+ *	Date:	Feb. 2018
+ *
+ *	Brief:	Fichier contenant les prototypes des fonctions définies dans
+ *			le fichier DBAccess.cpp ainsi que les variables membres de la
+ *          classe DBAccess
+ *
+ */
 #ifndef DBACCESS_H
 #define DBACCESS_H
 
-//#include "m_monitron.h"
-/*#include <iostream>
-#include <string>
-*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>

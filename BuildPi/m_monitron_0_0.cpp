@@ -1,3 +1,17 @@
+/*	File:	m_monitron_0_0.cpp
+ *	Author:	Alfred M.-Quintin
+ *	Date:	Mai 2018
+ *
+ *	Brief:	Fichier contenant les méthodes de la classe m_monitron_0_0.
+ *          Cette classe est la classe principale du projet puisqu'elle
+ *          contient toute le logique derrière la fenêtre principale.
+ *          Les méthodes de cette classe servent à mettre à jour les données
+ *          de l'interface, définir la prochaine fonction que le main
+ *          devra envoyer au module d'acquisition et gérer les événements
+ *          de la fenêtre.
+ *
+ */
+
 #include "m_monitron_0_0.h"
 #include "ui_m_monitron_0_0.h"
 
@@ -46,6 +60,7 @@ m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui
     connect(ui->tb_AlarmRange, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
     connect(ui->tb_ControlRange, SIGNAL(focussed(bool)), this, SLOT(onFocus(bool)));
 
+    //Connecte les combo box à la slot de capture d'événements index changed
     connect(ui->cb_OpMode, SIGNAL(currentIndexChanged(int)),this, SLOT(cbIndexChanged(int)));
     connect(ui->cb_GOpMode, SIGNAL(currentIndexChanged(int)),this, SLOT(cbIndexChanged(int)));
 
@@ -108,7 +123,6 @@ void m_monitron_0_0::onFocus(bool hasFocus)
 
     if(hasFocus == true)//Si l'événement de focus était un "focus in"
     {
-        //num->showFullScreen();
         num->exec();//Affiche le numpad
 
         if(num->result() == QDialog::Accepted)//Si le bouton OK du numpad a généré la fermeture de celui-ci
