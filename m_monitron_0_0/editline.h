@@ -1,3 +1,14 @@
+/*	File:	editline.h
+ *	Author:	Alfred M.-Quintin
+ *	Date:	Mai. 2018
+ *
+ *	Brief:	Fichier contenant les prototypes des fonctions utilisées par la
+ *          classe EditLine. Il est à noter que cette classe hérite de la classe
+ *          QLineEdit et ajoute comme fonctionnalité la gestion de prise de focus
+ *          du champ de texte.
+ *
+ */
+
 #ifndef EDITLINE_H
 #define EDITLINE_H
 

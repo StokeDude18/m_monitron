@@ -80,6 +80,17 @@ m_monitron_0_0::m_monitron_0_0(QWidget *parent) : QMainWindow(parent), ui(new Ui
     v_textBoxArray.push_back(ui->tb_AlarmRange);
     v_textBoxArray.push_back(ui->tb_ControlRange);
 
+    v_unitLabels.push_back(ui->l_Lecture);
+    v_unitLabels.push_back(ui->l_Setpoint);
+    v_unitLabels.push_back(ui->l_Taux_Var);
+    v_unitLabels.push_back(ui->l_P1_Convert_Unit);
+    v_unitLabels.push_back(ui->l_P2_Convert_Unit);
+    v_unitLabels.push_back(ui->l_Setpoint_Cycle_1);
+    v_unitLabels.push_back(ui->l_Setpoint_Cycle_2);
+    v_unitLabels.push_back(ui->l_Control_Range);
+    v_unitLabels.push_back(ui->l_Alarm_Range);
+
+    initActive = true;
     //Ajout de validateurs au textbox pour empêcher l'entrée de données erronées
     ui->tb_Setpoint->setValidator(new QDoubleValidator(0,1000, 2));
     ui->tb_VarRate->setValidator(new QDoubleValidator(0,1000, 2));
@@ -167,27 +178,31 @@ void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
     {
     case 0:
         sprintf(module_type, "Temperature");
-
+        if(initActive && fonction == 1)
+        {
+            initActive = false;
+            for(auto &it_Label: v_unitLabels)
+                it_Label->setText(it_Label->text() + "(C):");
+        }
         break;
     case 1:
         sprintf(module_type, "Oxygene");
-        //module_type = "Oxygene";
+
         break;
     case 2:
         sprintf(module_type, "Salinite");
-        //module_type = "Salinite";
+
         break;
     case 3:
         sprintf(module_type, "PH");
-        //module_type = "PH";
+
         break;
     case 4:
         sprintf(module_type, "Debit");
-        //module_type = "Debit";
+
         break;
     case 5:
         sprintf(module_type, "Niveau");
-        //module_type = "Niveau";
 
     }
 
@@ -200,7 +215,6 @@ void m_monitron_0_0::printParams(module* mod, uint8_t fonction)
     {
         qs.sprintf("%.2f", mod->Lecture);
         ui->l_current_Reading->setText(qs);
-
 
         if(fonction == 1 && !calibModeActive)
         {

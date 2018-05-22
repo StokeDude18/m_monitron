@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 
     pthread_t thread_Receive, thread_Main; //Objets pour la création des deux threads générés par le main
     //Configuration de la communication série   
-    serial = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY); //Ouverture du port série
+    serial = open("/dev/serial0", O_RDWR | O_NOCTTY | O_NDELAY); //Ouverture du port série
     if(serial == -1)//Si erreur dans l'ouverture
     {
         printf("ERROR");

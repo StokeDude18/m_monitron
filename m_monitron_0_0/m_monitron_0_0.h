@@ -62,8 +62,10 @@ private:
     uint8_t nextFunction;
     uint8_t nextActiveModule;
     bool calibModeActive;
+    bool initActive;
     vector<EditLine*> v_textBoxArray;
     Numpad * num;
+    vector<QLabel*> v_unitLabels;
 };
 
 #endif // M_MONITRON_0_0_H
